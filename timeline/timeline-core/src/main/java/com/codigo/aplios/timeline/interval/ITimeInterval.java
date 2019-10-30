@@ -1,62 +1,57 @@
 package com.codigo.aplios.timeline.interval;
 
-import com.codigo.aplios.timeline.common.IntervalEdge;
 import com.codigo.aplios.timeline.period.ITimePeriod;
-import java.time.LocalDateTime;
-import java.time.Period;
 
-// ------------------------------------------------------------------------
-public interface ITimeInterval
-        extends ITimePeriod {
+public interface ITimeInterval extends ITimePeriod {
 
-    boolean getIsStartOpen();
-
-    boolean getIsEndOpen();
-
-    boolean getIsOpen();
-
-    boolean getIsStartClosed();
-
-    boolean getIsEndClosed();
-
-    boolean getIsClosed();
-
-    boolean getIsEmpty();
-
-    boolean getIsDegenerate();
-
-    boolean getIsIntervalEnabled();
-
-    LocalDateTime StartInterval();
-
-    LocalDateTime getEndInterval();
-
-    void setEndInterval(LocalDateTime endInterval);
-
-    IntervalEdge getStartEdge();
-
-    void setStartEdge(IntervalEdge intervaleEdge);
-
-    IntervalEdge getEndEdge();
-
-    void setEndEdge(IntervalEdge intervaleEdge);
-
-    void Move(Period offset);
-
-    void expandStartTo(LocalDateTime moment);
-
-    void ExpandEndTo(LocalDateTime moment);
-
-    void ExpandTo(LocalDateTime moment);
-
-    void ExpandTo(ITimePeriod period);
-
-    void ShrinkStartTo(LocalDateTime moment);
-
-    void ShrinkEndTo(LocalDateTime moment);
-
-    void ShrinkTo(ITimePeriod period);
-
-    ITimeInterval Copy(Period offset);
+//	Valuable<Boolean> isStartOpen();
+//
+//	Valuable<Boolean> isEndOpen();
+//
+//	Valuable<Boolean> isOpen();
+//
+//	Valuable<Boolean> isStartClosed();
+//
+//	Valuable<Boolean> isEndClosed();
+//
+//	Valuable<Boolean> isClosed();
+//
+//	Valuable<Boolean> isEmpty();
+//
+//	Valuable<Boolean> isDegenerate();
+//
+//	Valuable<Boolean> isIntervalEnabled();
+//
+//	LocalDateTime startInterval();
+//
+//	LocalDateTime getEndInterval();
+//
+//	void setEndInterval(LocalDateTime endInterval);
+//
+//	IntervalEdge getStartEdge();
+//
+//	void setStartEdge(IntervalEdge intervaleEdge);
+//
+//	IntervalEdge getEndEdge();
+//
+//	void setEndEdge(IntervalEdge intervaleEdge);
+//
+//	void move(TimeSpan offset);
+//
+//	void expandStartTo(LocalDateTime moment);
+//
+//	void expandEndTo(LocalDateTime moment);
+//
+//	void expandTo(LocalDateTime moment);
+//
+//	void expandTo(ITimePeriod period);
+//
+//	void shrinkStartTo(LocalDateTime moment);
+//
+//	void shrinkEndTo(LocalDateTime moment);
+//
+//	void shrinkTo(ITimePeriod period);
+//
+//	ITimeInterval copy(TimeSpan offset);
 
 }

@@ -2,67 +2,67 @@ package com.codigo.aplios.sdk.core.period;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.UnsupportedTemporalTypeException;
 
-/**
- * Klasa realizuje wyliczenie kolejnego dnia roboczego
- *
- * @author Andrzej Radziszewski
- * @version 1.0.01
- * @since 1.0.01 </br>
- *        Przykład użycia: <br>
- *        <code>
- *  TemporalAdjuster nextWorkingDay = new NextWorkingDayAdjuster();
-    LocalDate now = LocalDate.now();
-    LocalDate nextDay = now.with(nextWorkingDay);
- *  </code> <br>
- *        <strong> Klasa realizuej rozszerzenie interfejsu TemporalAdjuster </strong>
- */
-public final class NextWorkingDayAdjuster implements TemporalAdjuster {
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.time.temporal.TemporalAdjuster#adjustInto(java.time.temporal.Temporal)
-	 */
-	@Override
-	public Temporal adjustInto(final Temporal temporal) {
-		// DONE Auto-generated method stub
-
-		final byte currentDayNo = (byte) temporal.get(ChronoField.DAY_OF_WEEK);
-		final DayOfWeek currentDay = DayOfWeek.of(currentDayNo);
-		byte countDaysToAdd = 1;
-
-		if (DayOfWeek.FRIDAY.equals(currentDay))
-			countDaysToAdd = 3;
-		else if (DayOfWeek.SATURDAY.equals(currentDay))
-			countDaysToAdd = 2;
-
-		return temporal.plus(countDaysToAdd, ChronoUnit.DAYS);
-	}
+public class NextWorkingDayAdjuster implements TemporalAdjuster {
 
 	public static void main(final String[] args) {
 
-		final TemporalAdjuster nextWorkingDay = new NextWorkingDayAdjuster();
+		LocalDate localDate = LocalDate.now();
+		System.out.println("current date : " + localDate);
 
-		final LocalDate now = LocalDate.now();
-		LocalDate nextDay = now.with(nextWorkingDay);
-		System.out.println("now            = " + now);
-		System.out.println("nextWorkingDay = " + nextDay);
+		final LocalDate with = localDate.with(TemporalAdjusters.firstDayOfMonth());
+		System.out.println("firstDayOfMonth : " + with);
 
-		final LocalDate friday = LocalDate.of(2016, Month.MARCH, 11);
-		nextDay = friday.with(nextWorkingDay);
-		System.out.println("friday         = " + friday);
-		System.out.println("nextWorkingDay = " + nextDay);
+		final LocalDate with1 = localDate.with(TemporalAdjusters.lastDayOfMonth());
+		System.out.println("lastDayOfMonth : " + with1);
 
-		final LocalDate saturday = LocalDate.of(2016, Month.MARCH, 12);
-		nextDay = saturday.with(nextWorkingDay);
-		System.out.println("saturday       = " + saturday);
-		System.out.println("nextWorkingDay = " + nextDay);
+		LocalDate with2 = localDate.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+		System.out.println("next monday : " + with2);
+
+		with2 = localDate.with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
+		System.out.println("next tuesday : " + with2);
+
+		with2 = localDate.with(TemporalAdjusters.next(DayOfWeek.WEDNESDAY));
+		System.out.println("next wedneday : " + with2);
+
+		final LocalDate with3 = localDate.with(TemporalAdjusters.firstDayOfNextMonth());
+		System.out.println("firstDayOfNextMonth : " + with3);
+
+		localDate = LocalDate.of(2018, 1, 6);
+		final NextWorkingDayAdjuster temporalAdjuster = new NextWorkingDayAdjuster();
+		LocalDate nextWorkingDay = localDate.with(temporalAdjuster);
+		System.out.println(nextWorkingDay);
+
+		final NextChristmasAdjuster tt = new NextChristmasAdjuster();
+		nextWorkingDay = localDate.with(tt);
+		System.out.println("next working day : " + nextWorkingDay);
 	}
 
+	@Override
+	public Temporal adjustInto(final Temporal temporal) {
+
+		if (!(temporal.isSupported(ChronoField.DAY_OF_WEEK)))
+			throw new UnsupportedTemporalTypeException(
+					"UnsupportedTemporalTypeException indicates that a ChronoField or ChronoUnit is not supported for a Temporal class");
+
+		final DayOfWeek dayOfWeek = DayOfWeek.of(temporal.get(ChronoField.DAY_OF_WEEK));
+
+		int daysToAdd = 0;
+		if (dayOfWeek == DayOfWeek.FRIDAY)
+			daysToAdd = 3;
+
+		else if (dayOfWeek == DayOfWeek.SATURDAY)
+			daysToAdd = 2;
+
+		else
+			daysToAdd = 1;
+
+		return temporal.plus(daysToAdd, ChronoUnit.DAYS);
+	}
 }

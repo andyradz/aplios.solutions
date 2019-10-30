@@ -1,5 +1,7 @@
 package com.codigo.aplios.data.struct;
 
+//https://github.com/rampatra/Algorithms-and-Data-Structures-in-Java/tree/master/src/main/java/com/rampatra/arrays
+
 import java.util.LinkedList;
 import java.util.UUID;
 

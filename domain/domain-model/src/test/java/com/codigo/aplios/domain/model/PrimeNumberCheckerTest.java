@@ -17,61 +17,60 @@ import org.junit.runners.Parameterized;
  * Klasa musi zawierać statyczny konstruktor, który w parametrach przyjmuje strukture rekordu kolekcji.
  * Klasa musi zawierać wszystkie elementy rekordu zapisane jakie
  */
-
 @RunWith(Parameterized.class)
 public class PrimeNumberCheckerTest {
 
-	/*
+    /*
 	 * Wartość sprawdzana
-	 */
-	private final Integer inputNumber;
+     */
+    private final Integer inputNumber;
 
-	/*
+    /*
 	 * Wartośc oczekiwana
-	 */
-	private final Boolean expectedResult;
+     */
+    private final Boolean expectedResult;
 
-	/*
+    /*
 	 * Weryfikator liczb pierwszych
-	 */
-	private PrimeNumberChecker primeNumberChecker;
+     */
+    private PrimeNumberChecker primeNumberChecker;
 
-	@Before
-	public void initialize() {
+    @Before
+    public void initialize() {
 
-		this.primeNumberChecker = new PrimeNumberChecker();
-	}
+        this.primeNumberChecker = new PrimeNumberChecker();
+    }
 
-	// Each parameter should be placed as an argument here
-	// Every time runner triggers, it will pass the arguments
-	// from parameters we defined in primeNumbers() method
-	public PrimeNumberCheckerTest(final Integer inputNumber, final Boolean expectedResult) {
-		this.inputNumber = inputNumber;
-		this.expectedResult = expectedResult;
-	}
+    // Each parameter should be placed as an argument here
+    // Every time runner triggers, it will pass the arguments
+    // from parameters we defined in primeNumbers() method
+    public PrimeNumberCheckerTest(final Integer inputNumber, final Boolean expectedResult) {
+        this.inputNumber = inputNumber;
+        this.expectedResult = expectedResult;
+    }
 
-	@Parameterized.Parameters
-	public static Collection<Object[]> primeNumbers() {
+    @Parameterized.Parameters
+    public static Collection<Object[]> primeNumbers() {
 
-		return Arrays.asList(new Object[][] {
-				{ 2, true },
-				{ 6, false },
-				{ 19, true },
-				{ 22, false },
-				{ 23, true },
-				{ 21, false },
-				{ 6481, true },
-				{ 6000, false },
-				{ 5011, true },
-				{ 5021, false },
-				{ 11, true } });
-	}
+        return Arrays.asList(new Object[][]{
+            {2, true},
+            {6, false},
+            {19, true},
+            {22, false},
+            {23, true},
+            {21, false},
+            {6481, true},
+            {6000, false},
+            {5011, true},
+            {5021, false},
+            {11, true}});
+    }
 
-	// This test will run 4 times since we have 5 parameters defined
-	@Test
-	public void testPrimeNumberChecker() {
+    // This test will run 4 times since we have 5 parameters defined
+    @Test
+    public void testPrimeNumberChecker() {
 
-		System.out.println("Parameterized Number is : " + this.inputNumber);
-		// Assert.assertEquals(this.expectedResult, this.primeNumberChecker.validate(this.inputNumber));
-	}
+        System.out.println("Parameterized Number is : " + this.inputNumber);
+        // Assert.assertEquals(this.expectedResult, this.primeNumberChecker.validate(this.inputNumber));
+    }
 }

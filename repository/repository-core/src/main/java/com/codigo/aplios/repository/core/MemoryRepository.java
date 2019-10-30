@@ -8,84 +8,79 @@ import java.util.stream.Stream;
 
 import com.codigo.aplios.domain.model.common.EntityModel;
 
+
+//HashSet doesn’t maintain any order, the elements would be returned in any random order.
+
+//HashSet allows null values however if you insert more than one nulls it would still return only one null value.
+//HashSet is non-synchronized.
+//The iterator returned by this class is fail-fast which means iterator would throw ConcurrentModificationException if HashSet has been modified after creation of iterator, by any means except iterator’s own remove method.
+
 // dodać runintran transaction gedzie bedziemy logowac operacje
 // dodać state encji
 enum EntityState {
-	TRANSIENT,
-	MANAGED,
-	DETACHED,
-	REMOVED;
+	TRANSIENT, MANAGED, DETACHED, REMOVED;
 
 }
 
 public class MemoryRepository<T extends EntityModel> implements Repository<T> {
 
-	private final Set<T> datset;
+	private final Set<T> dataSet;
 
 	private int counterId;
 
 	public MemoryRepository() {
 
-		this.datset = new HashSet<>();
+		this.dataSet = new HashSet<>();
 	}
 
 	@Override
-	public Set<T> get() {
+	public Set<T> select() {
 
-		return this.datset;
+		return this.dataSet;
 	}
 
 	@Override
-	public void save(final T entity) {
-
-		// entity.setId(++this.counterId);
-		this.datset.add(entity);
+	public void insert(final T entity) {
+		//HashSet doesn’t allow duplicates. If you try to add a duplicate element in HashSet, the old value would be overwritten.		
+		this.dataSet.add(entity);
 	}
 
 	@Override
-	public void persist(final Collection<T> entities) {
+	public void insert(final Collection<T> entities) {
 
-		entities.forEach(this::save);
+		entities.forEach(this::insert);
 	}
 
 	@Override
 	@SafeVarargs
-	public final void persist(final T... entities) {
+	public final void insert(final T... entities) {
 
-		Stream.of(entities)
-				.forEach(this::save);
+		Stream.of(entities).forEach(this::insert);
 	}
 
 	@Override
-	public void remove(final EntityModel entity) {
+	public void delete(final Integer key) {
 
-		this.datset.remove(entity);
+		this.dataSet.removeIf(item -> item.getId().equals(key));
 	}
 
 	@Override
-	public void remove(final Integer key) {
+	public void delete(final Predicate<T> predicate) {
 
-		this.datset.removeIf(item -> item.getId()
-				.equals(key));
+		this.delete(this.select(predicate));
 	}
 
 	@Override
-	public void remove(final Predicate<T> predicate) {
+	public void delete(final Collection<T> entities) {
 
-		this.remove(this.get(predicate));
+		this.dataSet.removeAll(entities);
 	}
 
 	@Override
-	public void remove(final Collection<T> entities) {
+	public long delete() {
 
-		this.datset.removeAll(entities);
-	}
-
-	@Override
-	public long removeAll() {
-
-		final long dataCount = this.datset.size();
-		this.datset.clear();
+		final long dataCount = this.dataSet.size();
+		this.dataSet.clear();
 		return dataCount;
 	}
 
@@ -96,10 +91,15 @@ public class MemoryRepository<T extends EntityModel> implements Repository<T> {
 	}
 
 	@Override
-	public void merge(final T entity) {
-		// if (this.datset.contains(entity))
-		// this.datset.stream().filter(item->item.getId().equals(entity.getId())).forEach(e-> e.se);
+	public void update(final T entity) {
 
+		this.dataSet.add(entity);
 	}
 
+	@Override
+	public void delete(T entity) {
+
+		this.dataSet.remove(entity);
+		// throw new Exception("Delete record has failed!");
+	}
 }

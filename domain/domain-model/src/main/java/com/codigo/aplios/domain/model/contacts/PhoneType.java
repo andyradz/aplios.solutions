@@ -1,7 +1,8 @@
 package com.codigo.aplios.domain.model.contacts;
 
 /**
- * Klasa typu wyliczeniowego zawiera definicje typów/rodzajów numerów telefonów kontaktowych.
+ * Klasa typu wyliczeniowego zawiera definicje typów/rodzajów numerów telefonów
+ * kontaktowych.
  *
  * @author Andrzej Radziszewski
  * @category domain

@@ -4,19 +4,18 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
-
-
 	<persistence-unit name="bitshop"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<class>com.codigo.aplios.domain.model.AdministrativeDivisionType</class>
+		<class>com.codigo.aplios.domain.model.Parameter</class>
 		<class>com.codigo.aplios.domain.model.calendar.Calendar</class>
 		<class>com.codigo.aplios.domain.model.calendar.CalendarData</class>
 		<class>com.codigo.aplios.domain.model.calendar.CalendarDay</class>
 		<class>com.codigo.aplios.domain.model.calendar.CalendarPrimaryKey</class>
 		<class>com.codigo.aplios.domain.model.catalog.Category</class>
 		<class>com.codigo.aplios.domain.model.catalog.CategoryAttribute</class>
-		<class>com.codigo.aplios.domain.model.catalog.Dimension</class>
+		<class>com.codigo.aplios.domain.model.catalog.Dimension</class>		
 		<class>com.codigo.aplios.domain.model.catalog.EntityDateTime</class>
 		<class>com.codigo.aplios.domain.model.catalog.EntityLifeState</class>
 		<class>com.codigo.aplios.domain.model.catalog.Manufacturer</class>
@@ -26,19 +25,25 @@
 		<class>com.codigo.aplios.domain.model.common.EntityPublishedInfo</class>
 		<class>com.codigo.aplios.domain.model.common.EntityUpdatedInfo</class>
 		<class>com.codigo.aplios.domain.model.common.GuidPrimaryKey</class>
+		<class>com.codigo.aplios.domain.model.common.Identity</class>
 		<class>com.codigo.aplios.domain.model.common.IdentityPrimaryKey</class>
 		<class>com.codigo.aplios.domain.model.common.Person</class>
 		<class>com.codigo.aplios.domain.model.common.PersonAttributeImpl</class>
 		<class>com.codigo.aplios.domain.model.common.PersonName</class>
 		<class>com.codigo.aplios.domain.model.common.Picture</class>
+		<class>com.codigo.aplios.domain.model.common.PrimaryKey</class>
+		<class>com.codigo.aplios.domain.model.common.Slownik</class>
 		<class>com.codigo.aplios.domain.model.common.TaxOffice</class>
-		<class>com.codigo.aplios.domain.model.contacts.Address</class>
+		<class>com.codigo.aplios.domain.model.contacts.Address1</class>
 		<class>com.codigo.aplios.domain.model.contacts.Phone</class>
-		<class>com.codigo.aplios.domain.model.customers.Customer</class>
+		<class>com.codigo.aplios.domain.model.converter.LongToStringConverter</class>
+		<class>com.codigo.aplios.domain.model.customers.Customer1</class>
 		<class>com.codigo.aplios.domain.model.customers.CustomerRole</class>
 		<class>com.codigo.aplios.domain.model.customers.CutomerName</class>
 		<class>com.codigo.aplios.domain.model.evidence.CreditCard</class>
+		<class>com.codigo.aplios.domain.model.locale.Address</class>
 		<class>com.codigo.aplios.domain.model.locale.Country</class>
+		<class>com.codigo.aplios.domain.model.locale.CountryCode</class>
 		<class>com.codigo.aplios.domain.model.locale.Currency</class>
 		<class>com.codigo.aplios.domain.model.locale.Dictionary</class>
 		<class>com.codigo.aplios.domain.model.locale.ZipCode</class>
@@ -54,8 +59,8 @@
 				value="jdbc:sqlserver://DESKTOP-GOT05ET\APLIOS:65188;databaseName=BITSHOP;integratedSecurity=true;" />
 			<property
 				name="javax.persistence.schema-generation.database.action"
-				value="none" />
-			<property name="eclipselink.logging.level" value="FINE" />
+				value="drop-and-create" />
+			<property name="eclipselink.logging.level" value="INFO" />
 			<property name="eclipselink.cache.size.default" value="5000" />
 			<property name="eclipselink.flush-clear.cache" value="drop" />
 			<property name="eclipselink.jdbc.native-sql" value="true" />
@@ -176,7 +181,8 @@
 
 	<persistence-unit name="shopdb">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<class>com.codigo.aplios.domain.model.Parameter</class>
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>		
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="org.hsqldb.jdbcDriver" />

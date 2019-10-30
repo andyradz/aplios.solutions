@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.codigo.aplios</groupId>
-        <artifactId>aplios</artifactId>
+        <artifactId>aplios-framework</artifactId>
         <version>1.0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>calculator</artifactId>

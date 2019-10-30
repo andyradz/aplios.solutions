@@ -25,7 +25,7 @@ public abstract class AbstractFilterEditor<R extends IFilterOperator<?>>
         this.menu = new FilterMenuPopup(title);
         this.filtered = new SimpleBooleanProperty(false);
 
-        this.menu.setOnHidden(t -> AbstractFilterEditor.this.cancel());
+        //this.menu.setOnHidden(t -> AbstractFilterEditor.this.cancel());
     }
 
     @Override

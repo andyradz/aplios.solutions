@@ -7,7 +7,12 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQuery;
 
+import org.apache.log4j.Logger;
+
 public class WyznaczenieWielkanocy {
+
+	private static Logger log = Logger.getLogger(WyznaczenieWielkanocy.class);
+
 	// https://pl.wikipedia.org/wiki/Wielkanoc
 	// Metoda gaussa
 	// Metoda Jeana Meeusa
@@ -17,23 +22,21 @@ public class WyznaczenieWielkanocy {
 		final LocalDate now = LocalDate.of(2016, 1, 1);
 
 		// święto wielkiejnocy
-		System.out.println("Wielkanoc:" + DateTimeFormatter.ISO_DATE.format(CalendarEvents.EASTERDAY.queryFrom(now)));
+		log.info("Wielkanoc:" + DateTimeFormatter.ISO_DATE.format(CalendarEvents.EASTERDAY.queryFrom(now)));
 
 		// uroczystość wniebowstąpienia pańskiego
-		System.out.println("Wniebowstąpienia Pańskieg:"
+		log.info("Wniebowstąpienia Pańskieg:"
 				+ DateTimeFormatter.ISO_DATE.format(CalendarEvents.ASCENSIONDAY.queryFrom(now)));
 
 		// święto boże ciało (60 dni po wielkanocy)
-		System.out.println(
-				"Boże Ciało:" + DateTimeFormatter.ISO_DATE.format(CalendarEvents.CORPUSCHRISTI.queryFrom(now)));
+		log.info("Boże Ciało:" + DateTimeFormatter.ISO_DATE.format(CalendarEvents.CORPUSCHRISTI.queryFrom(now)));
 
 		// uroczystość miłosierdzia bożego tydzień po wielkanocy
-		System.out.println(
+		log.info(
 				"Miłosierdzie Boże:" + DateTimeFormatter.ISO_DATE.format(CalendarEvents.CHARITABLENESS.queryFrom(now)));
 
 		// uroczystość zielone świątki (pięcdzisiatnica)
-		System.out.println(
-				"Zielone światki:" + DateTimeFormatter.ISO_DATE.format(CalendarEvents.WHITSUNTIDE.queryFrom(now)));
+		log.info("Zielone światki:" + DateTimeFormatter.ISO_DATE.format(CalendarEvents.WHITSUNTIDE.queryFrom(now)));
 
 	}
 }
@@ -62,8 +65,7 @@ enum CalendarEvents implements TemporalQuery<LocalDate> {
 		public LocalDate queryFrom(final TemporalAccessor temporal) {
 
 			// ...begin method
-			return EasterDayContext.GAUSS_METHOD.queryFrom(temporal)
-					.plusWeeks(1);
+			return EasterDayContext.GAUSS_METHOD.queryFrom(temporal).plusWeeks(1);
 		}
 	},
 	/**
@@ -75,8 +77,7 @@ enum CalendarEvents implements TemporalQuery<LocalDate> {
 
 			// ...begin method
 			// return EasterDayContext.GAUSS_METHOD.queryFrom(temporal).plusDays(40);
-			return EasterDayContext.GAUSS_METHOD.queryFrom(temporal)
-					.plusWeeks(6);
+			return EasterDayContext.GAUSS_METHOD.queryFrom(temporal).plusWeeks(6);
 		}
 	},
 	/**
@@ -87,8 +88,7 @@ enum CalendarEvents implements TemporalQuery<LocalDate> {
 		public LocalDate queryFrom(final TemporalAccessor temporal) {
 
 			// ...begin method
-			return EasterDayContext.GAUSS_METHOD.queryFrom(temporal)
-					.plusDays(49);
+			return EasterDayContext.GAUSS_METHOD.queryFrom(temporal).plusDays(49);
 		}
 	},
 	/**
@@ -99,8 +99,7 @@ enum CalendarEvents implements TemporalQuery<LocalDate> {
 		public LocalDate queryFrom(final TemporalAccessor temporal) {
 
 			// ...begin method
-			return EasterDayContext.GAUSS_METHOD.queryFrom(temporal)
-					.plusDays(60);
+			return EasterDayContext.GAUSS_METHOD.queryFrom(temporal).plusDays(60);
 		}
 	},
 	/**
@@ -122,7 +121,8 @@ enum CalendarEvents implements TemporalQuery<LocalDate> {
 enum EasterDayContext implements IEasterDayStrategy, TemporalQuery<LocalDate> {
 
 	/**
-	 * Klasa realizuje algorytm wyznaczania dnia wielkanocy metodą opublikowaną przez C.F. Gaussa.
+	 * Klasa realizuje algorytm wyznaczania dnia wielkanocy metodą opublikowaną
+	 * przez C.F. Gaussa.
 	 * 
 	 * @author Andrzej Radziszewski
 	 *
@@ -131,9 +131,8 @@ enum EasterDayContext implements IEasterDayStrategy, TemporalQuery<LocalDate> {
 		@Override
 		public LocalDate getDay(final Year easterYear) {
 
-			final int year = Year.of(easterYear.getValue())
-					.getValue();
-			final int A = ((year % 19));
+			final int year = Year.of(easterYear.getValue()).getValue();
+			final int A = (year % 19);
 			final int B = year % 4;
 			final int C = year % 7;
 
@@ -141,7 +140,7 @@ enum EasterDayContext implements IEasterDayStrategy, TemporalQuery<LocalDate> {
 			final int E = ((2 * B) + (4 * C) + (6 * D) + 5) % 7;
 
 			return LocalDate.of(year, 3, 22)
-					.plus((D + E), ChronoUnit.DAYS);
+							.plus((D + E), ChronoUnit.DAYS);
 		}
 
 		@Override
@@ -152,7 +151,8 @@ enum EasterDayContext implements IEasterDayStrategy, TemporalQuery<LocalDate> {
 		}
 	},
 	/**
-	 * Klasa realizuje algorytm wyznaczania dnia wielkanocy metodą opublikowaną przez Jeana Meeusa.
+	 * Klasa realizuje algorytm wyznaczania dnia wielkanocy metodą opublikowaną
+	 * przez Jeana Meeusa.
 	 * 
 	 * @author Andrzej Radziszewski
 	 *

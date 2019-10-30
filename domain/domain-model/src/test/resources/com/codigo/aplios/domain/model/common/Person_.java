@@ -1,6 +1,6 @@
 package com.codigo.aplios.domain.model.common;
 
-import com.codigo.aplios.domain.model.contacts.Address;
+import com.codigo.aplios.domain.model.locale.Address;
 import java.util.Date;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.MapAttribute;

@@ -17,108 +17,107 @@ import javax.swing.WindowConstants;
 
 class Surface1 extends JPanel implements ActionListener {
 
-	/**
-	 *
-	 */
-	private static final long	serialVersionUID	= -4511059221756686552L;
-	private Image				img;
-	private Timer				timer;
-	private float				alpha				= 1.0f;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4511059221756686552L;
+    private Image img;
+    private Timer timer;
+    private float alpha = 1.0f;
 
-	private final int	DELAY			= 40;
-	private final int	INITIAL_DELAY	= 5;
+    private final int DELAY = 40;
+    private final int INITIAL_DELAY = 5;
 
-	public Surface1() {
+    public Surface1() {
 
-		loadImage();
-		setSurfaceSize();
-		initTimer();
-	}
+        loadImage();
+        setSurfaceSize();
+        initTimer();
+    }
 
-	private void loadImage() {
+    private void loadImage() {
 
-		this.img = new ImageIcon(
-			"mushrooms.jpg").getImage();
-	}
+        this.img = new ImageIcon(
+                "mushrooms.jpg").getImage();
+    }
 
-	private void setSurfaceSize() {
+    private void setSurfaceSize() {
 
-		final int h = this.img.getHeight(this);
-		final int w = this.img.getWidth(this);
-		setPreferredSize(new Dimension(
-			w, h));
-	}
+        final int h = this.img.getHeight(this);
+        final int w = this.img.getWidth(this);
+        setPreferredSize(new Dimension(
+                w, h));
+    }
 
-	private void initTimer() {
+    private void initTimer() {
 
-		this.timer = new Timer(
-			this.DELAY, this);
-		this.timer.setInitialDelay(this.INITIAL_DELAY);
-		this.timer.start();
-	}
+        this.timer = new Timer(
+                this.DELAY, this);
+        this.timer.setInitialDelay(this.INITIAL_DELAY);
+        this.timer.start();
+    }
 
-	private void doDrawing(final Graphics g) {
+    private void doDrawing(final Graphics g) {
 
-		final Graphics2D g2d = (Graphics2D) g.create();
+        final Graphics2D g2d = (Graphics2D) g.create();
 
-		final AlphaComposite acomp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, this.alpha);
-		g2d.setComposite(acomp);
-		g2d.drawImage(this.img, 0, 0, null);
+        final AlphaComposite acomp = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, this.alpha);
+        g2d.setComposite(acomp);
+        g2d.drawImage(this.img, 0, 0, null);
 
-		g2d.dispose();
-	}
+        g2d.dispose();
+    }
 
-	@Override
-	public void paintComponent(final Graphics g) {
+    @Override
+    public void paintComponent(final Graphics g) {
 
-		super.paintComponent(g);
-		doDrawing(g);
-	}
+        super.paintComponent(g);
+        doDrawing(g);
+    }
 
-	private void step() {
+    private void step() {
 
-		this.alpha += -0.01f;
+        this.alpha += -0.01f;
 
-		if (this.alpha <= 0) {
-			this.alpha = 0;
-			this.timer.stop();
-		}
-	}
+        if (this.alpha <= 0) {
+            this.alpha = 0;
+            this.timer.stop();
+        }
+    }
 
-	@Override
-	public void actionPerformed(final ActionEvent e) {
+    @Override
+    public void actionPerformed(final ActionEvent e) {
 
-		step();
-		this.repaint();
-	}
+        step();
+        this.repaint();
+    }
 }
 
 public class FadeOutEx extends JFrame {
 
-	private static final long serialVersionUID = -1148004275634279781L;
+    private static final long serialVersionUID = -1148004275634279781L;
 
-	public FadeOutEx() {
+    public FadeOutEx() {
 
-		initUI();
-	}
+        initUI();
+    }
 
-	private void initUI() {
+    private void initUI() {
 
-		this.add(new Surface1());
+        this.add(new Surface1());
 
-		// pack();
+        // pack();
+        setTitle("Fade out");
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
 
-		setTitle("Fade out");
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	}
+    public static void main(final String[] args) {
 
-	public static void main(final String[] args) {
+        EventQueue.invokeLater(() -> {
 
-		EventQueue.invokeLater(() -> {
-
-			final FadeOutEx ex = new FadeOutEx();
-			ex.setVisible(true);
-		});
-	}
+            final FadeOutEx ex = new FadeOutEx();
+            ex.setVisible(true);
+        });
+    }
 }

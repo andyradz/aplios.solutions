@@ -22,12 +22,12 @@ import org.eclipse.persistence.annotations.Customizer;
 @Customizer(EntityColumnPositionCustomizer.class)
 public class EntityCreatedInfo {
 
-    @Column(name = "CreatedDateUtc")
+    @Column(name = "CreatedDateUtc",columnDefinition = "date")
     @Temporal(TemporalType.DATE)
     @ColumnPosition(position = 91)
     private Date createdDateUtc;
 
-    @Column(name = "CreatedTimeUtc")
+    @Column(name = "CreatedTimeUtc", columnDefinition = "time(7)")
     @Temporal(TemporalType.TIME)
     @ColumnPosition(position = 92)
     private Date createdTimeUtc;

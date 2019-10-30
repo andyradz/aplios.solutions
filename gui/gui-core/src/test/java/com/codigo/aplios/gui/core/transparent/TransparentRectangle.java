@@ -12,54 +12,54 @@ import javax.swing.WindowConstants;
 
 class Surface extends JPanel {
 
-	private void doDrawing(final Graphics g) {
+    private void doDrawing(final Graphics g) {
 
-		final Graphics2D g2d = (Graphics2D) g.create();
+        final Graphics2D g2d = (Graphics2D) g.create();
 
-		g2d.setPaint(Color.blue);
+        g2d.setPaint(Color.blue);
 
-		for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 10; i++) {
 
-			final float alpha = i * 0.1f;
-			final AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
-			g2d.setComposite(alcom);
-			g2d.fillRect(50 * i, 20, 40, 40);
-		}
+            final float alpha = i * 0.1f;
+            final AlphaComposite alcom = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+            g2d.setComposite(alcom);
+            g2d.fillRect(50 * i, 20, 40, 40);
+        }
 
-		g2d.dispose();
-	}
+        g2d.dispose();
+    }
 
-	@Override
-	public void paintComponent(final Graphics g) {
+    @Override
+    public void paintComponent(final Graphics g) {
 
-		super.paintComponent(g);
-		doDrawing(g);
-	}
+        super.paintComponent(g);
+        doDrawing(g);
+    }
 }
 
 public class TransparentRectangle extends JFrame {
 
-	public TransparentRectangle() {
+    public TransparentRectangle() {
 
-		initUI();
-	}
+        initUI();
+    }
 
-	private void initUI() {
+    private void initUI() {
 
-		this.add(new Surface2());
+        this.add(new Surface2());
 
-		setTitle("Transparent rectangles");
-		this.setSize(590, 120);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	}
+        setTitle("Transparent rectangles");
+        this.setSize(590, 120);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
 
-	public static void main(final String[] args) {
+    public static void main(final String[] args) {
 
-		EventQueue.invokeLater(() -> {
+        EventQueue.invokeLater(() -> {
 
-			final TransparentRectangle ex = new TransparentRectangle();
-			ex.setVisible(true);
-		});
-	}
+            final TransparentRectangle ex = new TransparentRectangle();
+            ex.setVisible(true);
+        });
+    }
 }

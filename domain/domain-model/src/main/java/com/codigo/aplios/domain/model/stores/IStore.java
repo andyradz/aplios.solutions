@@ -2,7 +2,7 @@ package com.codigo.aplios.domain.model.stores;
 
 import java.io.Serializable;
 
-import com.codigo.aplios.domain.model.contacts.Address;
+import com.codigo.aplios.domain.model.locale.Address;
 import com.codigo.aplios.domain.model.locale.Currency;
 
 public interface IStore extends Serializable {

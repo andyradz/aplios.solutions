@@ -14,105 +14,106 @@ import com.codigo.aplios.domain.model.common.EntityModel;
 
 public interface Repository<T extends EntityModel> {
 
-	default Optional<T> get(final Integer key) {
+	default Optional<T> select(final Integer key) {
 
-		return this.get()
+		return this.select()
 				.stream()
 				.filter(entity -> entity.getId()
 						.equals(key))
 				.findAny();
 	}
 
-	default Optional<T> get(final int key) {
+	default Optional<T> select(final int key) {
 
-		return this.get()
+		return this.select()
 				.stream()
 				.filter(entity -> entity.getId()
 						.equals(Integer.valueOf(key)))
 				.findAny();
 	}
 
-	default Set<T> get(final Predicate<T> predicate) {
+	default Set<T> select(final Predicate<T> predicate) {
 
-		return this.get()
+		return this.select()
 				.stream()
 				.filter(predicate)
 				.collect(Collectors.toSet());
 	}
 
-	Set<T> get();
+	Set<T> select();
 
-	void save(T entity);
+	void insert(T entity);
 
-	default void persist(final T... entities) {
+	default void insert(final T... entities) {
 
-		this.persist(Arrays.asList(entities));
+		this.insert(Arrays.asList(entities));
 	}
 
-	default void persist(final Collection<T> entities) {
+	default void insert(final Collection<T> entities) {
 
-		entities.forEach(this::save);
+		entities.forEach(this::insert);
 	}
 
-	void merge(T entity);
+	void update(T entity);
 
-	default void merge(final T... entities) {
+	default void update(final T... entities) {
 
 		this.update(Arrays.asList(entities));
 	}
 
 	default void update(final Collection<T> entities) {
 
-		entities.forEach(this::merge);
+		entities.forEach(this::update);
 	}
 
-	void remove(T entity);
+	void delete(T entity);
+	
+	long delete();
 
-	default void remove(final Iterator<T> entities) {
+	default void delete(final Iterator<T> entities) {
 
-		entities.forEachRemaining(this::remove);
+		entities.forEachRemaining(this::delete);
 	}
 
-	default void remove(final Integer keyId) {
+	default void delete(final Integer keyId) {
 
-		this.remove(entity -> entity.getId()
+		this.delete(entity -> entity.getId()
 				.equals(keyId));
 	}
 
-	default void remove(final Predicate<T> predicate) {
+	default void delete(final Predicate<T> predicate) {
 
-		this.get()
-				.forEach(this::remove);
+		this.select()
+			.forEach(this::delete);
 	}
 
-	default void remove(final Collection<T> entities) {
+	default void delete(final Collection<T> entities) {
 
-		entities.forEach(this::remove);
+		entities.forEach(this::delete);
 	}
 
 	default void delete(final T... entities) {
 
-		this.remove(Arrays.asList(entities));
+		this.delete(Arrays.asList(entities));
 	}
 
 	default long count() {
 
-		return this.get()
+		return this.select()
 				.stream()
 				.count();
 	}
 
 	default Long countAsync() throws InterruptedException, ExecutionException {
 
-		final CompletableFuture<Long> completableFuture = CompletableFuture.supplyAsync(() -> this.get()
+		final CompletableFuture<Long> completableFuture = CompletableFuture.supplyAsync(() -> this.select()
 				.stream()
 				.count());
 
 		return completableFuture.get();
 	}
 
-	long removeAll();
+
 
 	boolean isAutoCommit();
-
 }

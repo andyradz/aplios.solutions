@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.codigo.aplios.domain.model.common.EntityModel;
-import com.codigo.aplios.domain.model.contacts.Address;
+import com.codigo.aplios.domain.model.locale.Address;
 import com.codigo.aplios.domain.model.locale.Currency;
 
 /**

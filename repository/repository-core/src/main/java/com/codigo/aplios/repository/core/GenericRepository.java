@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -22,9 +23,14 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import com.codigo.aplios.domain.model.common.EntityModel;
 import com.codigo.aplios.repository.core.query.IQueryable;
 import com.codigo.aplios.repository.core.query.PredicateBuilder;
+
+//https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/optimistic-lock-force-increment-use-case.html
+//optimistic lock
 
 //http://websystique.com/spring-security/secure-spring-rest-api-using-basic-authentication/
 public class GenericRepository<T extends EntityModel> implements Repository<T> {
@@ -39,7 +45,7 @@ public class GenericRepository<T extends EntityModel> implements Repository<T> {
 	private final boolean isAutoCommit;
 
 	// -----------------------------------------------------------------------------------------------------------------
-	public GenericRepository(final Class<T> type, final String unitName) {
+	public GenericRepository(@NonNull final Class<T> type, @NonNull final String unitName) {
 
 		this.entityType = type;
 		this.isAutoCommit = true;
@@ -48,20 +54,21 @@ public class GenericRepository<T extends EntityModel> implements Repository<T> {
 
 	// -----------------------------------------------------------------------------------------------------------------
 	@Override
-	public Set<T> get() {
+	public Set<T> select() {
 
 		final List<T> resultList = this.run(entityManager -> {
+
 			final TypedQuery<T> query = this.createTypedQuery((cb, r, q) -> q);
+			query.setLockMode(LockModeType.NONE);
 			return query.getResultList();
 		});
 
-		return new HashSet<>(
-			resultList);
+		return new HashSet<>(resultList);
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
 	@Override
-	public void save(final T entity) {
+	public void insert(@NonNull final T entity) {
 
 		this.runInTransaction(entityManager -> {
 			if (Objects.isNull(entity.getId()))
@@ -74,26 +81,28 @@ public class GenericRepository<T extends EntityModel> implements Repository<T> {
 
 	// -----------------------------------------------------------------------------------------------------------------
 	@Override
-	public void persist(final Collection<T> entities) {
+	public void insert(@NonNull final Collection<T> entities) {
 
 		this.runInTransaction(entityManager -> {
-			entities.forEach(this::save);
+			entities.forEach(this::insert);
 		});
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
 	@Override
-	public void remove(final T entity) {
+	public void delete(@NonNull final T entity) {
 
-		this.remove(entity.getId());
+		this.delete(entity.getId());
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
 	@Override
-	public void remove(final Integer keyId) {
+	public void delete(@NonNull final Integer keyId) {
 
 		this.runInTransaction(entityManager -> {
-			final T managedEntity = entityManager.find(this.entityType, keyId);
+
+			final T managedEntity = entityManager.find(this.entityType, keyId, LockModeType.PESSIMISTIC_WRITE);
+
 			if (Objects.nonNull(managedEntity))
 				entityManager.remove(managedEntity);
 		});
@@ -111,25 +120,16 @@ public class GenericRepository<T extends EntityModel> implements Repository<T> {
 		// Selecting the count
 		query.select(cb.count(root));
 
-		return em.createQuery(query)
-				.getSingleResult();
+		return em.createQuery(query).getSingleResult();
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
-	// @Override
-	// public void remove(Predicate<T> predicate) {
-	//
-	// this.remove(get(predicate));
-	// }
-	// -----------------------------------------------------------------------------------------------------------------
 	@Override
-	public void remove(final Collection<T> entities) {
+	public void delete(final Collection<T> entities) {
 
 		this.runInTransaction(entityManager -> {
-			entities.stream()
-					.map(T::getId)
-					.map(id -> entityManager.find(this.entityType, id))
-					.filter(Objects::nonNull)
+
+			entities.stream().map(T::getId).map(id -> entityManager.find(this.entityType, id)).filter(Objects::nonNull)
 					.forEach(entityManager::remove);
 		});
 	}
@@ -138,13 +138,31 @@ public class GenericRepository<T extends EntityModel> implements Repository<T> {
 	private <R> R runInTransaction(final Function<EntityManager, R> operator) {
 
 		return this.run(entityManager -> {
+
 			final EntityTransaction tran = entityManager.getTransaction();
+			final R result;
+
 			tran.begin();
-			final R result = operator.apply(entityManager);
-			if (this.isAutoCommit())
-				entityManager.flush();
-			tran.commit();
-			return result;
+
+			try {
+				result = operator.apply(entityManager);
+
+				if (this.isAutoCommit())
+					entityManager.flush();
+
+				tran.commit();
+
+				return result;
+
+			} catch (Exception ex) {
+				tran.rollback();
+
+			} finally {
+				if (entityManager.isOpen())
+					entityManager.close();
+			}
+
+			return null;
 		});
 	}
 
@@ -152,13 +170,29 @@ public class GenericRepository<T extends EntityModel> implements Repository<T> {
 	private void runInTransaction(final Consumer<EntityManager> operator) {
 
 		this.run(entityManager -> {
+
 			final EntityTransaction tran = entityManager.getTransaction();
+
 			tran.begin();
-			operator.accept(entityManager);
-			if (this.isAutoCommit())
-				entityManager.flush();
-			tran.commit();
-			return null;
+
+			try {
+				operator.accept(entityManager);
+
+				if (this.isAutoCommit())
+					entityManager.flush();
+
+				tran.commit();
+
+			} catch (Exception ex) {
+				// log błędu
+				tran.rollback();
+				return false;
+			} finally {
+				if (entityManager.isOpen())
+					entityManager.close();
+			}
+
+			return true;
 		});
 	}
 
@@ -166,12 +200,14 @@ public class GenericRepository<T extends EntityModel> implements Repository<T> {
 	private <R> R run(final Function<EntityManager, R> operator) {
 
 		final EntityManager entityManager = this.getEntityManger();
-		// entityManager.clear();
+
 		try {
+
 			return operator.apply(entityManager);
-		}
-		finally {
-			entityManager.close();
+
+		} finally {
+			if (entityManager.isOpen())
+				entityManager.close();
 		}
 	}
 
@@ -208,17 +244,14 @@ public class GenericRepository<T extends EntityModel> implements Repository<T> {
 
 		final Root<T> c = query.from(this.entityType);
 		final ParameterExpression<Long> p = cb.parameter(Long.class, "id");
-		query.select(c)
-				.where(cb.equal(c.get("id"), p));
+		query.select(c).where(cb.equal(c.get("id"), p));
 
-		return em.createQuery(query)
-				.setParameter("id", keyId)
-				.getResultList();
+		return em.createQuery(query).setParameter("id", keyId).getResultList();
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
 	@Override
-	public long removeAll() {
+	public long delete() {
 
 		final EntityManager em = this.emf.createEntityManager();
 		em.close();
@@ -226,8 +259,7 @@ public class GenericRepository<T extends EntityModel> implements Repository<T> {
 		return (this.runInTransaction(entityManager -> {
 			final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 			final CriteriaDelete<T> query = criteriaBuilder.createCriteriaDelete(this.entityType);
-			return entityManager.createQuery(query)
-					.executeUpdate();
+			return entityManager.createQuery(query).executeUpdate();
 		})).longValue();
 	}
 
@@ -240,7 +272,7 @@ public class GenericRepository<T extends EntityModel> implements Repository<T> {
 
 	// -----------------------------------------------------------------------------------------------------------------
 	@Override
-	public void merge(final T entity) {
+	public void update(final T entity) {
 
 		this.runInTransaction(entityManager -> {
 			entityManager.merge((entity));
@@ -252,7 +284,7 @@ public class GenericRepository<T extends EntityModel> implements Repository<T> {
 	public void update(final Collection<T> entities) {
 
 		this.runInTransaction(entityManager -> {
-			entities.forEach(this::merge);
+			entities.forEach(this::update);
 		});
 	}
 
@@ -267,8 +299,7 @@ public class GenericRepository<T extends EntityModel> implements Repository<T> {
 	// -----------------------------------------------------------------------------------------------------------------
 	public List<T> finda(final IQueryable<T> queryBuilder) {
 
-		return this.createQuery(queryBuilder)
-				.getResultList();
+		return this.createQuery(queryBuilder).getResultList();
 	}
 	// https://github.com/janhalasa/JpaCriteriaWithLambdaExpressions/blob/master/src/main/java/com/halasa/criterialambda/dao/builder/QueryBuilder.java
 
@@ -287,15 +318,14 @@ public class GenericRepository<T extends EntityModel> implements Repository<T> {
 	// -----------------------------------------------------------------------------------------------------------------
 	public List<T> find(final IQueryable<T> queryBuilder) {
 
-		return this.createQuery(queryBuilder)
-				.getResultList();
+		return this.createQuery(queryBuilder).getResultList();
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 * @param predicateBuilders
-	 *        Restricting query conditions. If you supply more than one predicate, they will be joined
-	 *        by conjunction.
+	 * @param predicateBuilders Restricting query conditions. If you supply more
+	 *                          than one predicate, they will be joined by
+	 *                          conjunction.
 	 * @return
 	 *
 	 */
@@ -310,7 +340,8 @@ public class GenericRepository<T extends EntityModel> implements Repository<T> {
 	//
 	// /**
 	// * @param predicateBuilders
-	// * Restricting query conditions. If you supply more than one predicate, they will be
+	// * Restricting query conditions. If you supply more than one predicate, they
+	// will be
 	// * joined by conjunction.
 	// */
 	protected T where(final PredicateBuilder<T>... predicateBuilders) {
@@ -324,22 +355,20 @@ public class GenericRepository<T extends EntityModel> implements Repository<T> {
 	//
 	// /**
 	// * @param predicateBuilders
-	// * Restricting query conditions. If you supply more than one predicate, they will be
+	// * Restricting query conditions. If you supply more than one predicate, they
+	// will be
 	// * joined by conjunction.
 	// */
 	protected void deleteWhere(final PredicateBuilder<T>... predicateBuilders) {
 
-		final CriteriaBuilder cb = this.getEntityManger()
-				.getCriteriaBuilder();
+		final CriteriaBuilder cb = this.getEntityManger().getCriteriaBuilder();
 		final CriteriaDelete<T> delete = cb.createCriteriaDelete(this.entityType);
 		final Root<T> root = delete.from(this.entityType);
 
 		if ((predicateBuilders != null) && (predicateBuilders.length > 0))
 			delete.where(this.buildPredicates(cb, root, predicateBuilders));
 
-		this.getEntityManger()
-				.createQuery(delete)
-				.executeUpdate();
+		this.getEntityManger().createQuery(delete).executeUpdate();
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------

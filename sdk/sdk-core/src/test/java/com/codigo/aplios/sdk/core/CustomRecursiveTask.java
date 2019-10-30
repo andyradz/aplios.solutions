@@ -34,13 +34,14 @@ public class CustomRecursiveTask
     @Override
     protected Integer compute() {
 
-        if (this.arr.length > CustomRecursiveTask.THRESHOLD)
+        if (this.arr.length > CustomRecursiveTask.THRESHOLD) {
             return ForkJoinTask.invokeAll(this.createSubtasks())
                     .stream()
                     .mapToInt(ForkJoinTask::join)
                     .sum();
-        else
+        } else {
             return this.processing(this.arr);
+        }
 
     }
 

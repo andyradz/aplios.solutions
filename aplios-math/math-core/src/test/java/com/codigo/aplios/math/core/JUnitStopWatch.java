@@ -19,8 +19,8 @@ public class JUnitStopWatch extends Stopwatch {
 	private static void logInfo(final Description description, final String status, final long nanos) {
 
 		final String testName = description.getMethodName();
-		System.out.println(String.format("Test date %s", LocalDateTime.now()
-				.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
+		System.out.println(
+				String.format("Test date %s", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
 		System.out.println(String.format("Test %s %s, spent %d microseconds", testName, status,
 				TimeUnit.NANOSECONDS.toMicros(nanos)));
 	}

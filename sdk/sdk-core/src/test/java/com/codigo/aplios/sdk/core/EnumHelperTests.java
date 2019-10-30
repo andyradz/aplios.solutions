@@ -17,139 +17,139 @@ import com.codigo.aplios.sdk.core.helpers.EnumOperator;
 // TODO: przerobi na hamercast
 public class EnumHelperTests {
 
-	private static enum Colors {
+    private static enum Colors {
 
-		WHITE,
-		BLACK,
-		BROWN,
-		YELLOW,
-		ORANGE,
-		VIOLET,
-		GREEN,
-		PINK
+        WHITE,
+        BLACK,
+        BROWN,
+        YELLOW,
+        ORANGE,
+        VIOLET,
+        GREEN,
+        PINK
 
-	}
+    }
 
-	private static enum Empty {
-	}
+    private static enum Empty {
+    }
 
-	@Test
-	public void sholudReturnEightEnumItems() {
+    @Test
+    public void sholudReturnEightEnumItems() {
 
-		final List<? extends Enum<?>> items = EnumOperator.getItems(Empty.class);
-		Assertions.assertEquals(EnumHelperTests.Empty.values().length, items.size());
-	}
+        final List<? extends Enum<?>> items = EnumOperator.getItems(Empty.class);
+        Assertions.assertEquals(EnumHelperTests.Empty.values().length, items.size());
+    }
 
-	@Test
-	public void shouldReturnEightEnumItemsName() {
+    @Test
+    public void shouldReturnEightEnumItemsName() {
 
-		final List<String> enumItemsName = EnumOperator.getNames(Colors.class);
-		Assertions.assertEquals(EnumHelperTests.Colors.values().length, enumItemsName.size());
-	}
+        final List<String> enumItemsName = EnumOperator.getNames(Colors.class);
+        Assertions.assertEquals(EnumHelperTests.Colors.values().length, enumItemsName.size());
+    }
 
-	@Test
-	public void shouldReturnWhiteEnumItemName() {
+    @Test
+    public void shouldReturnWhiteEnumItemName() {
 
-		final String enumItemName = EnumOperator.getFirstName(Colors.class);
-		Assertions.assertEquals("WHITE", enumItemName.toUpperCase());
-	}
+        final String enumItemName = EnumOperator.getFirstName(Colors.class);
+        Assertions.assertEquals("WHITE", enumItemName.toUpperCase());
+    }
 
-	@Test
-	public void sholudReturnZeroEnumItems() {
+    @Test
+    public void sholudReturnZeroEnumItems() {
 
-		final List<? extends Enum<?>> items = EnumOperator.getItems(Empty.class);
-		Assertions.assertEquals(EnumHelperTests.Empty.values().length, items.size());
-	}
+        final List<? extends Enum<?>> items = EnumOperator.getItems(Empty.class);
+        Assertions.assertEquals(EnumHelperTests.Empty.values().length, items.size());
+    }
 
-	@Test
-	public void shouldReturnPinkEnumItemName() {
+    @Test
+    public void shouldReturnPinkEnumItemName() {
 
-		final String enumItemName = EnumOperator.getLastName(Colors.class);
-		Assertions.assertEquals("PINK", enumItemName.toUpperCase());
-	}
+        final String enumItemName = EnumOperator.getLastName(Colors.class);
+        Assertions.assertEquals("PINK", enumItemName.toUpperCase());
+    }
 
-	@Test
-	public void sholudReturnOrdinalSum() {
+    @Test
+    public void sholudReturnOrdinalSum() {
 
-		final long ordinalSum = EnumOperator.getOrdinalSum(Colors.class);
-		Assertions.assertEquals(28, ordinalSum);
-	}
+        final long ordinalSum = EnumOperator.getOrdinalSum(Colors.class);
+        Assertions.assertEquals(28, ordinalSum);
+    }
 
-	@Test
-	public void sholudReturnOrdinalSumOfEmpty() {
+    @Test
+    public void sholudReturnOrdinalSumOfEmpty() {
 
-		final long ordinalSum = EnumOperator.getOrdinalSum(Empty.class);
-		Assertions.assertEquals(0, ordinalSum);
-	}
+        final long ordinalSum = EnumOperator.getOrdinalSum(Empty.class);
+        Assertions.assertEquals(0, ordinalSum);
+    }
 
-	@Test
-	public void sholudReturnOrdinalAvg() {
+    @Test
+    public void sholudReturnOrdinalAvg() {
 
-		final double ordinalEvg = EnumOperator.getOrdinalAvg(Colors.class);
-		Assertions.assertEquals(3.5, ordinalEvg);
-	}
+        final double ordinalEvg = EnumOperator.getOrdinalAvg(Colors.class);
+        Assertions.assertEquals(3.5, ordinalEvg);
+    }
 
-	@Test
-	public void sholudReturnOrdinalAvgOfEmpty() {
+    @Test
+    public void sholudReturnOrdinalAvgOfEmpty() {
 
-		final double ordinalEvg = EnumOperator.getOrdinalAvg(Empty.class);
-		Assertions.assertEquals(0.0, ordinalEvg);
-	}
+        final double ordinalEvg = EnumOperator.getOrdinalAvg(Empty.class);
+        Assertions.assertEquals(0.0, ordinalEvg);
+    }
 
-	@Test
-	public void sholudReturnOrdinalMul() {
+    @Test
+    public void sholudReturnOrdinalMul() {
 
-		final double ordinalMul = EnumOperator.getOrdinalMul(Colors.class);
-		Assertions.assertEquals(5040.0, ordinalMul);
-	}
+        final double ordinalMul = EnumOperator.getOrdinalMul(Colors.class);
+        Assertions.assertEquals(5040.0, ordinalMul);
+    }
 
-	@Test
-	public void sholudReturnOrdinalMulOfEmpty() {
+    @Test
+    public void sholudReturnOrdinalMulOfEmpty() {
 
-		final double ordinalMul = EnumOperator.getOrdinalMul(Empty.class);
-		Assertions.assertEquals(-1.0, ordinalMul);
-	}
+        final double ordinalMul = EnumOperator.getOrdinalMul(Empty.class);
+        Assertions.assertEquals(-1.0, ordinalMul);
+    }
 
-	@Test
-	public void sholudReturnOrdinalFirstZero() {
+    @Test
+    public void sholudReturnOrdinalFirstZero() {
 
-		final int ordinalFirst = EnumOperator.getFirstOrdinal(Colors.class);
-		Assertions.assertEquals(0, ordinalFirst);
-	}
+        final int ordinalFirst = EnumOperator.getFirstOrdinal(Colors.class);
+        Assertions.assertEquals(0, ordinalFirst);
+    }
 
-	@Test
-	public void sholudReturnOrdinalLastSeven() {
+    @Test
+    public void sholudReturnOrdinalLastSeven() {
 
-		final int ordinalLast = EnumOperator.getLastOrdinal(Colors.class);
-		Assertions.assertEquals(7, ordinalLast);
-	}
+        final int ordinalLast = EnumOperator.getLastOrdinal(Colors.class);
+        Assertions.assertEquals(7, ordinalLast);
+    }
 
-	@Test
-	public void sholudReturnOrdinalFirstEmptyOne() {
+    @Test
+    public void sholudReturnOrdinalFirstEmptyOne() {
 
-		final int ordinalFirst = EnumOperator.getFirstOrdinal(Empty.class);
-		Assertions.assertEquals(-1, ordinalFirst);
-	}
+        final int ordinalFirst = EnumOperator.getFirstOrdinal(Empty.class);
+        Assertions.assertEquals(-1, ordinalFirst);
+    }
 
-	@Test
-	public void sholudReturnOrdinalLastEmptyOne() {
+    @Test
+    public void sholudReturnOrdinalLastEmptyOne() {
 
-		final int ordinalLast = EnumOperator.getLastOrdinal(Empty.class);
-		Assertions.assertEquals(-1, ordinalLast);
-	}
+        final int ordinalLast = EnumOperator.getLastOrdinal(Empty.class);
+        Assertions.assertEquals(-1, ordinalLast);
+    }
 
-	@Test
-	public void sholudReturnLengthEight() {
+    @Test
+    public void sholudReturnLengthEight() {
 
-		final long length = EnumOperator.getLength(Colors.class);
-		Assertions.assertEquals(8, length);
-	}
+        final long length = EnumOperator.getLength(Colors.class);
+        Assertions.assertEquals(8, length);
+    }
 
-	@Test
-	public void sholudReturnLengthEmptyZero() {
+    @Test
+    public void sholudReturnLengthEmptyZero() {
 
-		final long length = EnumOperator.getLength(Empty.class);
-		Assertions.assertEquals(0, length);
-	}
+        final long length = EnumOperator.getLength(Empty.class);
+        Assertions.assertEquals(0, length);
+    }
 
 }

@@ -11,7 +11,7 @@ import com.codigo.aplios.domain.model.locale.Dictionary;
 @Entity
 @Table(name = "Category")
 @Customizer(EntityColumnPositionCustomizer.class)
-public class Category extends Dictionary { // sownik
+public class Category extends Dictionary { // słownik
 
 	private static final long serialVersionUID = 5195542005041435577L;
 

@@ -1,8 +1,10 @@
 package com.codigo.aplios.sdk.core.compare;
 
+import java.util.Comparator;
+
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-public enum CompareOperator implements com.codigo.aplios.sdk.core.compare.IComparable {
+public enum CompareOperator implements IComparable {
 
 	EQUALS {
 
@@ -117,6 +119,31 @@ public enum CompareOperator implements com.codigo.aplios.sdk.core.compare.ICompa
 	};
 
 	/**
+	 * @param comparator
+	 * @param first
+	 * @param second
+	 * @return
+	 */
+	public static <T> boolean compare(final Comparator<T> comparator, final T first, final T second) {
+
+		final int result = comparator.compare(first, second);
+
+		switch (result) {
+		case CompareResult.ONE_MINUS:
+			return result == CompareResult.LESSER.get();
+
+		case CompareResult.ONE_PLUS:
+			return result == CompareResult.GREATER.get();
+
+		case CompareResult.ZERO:
+			return result == CompareResult.EQUALS.get();
+
+		default:
+			throw new UnsupportedOperationException();
+		}
+	}
+
+	/**
 	 *
 	 * @param leftOperand
 	 * @param rightOperand
@@ -124,9 +151,9 @@ public enum CompareOperator implements com.codigo.aplios.sdk.core.compare.ICompa
 	private static void checkObjectClass(@NonNull final Comparable<?> leftOperand,
 			@NonNull final Comparable<?> rightOperand) {
 
-		if (leftOperand.getClass() != rightOperand.getClass())
-			throw new UnsupportedOperationException(
-				"leftOperand.getClass() != rightOperand.getClass()");
+		if (leftOperand.getClass() != rightOperand.getClass()) {
+			throw new UnsupportedOperationException("leftOperand.getClass() != rightOperand.getClass()");
+		}
 	}
 
 }

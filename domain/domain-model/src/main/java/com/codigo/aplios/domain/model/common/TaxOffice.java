@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.codigo.aplios.domain.model.contacts.Address;
+import com.codigo.aplios.domain.model.locale.Address;
 
 //https://viralpatel.net/blogs/hibernate-self-join-annotations-one-to-many-mapping/
 //https://www.tutorialspoint.com/jpa/jpa_advanced_mappings.htm

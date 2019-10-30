@@ -20,295 +20,291 @@ import com.codigo.aplios.sdk.core.hamcrest.IsBetween;
 
 public class TestUnits1 {
 
-	// ...jednostki
-	private static Function<Integer, Integer> functUni1 = in -> ((in / 10) % 10) == 1 ? 0 : in % 10;
+    // ...jednostki
+    private static Function<Integer, Integer> functUni1 = in -> ((in / 10) % 10) == 1 ? 0 : in % 10;
 
-	// ...nastki
-	private static Function<Integer, Integer> functUni2 = in -> (((in % 100) / 10) == 1) && (((in % 100) % 10) != 0)
-			? in % 100
-			: 0;
+    // ...nastki
+    private static Function<Integer, Integer> functUni2 = in -> (((in % 100) / 10) == 1) && (((in % 100) % 10) != 0)
+            ? in % 100
+            : 0;
 
-	// dziesiątki
-	private static Function<Integer, Integer> functUni3 = in -> ((in % 100) % 10) == 0 ? in % 100 : 0;
+    // dziesiątki
+    private static Function<Integer, Integer> functUni3 = in -> ((in % 100) % 10) == 0 ? in % 100 : 0;
 
-	// setki
-	private static Function<Integer, Integer> functUni4 = in -> ((in % 1000) % 100) == 0 ? in % 1000 : 0;
+    // setki
+    private static Function<Integer, Integer> functUni4 = in -> ((in % 1000) % 100) == 0 ? in % 1000 : 0;
 
-	@Test
-	public void test11() {
+    @Test
+    public void test11() {
 
-		final var value = 910;
+        final var value = 910;
 
-		MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
-	}
+        MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
+    }
 
-	@Test
-	public void test12() {
+    @Test
+    public void test12() {
 
-		final var value = 10;
+        final var value = 10;
 
-		MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
-	}
+        MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
+    }
 
-	@Test
-	public void test0() {
+    @Test
+    public void test0() {
 
-		final var value = 919;
+        final var value = 919;
 
-		MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
-	}
+        MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
+    }
 
-	@Test
-	public void test1() {
+    @Test
+    public void test1() {
 
-		final var value = 12;
+        final var value = 12;
 
-		MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
-	}
+        MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
+    }
 
-	@Test
-	public void test2() {
+    @Test
+    public void test2() {
 
-		final var value = 22;
+        final var value = 22;
 
-		MatcherAssert.assertThat(2, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
-	}
+        MatcherAssert.assertThat(2, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
+    }
 
-	@Test
-	public void test3() {
+    @Test
+    public void test3() {
 
-		final var value = 2;
+        final var value = 2;
 
-		MatcherAssert.assertThat(2, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
-	}
+        MatcherAssert.assertThat(2, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
+    }
 
-	@Test
-	public void test4() {
+    @Test
+    public void test4() {
 
-		final var value = 102;
+        final var value = 102;
 
-		MatcherAssert.assertThat(2, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
-	}
+        MatcherAssert.assertThat(2, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
+    }
 
-	@Test
-	public void test5() {
+    @Test
+    public void test5() {
 
-		final var value = 112;
+        final var value = 112;
 
-		MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
-	}
+        MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni1.apply(value)));
+    }
 
-	@Test
-	public void test6() {
+    @Test
+    public void test6() {
 
-		final String format = "%03d - %03d";
+        final String format = "%03d - %03d";
 
-		final IntConsumer print = e -> {
+        final IntConsumer print = e -> {
 
-			final int result = TestUnits1.functUni1.apply(e);
+            final int result = TestUnits1.functUni1.apply(e);
 
-			if (result != 0) {
-				MatcherAssert.assertThat(result, IsBetween.between(1, 9));
-				System.out.println(String.format(format, e, result));
-			}
-		};
+            if (result != 0) {
+                MatcherAssert.assertThat(result, IsBetween.between(1, 9));
+                System.out.println(String.format(format, e, result));
+            }
+        };
 
-		IntStream.rangeClosed(1, 999)
-				.forEach(print);
-	}
+        IntStream.rangeClosed(1, 999)
+                .forEach(print);
+    }
 
-	// testowanie nastek
-	// ------------------------------------------------------------------------------------------------------------------
+    // testowanie nastek
+    // ------------------------------------------------------------------------------------------------------------------
+    @Test
+    public void testUnit1_1() {
 
-	@Test
-	public void testUnit1_1() {
+        final var value = 112;
 
-		final var value = 112;
+        MatcherAssert.assertThat(12, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
+    }
 
-		MatcherAssert.assertThat(12, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
-	}
+    @Test
+    public void testUnit1_2() {
 
-	@Test
-	public void testUnit1_2() {
+        final var value = 19;
 
-		final var value = 19;
+        MatcherAssert.assertThat(19, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
+    }
 
-		MatcherAssert.assertThat(19, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
-	}
+    @Test
+    public void testUnit1_3() {
 
-	@Test
-	public void testUnit1_3() {
+        final var value = 1;
 
-		final var value = 1;
+        MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
+    }
 
-		MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
-	}
+    @Test
+    public void testUnit1_4() {
 
-	@Test
-	public void testUnit1_4() {
+        final var value = 10;
 
-		final var value = 10;
+        MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
+    }
 
-		MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
-	}
+    @Test
+    public void testUnit1_5() {
 
-	@Test
-	public void testUnit1_5() {
+        final var value = 110;
 
-		final var value = 110;
+        MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
+    }
 
-		MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
-	}
+    @Test
+    public void testUnit1_6() {
 
-	@Test
-	public void testUnit1_6() {
+        final var value = 120;
 
-		final var value = 120;
+        MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
+    }
 
-		MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
-	}
+    @Test
+    public void testUnit1_7() {
 
-	@Test
-	public void testUnit1_7() {
+        final var value = 190;
 
-		final var value = 190;
+        MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
+    }
 
-		MatcherAssert.assertThat(0, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
-	}
+    @Test
+    public void testUnit1_8() {
 
-	@Test
-	public void testUnit1_8() {
+        final var value = 819;
 
-		final var value = 819;
+        MatcherAssert.assertThat(19, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
+    }
 
-		MatcherAssert.assertThat(19, CoreMatchers.is(TestUnits1.functUni2.apply(value)));
-	}
+    @Test
+    public void testUnit1_9() {
 
-	@Test
-	public void testUnit1_9() {
+        final String format = "%03d - %03d";
 
-		final String format = "%03d - %03d";
+        final IntConsumer print = e -> {
 
-		final IntConsumer print = e -> {
+            final int result = TestUnits1.functUni2.apply(e);
 
-			final int result = TestUnits1.functUni2.apply(e);
+            if (result != 0) {
 
-			if (result != 0) {
+                MatcherAssert.assertThat(result, IsBetween.between(11, 19));
+                System.out.println(String.format(format, e, result));
+            }
+        };
 
-				MatcherAssert.assertThat(result, IsBetween.between(11, 19));
-				System.out.println(String.format(format, e, result));
-			}
-		};
+        IntStream.rangeClosed(1, 999)
+                .forEach(print);
+    }
 
-		IntStream.rangeClosed(1, 999)
-				.forEach(print);
-	}
+    // testowanie dziesiątek, zero nie jest przekazywane
+    // -----------------------------------------------------------------------------------------------------------------
+    @Test
+    public void testUnit2_0() {
 
-	// testowanie dziesiątek, zero nie jest przekazywane
-	// -----------------------------------------------------------------------------------------------------------------
+        final String format = "%03d - %03d";
 
-	@Test
-	public void testUnit2_0() {
+        final IntConsumer print = e -> {
 
-		final String format = "%03d - %03d";
+            final int result = TestUnits1.functUni3.apply(e);
 
-		final IntConsumer print = e -> {
+            if (result != 0) {
 
-			final int result = TestUnits1.functUni3.apply(e);
+                MatcherAssert.assertThat(result, IsBetween.between(10, 90));
+                System.out.println(String.format(format, e, result));
+            }
+        };
 
-			if (result != 0) {
+        IntStream.rangeClosed(1, 999)
+                .forEach(print);
+    }
 
-				MatcherAssert.assertThat(result, IsBetween.between(10, 90));
-				System.out.println(String.format(format, e, result));
-			}
-		};
+    // testowanie setek, zero nie jest przekazywane
+    // -----------------------------------------------------------------------------------------------------------------
+    @Test
+    public void testUnit3_0() {
 
-		IntStream.rangeClosed(1, 999)
-				.forEach(print);
-	}
+        final String format = "%03d - %03d";
 
-	// testowanie setek, zero nie jest przekazywane
-	// -----------------------------------------------------------------------------------------------------------------
+        final IntConsumer print = e -> {
 
-	@Test
-	public void testUnit3_0() {
+            final int result = TestUnits1.functUni4.apply(e);
 
-		final String format = "%03d - %03d";
+            if (result != 0) {
 
-		final IntConsumer print = e -> {
+                MatcherAssert.assertThat(result, IsBetween.between(100, 900));
+                System.out.println(String.format(format, e, result));
+            }
+        };
 
-			final int result = TestUnits1.functUni4.apply(e);
+        IntStream.rangeClosed(1, 999)
+                .forEach(print);
+    }
 
-			if (result != 0) {
+    @Test
+    public void testLoadProperties() {
 
-				MatcherAssert.assertThat(result, IsBetween.between(100, 900));
-				System.out.println(String.format(format, e, result));
-			}
-		};
+        final Properties properties = new Properties();
 
-		IntStream.rangeClosed(1, 999)
-				.forEach(print);
-	}
+        final Map<String, String> map = new HashMap<>();
+        try {
+            final InputStream input = TestUnits1.class.getClassLoader()
+                    .getResourceAsStream("moneyinwordsPL.properties");
+            final InputStreamReader reader = new InputStreamReader(
+                    input, "UTF-8");
 
-	@Test
-	public void testLoadProperties() {
+            properties.load(reader);
 
-		final Properties properties = new Properties();
+            map.putAll(properties.entrySet()
+                    .stream()
+                    .collect(Collectors.toMap(e -> e.getKey()
+                    .toString(),
+                            e -> e.getValue()
+                                    .toString())));
 
-		final Map<String, String> map = new HashMap<>();
-		try {
-			final InputStream input = TestUnits1.class.getClassLoader()
-					.getResourceAsStream("moneyinwordsPL.properties");
-			final InputStreamReader reader = new InputStreamReader(
-				input, "UTF-8");
+            final BiConsumer<Object, Object> biConsumer = (key, value) -> System.out
+                    .println("Key:" + key + " Value:" + value);
 
-			properties.load(reader);
+            // map.forEach(biConsumer);
+            properties.forEach(biConsumer);
 
-			map.putAll(properties.entrySet()
-					.stream()
-					.collect(Collectors.toMap(e -> e.getKey()
-							.toString(),
-							e -> e.getValue()
-									.toString())));
+        } catch (final IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-			final BiConsumer<Object, Object> biConsumer = (key, value) -> System.out
-					.println("Key:" + key + " Value:" + value);
+    }
 
-			// map.forEach(biConsumer);
+    @Test
+    public void TesSign() {
 
-			properties.forEach(biConsumer);
+        final double value0 = -.099;
+        final double value1 = .099;
+        final double value2 = -0;
+        final double value3 = Double.NaN;
 
-		}
-		catch (final IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        Math.signum(value0);
+        Math.signum(value1);
+        Math.signum(value2);
+        Math.signum(value3);
 
-	}
+    }
 
-	@Test
-	public void TesSign() {
+    @Test
+    public void TestDivideNumber() {
 
-		final double value0 = -.099;
-		final double value1 = .099;
-		final double value2 = -0;
-		final double value3 = Double.NaN;
+        final double value = 200_324_199_201_316.15d;
 
-		Math.signum(value0);
-		Math.signum(value1);
-		Math.signum(value2);
-		Math.signum(value3);
-
-	}
-
-	@Test
-	public void TestDivideNumber() {
-
-		final double value = 200_324_199_201_316.15d;
-
-		long number = (long) value;
-		Math.round((value - (long) value) * 100);
-		while (number != 0)
-			number /= 1E3;
-	}
+        long number = (long) value;
+        Math.round((value - (long) value) * 100);
+        while (number != 0) {
+            number /= 1E3;
+        }
+    }
 }

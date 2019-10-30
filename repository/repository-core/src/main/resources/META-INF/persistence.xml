@@ -24,25 +24,25 @@
 	<persistence-unit name="shopdb"
 		transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<class>com.codigo.aplios.domain.model.catalog.Product</class>
+		<class>com.codigo.aplios.repository.core.AuditSection</class>
+		<class>com.codigo.aplios.repository.core.audit.AuditSection1</class>
+		<class>com.codigo.aplios.repository.core.audit.AuditableEntity</class>
+		<class>com.codigo.aplios.repository.core.convert.CryptoConverter</class>
+		<class>com.codigo.aplios.repository.core.convert.LocalDateTimeAttributeConverter</class>
+		<!-- <class>com.codigo.aplios.domain.model.catalog.Product</class>
 		<class>com.codigo.aplios.domain.model.catalog.Category</class>
 		<class>com.codigo.aplios.domain.model.catalog.CategoryAttribute</class>
 		<class>com.codigo.aplios.domain.model.locale.Currency</class>
-		<class>com.codigo.aplios.domain.model.locale.Country</class>
-		<class>com.codigo.aplios.domain.model.locale.Dictionary</class>
 		<class>com.codigo.aplios.domain.model.contacts.Address</class>
 		<class>com.codigo.aplios.domain.model.contacts.Phone</class>
 		<class>com.codigo.aplios.domain.model.common.Picture</class>
-		<class>com.codigo.aplios.domain.model.customers.CustomerRole</class>
-		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<class>com.codigo.aplios.domain.model.customers.CustomerRole</class> -->
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="javax.persistence.jdbc.driver"
 				value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:sqlserver://DESKTOP-GOT05ET\APLIOS:65188;databaseName=BITSHOP;integratedSecurity=true;" />
-			<property
-				name="javax.persistence.schema-generation.database.action"
-				value="none" />
 			<property name="eclipselink.logging.level" value="FINE" />
 			<property name="eclipselink.cache.size.default" value="5000" />
 			<property name="eclipselink.flush-clear.cache" value="drop" />
@@ -55,6 +55,7 @@
 				value="create-or-extend-tables" />
 			<property name="eclipselink.ddl-generation.output-mode"
 				value="database" />
+			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 		</properties>
 	</persistence-unit>
 </persistence>

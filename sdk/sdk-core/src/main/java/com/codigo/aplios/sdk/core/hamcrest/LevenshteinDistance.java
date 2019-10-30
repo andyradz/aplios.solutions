@@ -2,12 +2,18 @@ package com.codigo.aplios.sdk.core.hamcrest;
 
 import static java.lang.Math.min;
 
+import java.util.Objects;
+
 public class LevenshteinDistance {
+
+	private LevenshteinDistance() {
+
+	}
 
 	public static int distance(final CharSequence lhs, final CharSequence rhs) {
 
-		// checkNotNull(lhs);
-		// checkNotNull(rhs);
+		Objects.requireNonNull(lhs);
+		Objects.requireNonNull(rhs);
 
 		final int len0 = lhs.length() + 1;
 		final int len1 = rhs.length() + 1;
@@ -38,11 +44,11 @@ public class LevenshteinDistance {
 				final int cost_delete = newcost[i - 1] + 1;
 
 				// keep minimum cost
-				newcost[i] = min(min(cost_insert, cost_delete), cost_replace);
+				newcost[i] = Math.min(Math.min(cost_insert, cost_delete), cost_replace);
 			}
 
 			// swap cost/newcost arrays
-			int[] swap = cost;
+			final int[] swap = cost;
 			cost = newcost;
 			newcost = swap;
 		}

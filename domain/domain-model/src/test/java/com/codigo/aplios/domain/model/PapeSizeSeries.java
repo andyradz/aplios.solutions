@@ -6,7 +6,6 @@ package com.codigo.aplios.domain.model;
 //
 // double getHeight();
 // }
-
 // public enum PapeSizeSeries {
 // SerieA(null),
 // SerieB(null),

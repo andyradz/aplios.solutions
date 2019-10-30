@@ -16,38 +16,55 @@ import java.util.List;
  * @param <T>
  */
 public interface INode<T> {
+	// Długość ścieżki prostej od korzenia do danego węzła nazywa się poziomem węzła
+	// (ang. node level). Korzeń drzewa ma zawsze poziom 0. W naszym drzewie węzły
+	// B, C i D mają poziom 1, a E, F, G i H mają poziom 2. Wysokość drzewa (ang.
+	// tree height) jest równa największemu poziomowi węzłów (lub najdłuższej
+	// ścieżce rozpoczynającej się w korzeniu). Dla naszego drzewa wysokość jest
+	// równa 2. Wysokość węzła (ang. node height), to długość najdłuższej ścieżki od
+	// tego węzła do liścia. Dla korzenia wysokość węzła jest równa wysokości
+	// drzewa:
 
-    public Node<T> getParent(); // zwraca referencje rodzica
+	// Nodelevel -
+	// TreeHeight
 
-    public void setParent(Node<T> parent); // ustawia rodzica dla węzła
+	// Wszystkie wierzchołki połączone z danym wierzchołkiem, a leżące na następnym
+	// poziomie są nazywane dziećmi tego węzła (np. dziećmi wierzchołka F są B i G,
+	// natomiast wierzchołka B: A i D). Wierzchołek może mieć dowolną liczbę dzieci,
+	// jeśli nie ma ich wcale nazywany jest liściem. Liśćmi w przykładowym drzewie
+	// są A, C, E, H.
 
-    public T getData(); // zwraca przechowywane dane
+	Node<T> getParent(); // zwraca referencje rodzica
 
-    public void setData(T data); // ustawia dane w węźle
+	void setParent(Node<T> parent); // ustawia rodzica dla węzła
 
-    public int getDegree(); // zwraca stopień węzła
+	T getData(); // zwraca przechowywane dane
 
-    public Node<T> getChild(int i); // zwraca referencje do i-tego dziecka
+	void setData(T data); // ustawia dane w węźle
 
-    public boolean isLeaf(); // sprawdza czy węzeł jest liściem
+	int getDegree(); // zwraca stopień węzła
 
-    public Node<T> addChild(Node<T> child); // dodaje do węzła dziecko (inny węzeł)
+	Node<T> getChild(int i); // zwraca referencje do i-tego dziecka
 
-    public Node<T> addChild(T data); // tworzy i dodaje do węzła dziecko z danymi
+	boolean isLeaf(); // sprawdza czy węzeł jest liściem
 
-    public Node<T> removeChild(int i); // usuwa i-te dziecko węzła
+	Node<T> addChild(Node<T> child); // dodaje do węzła dziecko (inny węzeł)
 
-    public void removeChildren(); // usuwa wszystkie dzieci węzła
+	Node<T> addChild(T data); // tworzy i dodaje do węzła dziecko z danymi
 
-    public Node<T> getLeftMostChild(); // zwraca pierwsze dziecko węzła (z lewej)
+	Node<T> removeChild(int i); // usuwa i-te dziecko węzła
 
-    public List<Node<T>> getChildren(); // zwraca listę dzieci
+	void removeChildren(); // usuwa wszystkie dzieci węzła
 
-    public Node<T> getRightSibling(); // zwraca kolejny element siostrzany węzła
+	Node<T> getLeftMostChild(); // zwraca pierwsze dziecko węzła (z lewej)
 
-    public T accept(final INodeVisitable<T> visitor);
+	List<Node<T>> getChildren(); // zwraca listę dzieci
 
-    @Override
-    public String toString(); // wyświetla węzeł (najczęściej dane)
+	Node<T> getRightSibling(); // zwraca kolejny element siostrzany węzła
+
+	T accept(final INodeVisitable<T> visitor);
+
+	@Override
+	String toString(); // wyświetla węzeł (najczęściej dane)
 
 }

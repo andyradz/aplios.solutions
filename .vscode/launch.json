@@ -1,0 +1,1169 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-App<aplios-math>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.math.core.App",
+            "projectName": "aplios-math"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Polynomial<aplios-math>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.math.core.Polynomial",
+            "projectName": "aplios-math"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PrimeFactorial<aplios-math>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.math.core.PrimeFactorial",
+            "projectName": "aplios-math"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-AdvancedEncryptionStandard<checksum-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.checksum.core.crc.AdvancedEncryptionStandard",
+            "projectName": "checksum-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CRC32<checksum-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.checksum.core.crc.CRC32",
+            "projectName": "checksum-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-IConvertableValue<checksum-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.checksum.core.crc.IConvertableValue",
+            "projectName": "checksum-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ApplicationView<checksum-explorer>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.checksum.explorer.view.ApplicationView",
+            "projectName": "checksum-explorer"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-rtrrrrr<checksum-explorer>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.checksum.explorer.view.rtrrrrr",
+            "projectName": "checksum-explorer"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-App<corporate-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.corporate.core.App",
+            "projectName": "corporate-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ClaimProductTypeCollector<data-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.data.core.collect.ClaimProductTypeCollector",
+            "projectName": "data-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MostPopular<data-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.data.core.collect.MostPopular",
+            "projectName": "data-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Person<data-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.data.core.model.Person",
+            "projectName": "data-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PageElementCollector<data-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.data.core.paging.PageElementCollector",
+            "projectName": "data-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PageResult<data-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.data.core.paging.PageResult",
+            "projectName": "data-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MinPQ<data-struct>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.data.struct.MinPQ",
+            "projectName": "data-struct"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Tree<data-struct>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.data.struct.Tree",
+            "projectName": "data-struct"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-App<domain-model>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.domain.model.App",
+            "projectName": "domain-model"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-App1<domain-model>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.domain.model.App1",
+            "projectName": "domain-model"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Gender<domain-model>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.domain.model.Gender",
+            "projectName": "domain-model"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PapeSizeSeries<domain-model>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.domain.model.PapeSizeSeries",
+            "projectName": "domain-model"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestRunner<domain-model>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.domain.model.TestRunner",
+            "projectName": "domain-model"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ForLoopPrimes<domain-model>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.domain.model.concurrent.ForLoopPrimes",
+            "projectName": "domain-model"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ForkJoinPrimes<domain-model>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.domain.model.concurrent.ForkJoinPrimes",
+            "projectName": "domain-model"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Gender<domain-model>(1)",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.domain.model.evidence.gender.Gender",
+            "projectName": "domain-model"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PeselIdentity<domain-model>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.domain.model.identity.PeselIdentity",
+            "projectName": "domain-model"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MoneyInWordsL<domain-model>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.domain.model.money.MoneyInWordsL",
+            "projectName": "domain-model"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CsvFileRead<exsplorer>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.exsplorer.CsvFileRead",
+            "projectName": "exsplorer"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DriveInfo<exsplorer>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.exsplorer.DriveInfo",
+            "projectName": "exsplorer"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DriveInfoLoader<exsplorer>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.exsplorer.DriveInfoLoader",
+            "projectName": "exsplorer"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FileSample<exsplorer>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.exsplorer.FileSample",
+            "projectName": "exsplorer"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FormConfig<exsplorer>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.exsplorer.FormConfig",
+            "projectName": "exsplorer"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JForm<exsplorer>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.exsplorer.JForm",
+            "projectName": "exsplorer"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PathInfo<exsplorer>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.exsplorer.PathInfo",
+            "projectName": "exsplorer"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookForm<gui-core>",
+            "request": "launch",
+            "mainClass": "BookForm",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FileBrowser<gui-core>",
+            "request": "launch",
+            "mainClass": "FileBrowser",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FileHexViewer<gui-core>",
+            "request": "launch",
+            "mainClass": "FileHexViewer",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-InvokeExample<gui-core>",
+            "request": "launch",
+            "mainClass": "InvokeExample",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Kowaracja<gui-core>",
+            "request": "launch",
+            "mainClass": "Kowaracja",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PropertyGrid<gui-core>",
+            "request": "launch",
+            "mainClass": "PropertyGrid",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ReadFileIcon<gui-core>",
+            "request": "launch",
+            "mainClass": "ReadFileIcon",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestSlidingPanel<gui-core>",
+            "request": "launch",
+            "mainClass": "TestSlidingPanel",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Charts2D<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.Charts2D",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Demonstration<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.Demonstration",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-EnumTest<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.EnumTest",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FilterGuiExample<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.FilterGuiExample",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ListIndexBar<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.ListIndexBar",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MainPanel<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.MainPanel",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TextBox<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.TextBox",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ToolTipTable<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.ToolTipTable",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FadeExample<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.animation.FadeExample",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FXCalendarDemo<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.calendar.FXCalendarDemo",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-KeepTrackOfTableCells<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.grid.KeepTrackOfTableCells",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SummaryTableDemo<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.grid.SummaryTableDemo",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TableRowRenderingTip<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.grid.TableRowRenderingTip",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-IndicatorTableExample<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.gridview.IndicatorTableExample",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MultipleTableCell<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.gridview.MultipleTableCell",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ShapedForm<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.shapes.ShapedForm",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-NumberSpinnerDemo<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.spinner.NumberSpinnerDemo",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FormDashboard<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.widget.FormDashboard",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Gradient<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.brushes.Gradient",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SwitchButton<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.button.SwitchButton",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-IndicatorTableExample<gui-core>(1)",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.gridview.IndicatorTableExample",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MultipleTableCell<gui-core>(1)",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.gridview.MultipleTableCell",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TreeTableExample2<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.gridview.TreeTableExample2",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DemosDoubleBuffering<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.kinect.DemosDoubleBuffering",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-KineticModel<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.kinect.KineticModel",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Control<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.kinect.segment.Control",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FadeOutEx<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.transparent.FadeOutEx",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JavaPixelManipulation<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.transparent.JavaPixelManipulation",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TransparentRectangle<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.transparent.TransparentRectangle",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-WaitingEx<gui-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.transparent.WaitingEx",
+            "projectName": "gui-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookForm<gui>",
+            "request": "launch",
+            "mainClass": "BookForm",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FileBrowser<gui>",
+            "request": "launch",
+            "mainClass": "FileBrowser",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FileHexViewer<gui>",
+            "request": "launch",
+            "mainClass": "FileHexViewer",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-InvokeExample<gui>",
+            "request": "launch",
+            "mainClass": "InvokeExample",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Kowaracja<gui>",
+            "request": "launch",
+            "mainClass": "Kowaracja",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PropertyGrid<gui>",
+            "request": "launch",
+            "mainClass": "PropertyGrid",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ReadFileIcon<gui>",
+            "request": "launch",
+            "mainClass": "ReadFileIcon",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestSlidingPanel<gui>",
+            "request": "launch",
+            "mainClass": "TestSlidingPanel",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Charts2D<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.Charts2D",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Demonstration<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.Demonstration",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-EnumTest<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.EnumTest",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FilterGuiExample<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.FilterGuiExample",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ListIndexBar<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.ListIndexBar",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MainPanel<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.MainPanel",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TextBox<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.TextBox",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ToolTipTable<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.ToolTipTable",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FadeExample<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.animation.FadeExample",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FXCalendarDemo<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.calendar.FXCalendarDemo",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-KeepTrackOfTableCells<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.grid.KeepTrackOfTableCells",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SummaryTableDemo<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.grid.SummaryTableDemo",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TableRowRenderingTip<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.grid.TableRowRenderingTip",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-IndicatorTableExample<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.gridview.IndicatorTableExample",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MultipleTableCell<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.gridview.MultipleTableCell",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ShapedForm<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.shapes.ShapedForm",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-NumberSpinnerDemo<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.spinner.NumberSpinnerDemo",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FormDashboard<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.control.widget.FormDashboard",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Gradient<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.brushes.Gradient",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SwitchButton<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.button.SwitchButton",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-IndicatorTableExample<gui>(1)",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.gridview.IndicatorTableExample",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MultipleTableCell<gui>(1)",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.gridview.MultipleTableCell",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TreeTableExample2<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.gridview.TreeTableExample2",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DemosDoubleBuffering<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.kinect.DemosDoubleBuffering",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-KineticModel<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.kinect.KineticModel",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Control<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.kinect.segment.Control",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FadeOutEx<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.transparent.FadeOutEx",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JavaPixelManipulation<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.transparent.JavaPixelManipulation",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TransparentRectangle<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.transparent.TransparentRectangle",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-WaitingEx<gui>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.gui.core.transparent.WaitingEx",
+            "projectName": "gui"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-App<math-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.math.core.App",
+            "projectName": "math-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Polynomial<math-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.math.core.Polynomial",
+            "projectName": "math-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PrimeFactorial<math-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.math.core.PrimeFactorial",
+            "projectName": "math-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestDb<repository-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.repository.core.TestDb",
+            "projectName": "repository-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ADCallbackHandler<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.ADCallbackHandler",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ActiveDirectoryValidator<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.ActiveDirectoryValidator",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-AnimatedFramesDemo<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.AnimatedFramesDemo",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-AutoCompleteCombo<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.AutoCompleteCombo",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-AutoCompletion<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.AutoCompletion",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CCLoader<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.CCLoader",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CobmboboxWithTreeList<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.CobmboboxWithTreeList",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CodigoClassLoader<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.CodigoClassLoader",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CustomRecursiveAction<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.CustomRecursiveAction",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CustomRecursiveTask<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.CustomRecursiveTask",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Demonstration<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.Demonstration",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ExpandingPanels<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.ExpandingPanels",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Foo<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.Foo",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GarbageCollectionConcurrentMap<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.GarbageCollectionConcurrentMap",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Generator<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.Generator",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GraphPanel<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.GraphPanel",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ListBoxWithCheckbox<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.ListBoxWithCheckbox",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MainEditor<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.MainEditor",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MyApplication<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.MyApplication",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PeselGenerator<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.PeselGenerator",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RunMe<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.RunMe",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SimpleThread<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.SimpleThread",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestTreeSelection<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.TestTreeSelection",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TreeDragAndDrop<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.TreeDragAndDrop",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-UIDefaultsTreeModel<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.UIDefaultsTreeModel",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Watki<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.Watki",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-XMLValidator<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.XMLValidator",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ObjectHelpers<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.array.ObjectHelpers",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-EmailMessage<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.beans.EmailMessage",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MoneyInWordsL<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.hamcrest.MoneyInWordsL",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ArrayHelpers<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.helpers.ArrayHelpers",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ArrayOperator<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.helpers.ArrayOperator",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ResourceLoader<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.loaders.ResourceLoader",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ServiceLocatorPatternDemo<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.locators.ServiceLocatorPatternDemo",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Percent<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.metric.Percent",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HurricaneSeasonQuery<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.period.HurricaneSeasonQuery",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-NextWorkingDayAdjuster<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.period.NextWorkingDayAdjuster",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TimeSpan1<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.period.TimeSpan1",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-WyznaczenieWielkanocy<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.period.WyznaczenieWielkanocy",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Sandbox<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.sandbox.Sandbox",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ExecuteShellComand<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.shell.ExecuteShellComand",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Kernel321<sdk-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.sdk.core.winapi.Kernel321",
+            "projectName": "sdk-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HurricaneSeasonQuery<timeline-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.timeline.HurricaneSeasonQuery",
+            "projectName": "timeline-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-NextWorkingDayAdjuster<timeline-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.timeline.NextWorkingDayAdjuster",
+            "projectName": "timeline-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-WyznaczenieWielkanocy<timeline-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.timeline.WyznaczenieWielkanocy",
+            "projectName": "timeline-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-XBaseReader1<xbase-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.xbase.core.XBaseReader1",
+            "projectName": "xbase-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-XbTableBuilder<xbase-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.xbase.core.XbTableBuilder",
+            "projectName": "xbase-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-XbProvider<xbase-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.xbase.core.database.provider.XbProvider",
+            "projectName": "xbase-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-XbFileVersion<xbase-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.xbase.core.database.structure.formats.XbFileVersion",
+            "projectName": "xbase-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-XbFileVersion1<xbase-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.xbase.core.database.structure.formats.XbFileVersion1",
+            "projectName": "xbase-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MainForm<xbase-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.xbase.core.gui.explorer.MainForm",
+            "projectName": "xbase-core"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-frmDasboard<xbase-core>",
+            "request": "launch",
+            "mainClass": "com.codigo.aplios.xbase.core.gui.explorer.frmDasboard",
+            "projectName": "xbase-core"
+        }
+    ]
+}

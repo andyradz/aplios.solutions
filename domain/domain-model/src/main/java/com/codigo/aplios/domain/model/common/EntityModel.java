@@ -10,15 +10,19 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 
+import org.eclipse.persistence.annotations.Customizer;
+
 import com.codigo.aplios.domain.model.catalog.ColumnPosition;
+import com.codigo.aplios.domain.model.catalog.EntityColumnPositionCustomizer;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
+@Customizer(EntityColumnPositionCustomizer.class)
 public abstract class EntityModel implements Serializable {
 
 	/**
-	 * Atrybut klasy określa unikalny globalny identyfikator używany w procesie serializacji i
-	 * deserializacji
+	 * Atrybut klasy określa unikalny globalny identyfikator używany w procesie
+	 * serializacji i deserializacji
 	 */
 	private static final long serialVersionUID = -8677730113148545468L;
 
@@ -40,5 +44,4 @@ public abstract class EntityModel implements Serializable {
 
 		return this.id;
 	}
-
 }

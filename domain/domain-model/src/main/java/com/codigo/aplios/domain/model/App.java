@@ -31,9 +31,9 @@ import com.codigo.aplios.domain.model.calendar.CalendarPrimaryKey;
 import com.codigo.aplios.domain.model.common.Person;
 import com.codigo.aplios.domain.model.common.PersonAttributeImpl;
 import com.codigo.aplios.domain.model.common.TaxOffice;
-import com.codigo.aplios.domain.model.contacts.Address;
 import com.codigo.aplios.domain.model.contacts.AddressType;
-import com.codigo.aplios.domain.model.customers.Customer;
+import com.codigo.aplios.domain.model.customers.Customer1;
+import com.codigo.aplios.domain.model.locale.Address;
 import com.codigo.aplios.domain.model.locale.ZipCodeShortcut;
 
 /**
@@ -66,7 +66,8 @@ public class App {
 		properties.put(PersistenceUnitProperties.ECLIPSELINK_PERSISTENCE_XML,
 				PersistenceUnitProperties.ECLIPSELINK_PERSISTENCE_XML_DEFAULT);
 
-		// Configure Session Customizer which will pipe sql file to db before DDL Generation runs
+		// Configure Session Customizer which will pipe sql file to db before DDL
+		// Generation runs
 		properties.put(PersistenceUnitProperties.SESSION_CUSTOMIZER, "data.mapping.ImportSQL");
 		properties.put("import.sql.file", "/META-INF/create.sql");
 
@@ -84,12 +85,11 @@ public class App {
 			person.setName("Andrzej");
 			person.setMiddleName("Marek");
 			person.setSureName("Radziszewski");
-			person.setBirthDate(java.util.Date.from(Instant.now()
-					.plusMillis(((long) (10 * loopIdx)))));
+			person.setBirthDate(java.util.Date.from(Instant.now().plusMillis(((long) (10 * loopIdx)))));
 			person.setBirthTIme(java.util.Date.from(Instant.now()));
 
 			Address address = new Address();
-			address.setAddressType(AddressType.ADMINISTRATIVE);
+			//address.setAddressType(AddressType.ADMINISTRATIVE);
 			address.setCountry("Polska");
 			address.setCity("Brzoza Bydgoska");
 			address.setStreet("Pomorska");
@@ -101,35 +101,31 @@ public class App {
 			address.setPostBox("XXXXX");
 			address.setProvince("Bydgoski");
 			address.setCounty("Bydgoski");
-			person.getAddresses()
-					.add(address);
+			//person.getAddresses().add(address);
 
 			PersonAttributeImpl attr = new PersonAttributeImpl();
 			attr.setId(1L);
 			attr.setName("charset");
 			attr.setValue("utf-8");
 			attr.setPerson(person);
-			person.getPersonAttributes()
-					.put("1", attr);
+			person.getPersonAttributes().put("1", attr);
 
 			attr = new PersonAttributeImpl();
 			attr.setId(2L);
 			attr.setName("validation");
 			attr.setValue("yes");
 			attr.setPerson(person);
-			person.getPersonAttributes()
-					.put("2", attr);
+			person.getPersonAttributes().put("2", attr);
 
 			attr = new PersonAttributeImpl();
 			attr.setId(3L);
 			attr.setName("presentation");
 			attr.setValue("false");
 			attr.setPerson(person);
-			person.getPersonAttributes()
-					.put("3", attr);
+			person.getPersonAttributes().put("3", attr);
 
 			address = new Address();
-			address.setAddressType(AddressType.REGISTRATION);
+			//address.setAddressType(AddressType.REGISTRATION);
 			address.setCountry("Polska");
 			address.setCity("Warszawa");
 			address.setStreet("Ceramiczna");
@@ -141,11 +137,10 @@ public class App {
 			address.setPostBox("POST1");
 			address.setProvince("Warszawski");
 			address.setCounty("Tarchomin");
-			person.getAddresses()
-					.add(address);
+			//person.getAddresses().add(address);
 
 			address = new Address();
-			address.setAddressType(AddressType.OTHER);
+			//address.setAddressType(AddressType.OTHER);
 			address.setCountry("Polska");
 			address.setCity("Warszawa");
 			address.setStreet("Ceramiczna");
@@ -157,8 +152,7 @@ public class App {
 			address.setPostBox("POST1");
 			address.setProvince("Warszawski");
 			address.setCounty("Praga");
-			person.getAddresses()
-					.add(address);
+			//person.getAddresses().add(address);
 
 			em.persist(person);
 
@@ -167,8 +161,7 @@ public class App {
 			person1.setName("Izabela");
 			person1.setMiddleName("Anna");
 			person1.setSureName("Radziszewska");
-			person1.setBirthDate(java.util.Date.from(Instant.now()
-					.plusMillis(((long) (100 * loopIdx)))));
+			person1.setBirthDate(java.util.Date.from(Instant.now().plusMillis(((long) (100 * loopIdx)))));
 			person1.setBirthTIme(java.util.Date.from(Instant.now()));
 			em.persist(person1);
 
@@ -177,8 +170,7 @@ public class App {
 			person2.setName("Aleksandra");
 			person2.setMiddleName("Helena");
 			person2.setSureName("Radziszewska");
-			person2.setBirthDate(java.util.Date.from(Instant.now()
-					.plusMillis(((long) (1002 * loopIdx)))));
+			person2.setBirthDate(java.util.Date.from(Instant.now().plusMillis(((long) (1002 * loopIdx)))));
 			person2.setBirthTIme(java.util.Date.from(Instant.now()));
 			em.persist(person2);
 
@@ -197,7 +189,7 @@ public class App {
 		taxOffice.setOfficeCode("0201");
 
 		Address taxAddress = new Address();
-		taxAddress.setAddressType(AddressType.ADMINISTRATIVE);
+		//taxAddress.setAddressType(AddressType.ADMINISTRATIVE);
 		taxAddress.setCountry("Polska");
 		taxAddress.setCity("Wrocław");
 		taxAddress.setStreet("Powstańców Sląskich");
@@ -205,8 +197,7 @@ public class App {
 		taxAddress.setFlatNumber("26");
 		taxAddress.setZipCode("53-333");
 		taxAddress.setProvince("dolnośląskie");
-		taxOffice.getAddresses()
-				.add(taxAddress);
+		//taxOffice.getAddresses().add(taxAddress);
 		em.persist(taxOffice);
 
 		taxOffice = new TaxOffice();
@@ -216,15 +207,14 @@ public class App {
 		taxOffice.setOfficeCode("0202");
 
 		taxAddress = new Address();
-		taxAddress.setAddressType(AddressType.ADMINISTRATIVE);
+		//taxAddress.setAddressType(AddressType.ADMINISTRATIVE);
 		taxAddress.setCountry("Polska");
 		taxAddress.setCity("Bolesławiec");
 		taxAddress.setStreet("Gamcarska");
 		taxAddress.setBuildNumber("10");
 		taxAddress.setZipCode("59-700");
 		taxAddress.setProvince("dolnośląskie");
-		taxOffice.getAddresses()
-				.add(taxAddress);
+		//taxOffice.getAddresses().add(taxAddress);
 		em.persist(taxOffice);
 
 		CalendarPrimaryKey key = new CalendarPrimaryKey();
@@ -232,12 +222,10 @@ public class App {
 		key.setMonthNumber(1);
 		key.setDayNumber(1);
 
-		final Calendar cal = new Calendar(
-			key);
+		final Calendar cal = new Calendar(key);
 		cal.setName("Kalendarz fiskalny");
 
-		CalendarDay calDay = new CalendarDay(
-			key);
+		CalendarDay calDay = new CalendarDay(key);
 		calDay.setDayName(DayOfWeek.FRIDAY);
 		calDay.setDayNumberInWeekend(122);
 		cal.setCalendarDay(calDay);
@@ -247,8 +235,7 @@ public class App {
 		key.setYearNumber(2018);
 		key.setMonthNumber(1);
 		key.setDayNumber(2);
-		calDay = new CalendarDay(
-			key);
+		calDay = new CalendarDay(key);
 		calDay.setDayName(DayOfWeek.THURSDAY);
 		calDay.setDayNumberInWeekend(12);
 		cal.setCalendarDay(calDay);
@@ -258,8 +245,7 @@ public class App {
 		key.setYearNumber(2018);
 		key.setMonthNumber(1);
 		key.setDayNumber(3);
-		calDay = new CalendarDay(
-			key);
+		calDay = new CalendarDay(key);
 		calDay.setDayName(DayOfWeek.SUNDAY);
 		calDay.setDayNumberInWeekend(44);
 		cal.setCalendarDay(calDay);
@@ -269,8 +255,7 @@ public class App {
 		key.setYearNumber(2018);
 		key.setMonthNumber(1);
 		key.setDayNumber(4);
-		calDay = new CalendarDay(
-			key);
+		calDay = new CalendarDay(key);
 		calDay.setDayName(DayOfWeek.MONDAY);
 		calDay.setDayNumberInWeekend(55);
 		cal.setCalendarDay(calDay);
@@ -280,8 +265,7 @@ public class App {
 		key.setYearNumber(2018);
 		key.setMonthNumber(1);
 		key.setDayNumber(5);
-		calDay = new CalendarDay(
-			key);
+		calDay = new CalendarDay(key);
 		calDay.setDayName(DayOfWeek.WEDNESDAY);
 		calDay.setDayNumberInWeekend(155);
 		cal.setCalendarDay(calDay);
@@ -309,9 +293,8 @@ public class App {
 
 		final CriteriaBuilder builder = em.getCriteriaBuilder();
 		final CriteriaQuery<String> query = builder.createQuery(String.class);
-		final Root<Customer> r = query.from(Customer.class);
-		query.select(r.get("firstName"))
-				.where(builder.equal(r.get("id"), 1L));
+		final Root<Customer1> r = query.from(Customer1.class);
+		query.select(r.get("firstName")).where(builder.equal(r.get("id"), 1L));
 
 		final TypedQuery<String> tq = em.createQuery(query);
 
@@ -320,25 +303,20 @@ public class App {
 		final CriteriaBuilder cb = em.getCriteriaBuilder();
 		final CriteriaQuery<Tuple> query1 = cb.createTupleQuery();
 		final Root<Person> hh = query1.from(Person.class);
-		query1.select(cb.tuple(hh.get("id")
-				.alias("id"),
+		query1.select(cb.tuple(hh.get("id").alias("id"),
 
-				hh.get("name")
-						.alias("name"),
+				hh.get("name").alias("name"),
 
-				hh.get("middleName")
-						.alias("middleName"),
+				hh.get("middleName").alias("middleName"),
 
-				hh.get("sureName")
-						.alias("sureName")))
+				hh.get("sureName").alias("sureName")))
 
 				.where(cb.equal(hh.get("name"), "Andrzej"));
 
 		final TypedQuery<Tuple> tq1 = em.createQuery(query1);
 
 		final String format = "[%d]:[%s]:[%s]:[%s]";
-		tq1.getResultList()
-				.forEach(t -> App.log.info(String.format(format, t.get(0), t.get(1), t.get(2), t.get(3))));
+		tq1.getResultList().forEach(t -> App.log.info(String.format(format, t.get(0), t.get(1), t.get(2), t.get(3))));
 
 		et = em.getTransaction();
 		et.begin();

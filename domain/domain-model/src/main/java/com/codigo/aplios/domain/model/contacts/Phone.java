@@ -17,7 +17,7 @@ import com.codigo.aplios.domain.model.common.EntityModel;
 @Entity
 @Table(name = "Phone")
 @Customizer(EntityColumnPositionCustomizer.class)
-public class Phone extends EntityModel {
+public class Phone extends EntityModel implements IPhone {
 
 	private static final long serialVersionUID = 6282306950384374334L;
 
@@ -46,61 +46,73 @@ public class Phone extends EntityModel {
 	@Column(name = "IsActive")
 	private boolean isActive;
 
+	@Override
 	public String getCountryCode() {
 
 		return this.countryCode;
 	}
 
+	@Override
 	public void setCountryCode(final String countryCode) {
 
 		this.countryCode = countryCode;
 	}
 
+	@Override
 	public String getPhoneNumber() {
 
 		return this.phoneNumber;
 	}
 
+	@Override
 	public void setPhoneNumber(final String phoneNumber) {
 
 		this.phoneNumber = phoneNumber;
 	}
 
+	@Override
 	public PhoneType getPhoneType() {
 
 		return this.phoneType;
 	}
 
+	@Override
 	public void setPhoneType(final PhoneType phoneType) {
 
 		this.phoneType = phoneType;
 	}
 
+	@Override
 	public String getExtension() {
 
 		return this.extension;
 	}
 
+	@Override
 	public void setExtension(final String extension) {
 
 		this.extension = extension;
 	}
 
+	@Override
 	public boolean isDefault() {
 
 		return this.isDefault;
 	}
 
+	@Override
 	public void setDefault(final boolean isDefault) {
 
 		this.isDefault = isDefault;
 	}
 
+	@Override
 	public boolean isActive() {
 
 		return this.isActive;
 	}
 
+	@Override
 	public void setActive(final boolean isActive) {
 
 		this.isActive = isActive;

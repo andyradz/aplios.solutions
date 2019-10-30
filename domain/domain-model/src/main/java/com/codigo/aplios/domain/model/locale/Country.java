@@ -14,7 +14,7 @@ import com.codigo.aplios.domain.model.catalog.ColumnPosition;
 // opisanie alternatywy do klonowania
 // https://stormit.pl/klonowanie/
 // http://www.rafaljankowski.pl/daj-sie-poznac/spring-security-podstawy/
-@Entity
+@Entity(name = "Country")
 @Table(name = "Country")
 // @EntityListeners(HistoryEventListener.class)
 public class Country extends Dictionary {
@@ -34,7 +34,7 @@ public class Country extends Dictionary {
 	private String threLetterIsoCode;
 
 	@ColumnPosition(position = 4)
-	@Column(name = "NumericIsoCode", unique = true, nullable = false, length = 3)
+	@Column(name = "NumericIsoCode", unique = true, nullable = true, length = 3)
 	private String numericIsoCode;
 
 	@ColumnPosition(position = 5)
@@ -59,13 +59,17 @@ public class Country extends Dictionary {
 	@Column(name = "Picture")
 	private byte[] picture;
 
+	// @Version
+	// public long version;
+
 	/*
 	 * @Valid
 	 *
-	 * @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, fetch =
-	 * FetchType.LAZY, mappedBy = "country")
+	 * @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+	 * CascadeType.REMOVE }, fetch = FetchType.LAZY, mappedBy = "country")
 	 *
-	 * @PrimaryKeyJoinColumn(name = "ID") private Set<StateProvince> stateProvinces = new HashSet<>();
+	 * @PrimaryKeyJoinColumn(name = "ID") private Set<StateProvince> stateProvinces
+	 * = new HashSet<>();
 	 */
 	// Przenieść do własciwości
 	// @Column(name = "MEMBEROFEU", nullable = true)

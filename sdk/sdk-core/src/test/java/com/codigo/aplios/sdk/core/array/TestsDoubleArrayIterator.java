@@ -1,12 +1,28 @@
 package com.codigo.aplios.sdk.core.array;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
 public class TestsDoubleArrayIterator {
 
-	final Double[] array = { 0.9, 99.2, 09.3, 232343.09, 2321.0, 1231.2, 12D, .09, 12D, .0923D, .3D, 4.5D };
+	private static Logger log = Logger.getLogger(TestsDoubleArrayIterator.class);
+
+	static final Double[] array = {
+			0.9,
+			99.2,
+			09.3,
+			232343.09,
+			2321.0,
+			1231.2,
+			12D,
+			.09,
+			12D,
+			.0923D,
+			.3D,
+			4.5D };
 
 	@Test
 	public void testShouldCount12_Of() {
@@ -14,8 +30,8 @@ public class TestsDoubleArrayIterator {
 		// ...Arrange
 		int itemsCount = 0;
 
-		final ArrayIterable<Double> iterator = ArrayIteratorFactory.of(this.array);
-		System.out.println(iterator);
+		final ArrayIterable<Double> iterator = ArrayIteratorFactory.of(array);
+		log.info(iterator);
 
 		// ...Act
 		while (iterator.hasNext()) {
@@ -24,8 +40,8 @@ public class TestsDoubleArrayIterator {
 		}
 
 		// ...Assert
-		MatcherAssert.assertThat(iterator.getCount(), CoreMatchers.is(itemsCount));
-		MatcherAssert.assertThat(this.array.length, CoreMatchers.is(itemsCount));
+		assertThat(iterator.getCount(), is(itemsCount));
+		assertThat(array.length, is(itemsCount));
 	}
 
 	@Test
@@ -34,8 +50,8 @@ public class TestsDoubleArrayIterator {
 		// ...Arrange
 		int itemsCount = 0;
 
-		final ArrayIterable<Double> iterator = ArrayIteratorFactory.ofRange(this.array, 0, 0);
-		System.out.println(iterator);
+		final ArrayIterable<Double> iterator = ArrayIteratorFactory.ofRange(array, 0, 0);
+		log.info(iterator);
 
 		// ...Act
 		while (iterator.hasNext()) {
@@ -44,8 +60,8 @@ public class TestsDoubleArrayIterator {
 		}
 
 		// ...Assert
-		MatcherAssert.assertThat(iterator.getCountFromRange(), CoreMatchers.is(itemsCount));
-		MatcherAssert.assertThat(1, CoreMatchers.is(itemsCount));
+		assertThat(iterator.getCountFromRange(), is(itemsCount));
+		assertThat(1, is(itemsCount));
 	}
 
 	@Test
@@ -54,8 +70,8 @@ public class TestsDoubleArrayIterator {
 		// ...Arrange
 		int itemsCount = 0;
 
-		final ArrayIterable<Double> iterator = ArrayIteratorFactory.ofRange(this.array, 11, 11);
-		System.out.println(iterator);
+		final ArrayIterable<Double> iterator = ArrayIteratorFactory.ofRange(array, 11, 11);
+		log.info(iterator);
 
 		// ...Act
 		while (iterator.hasNext()) {
@@ -64,8 +80,8 @@ public class TestsDoubleArrayIterator {
 		}
 
 		// ...Assert
-		MatcherAssert.assertThat(iterator.getCountFromRange(), CoreMatchers.is(itemsCount));
-		MatcherAssert.assertThat(1, CoreMatchers.is(itemsCount));
+		assertThat(iterator.getCountFromRange(), is(itemsCount));
+		assertThat(1, is(itemsCount));
 	}
 
 	@Test
@@ -74,8 +90,8 @@ public class TestsDoubleArrayIterator {
 		// ...Arrange
 		int itemsCount = 0;
 
-		final ArrayIterable<Double> iterator = ArrayIteratorFactory.ofRange(this.array, 1, 9);
-		System.out.println(iterator);
+		final ArrayIterable<Double> iterator = ArrayIteratorFactory.ofRange(array, 1, 9);
+		log.info(iterator);
 
 		// ...Act
 		while (iterator.hasNext()) {
@@ -84,8 +100,8 @@ public class TestsDoubleArrayIterator {
 		}
 
 		// ...Assert
-		MatcherAssert.assertThat(iterator.getCountFromRange(), CoreMatchers.is(itemsCount));
-		MatcherAssert.assertThat(9, CoreMatchers.is(itemsCount));
+		assertThat(iterator.getCountFromRange(), is(itemsCount));
+		assertThat(9, is(itemsCount));
 	}
 
 	@Test
@@ -94,8 +110,8 @@ public class TestsDoubleArrayIterator {
 		// ...Arrange
 		int itemsCount = 0;
 
-		final ArrayIterable<Double> iterator = ArrayIteratorFactory.ofCount(this.array, 1);
-		System.out.println(iterator);
+		final ArrayIterable<Double> iterator = ArrayIteratorFactory.ofCount(array, 1);
+		log.info(iterator);
 
 		// ...Act
 		while (iterator.hasNext()) {
@@ -104,8 +120,8 @@ public class TestsDoubleArrayIterator {
 		}
 
 		// ...Assert
-		MatcherAssert.assertThat(iterator.getCountFromRange(), CoreMatchers.is(itemsCount));
-		MatcherAssert.assertThat(1, CoreMatchers.is(itemsCount));
+		assertThat(iterator.getCountFromRange(), is(itemsCount));
+		assertThat(1, is(itemsCount));
 	}
 
 	@Test
@@ -114,8 +130,8 @@ public class TestsDoubleArrayIterator {
 		// ...Arrange
 		int itemsCount = 0;
 
-		final ArrayIterable<Double> iterator = ArrayIteratorFactory.ofFirst(this.array, 10);
-		System.out.println(iterator);
+		final ArrayIterable<Double> iterator = ArrayIteratorFactory.ofFirst(array, 10);
+		log.info(iterator);
 
 		// ...Act
 		while (iterator.hasNext()) {
@@ -124,8 +140,8 @@ public class TestsDoubleArrayIterator {
 		}
 
 		// ...Assert
-		MatcherAssert.assertThat(iterator.getCountFromRange(), CoreMatchers.is(itemsCount));
-		MatcherAssert.assertThat(1, CoreMatchers.is(itemsCount));
+		assertThat(iterator.getCountFromRange(), is(itemsCount));
+		assertThat(1, is(itemsCount));
 	}
 
 	@Test
@@ -134,8 +150,8 @@ public class TestsDoubleArrayIterator {
 		// ...Arrange
 		int itemsCount = 0;
 
-		final ArrayIterable<Double> iterator = ArrayIteratorFactory.ofLast(this.array, 5);
-		System.out.println(iterator);
+		final ArrayIterable<Double> iterator = ArrayIteratorFactory.ofLast(array, 5);
+		log.info(iterator);
 
 		// ...Act
 		while (iterator.hasNext()) {
@@ -144,7 +160,7 @@ public class TestsDoubleArrayIterator {
 		}
 
 		// ...Assert
-		MatcherAssert.assertThat(iterator.getCountFromRange(), CoreMatchers.is(itemsCount));
-		MatcherAssert.assertThat(6, CoreMatchers.is(itemsCount));
+		assertThat(iterator.getCountFromRange(), is(itemsCount));
+		assertThat(6, is(itemsCount));
 	}
 }

@@ -22,16 +22,7 @@ import javafx.stage.Stage;
 public class FilterGuiExample extends Application {
 
 	public enum ExampleType {
-		Option1,
-		Option2,
-		Option3,
-		Option4,
-		Option5,
-		Option6,
-		Option7,
-		Option8,
-		Option9,
-		Option10
+		Option1, Option2, Option3, Option4, Option5, Option6, Option7, Option8, Option9, Option10
 
 	};
 
@@ -46,6 +37,8 @@ public class FilterGuiExample extends Application {
 	private FilterableDateTableColumn<ExampleItem, Date> dateColumn;
 
 	private FilterableBooleanTableColumn<ExampleItem, Boolean> boolColumn;
+
+	private FilterableStringTableColumn<ExampleItem, String> nameColumn;
 
 	public static void main(final String[] args) {
 
@@ -104,32 +97,28 @@ public class FilterGuiExample extends Application {
 		this.boolColumn.setPrefWidth(70);
 		this.boolColumn.setCellValueFactory(new PropertyValueFactory("bool"));
 
-		this.filteredTable.getColumns()
-		    .setAll(this.idColumn, this.valColumn, this.typeColumn, this.dateColumn, this.boolColumn);
+		this.nameColumn = new FilterableStringTableColumn<>("Name");
+		this.nameColumn.setPrefWidth(120);
+		this.nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
+
+		this.filteredTable.getColumns().setAll(this.idColumn, this.valColumn, this.typeColumn, this.dateColumn,
+				this.boolColumn, this.nameColumn);
 
 		// Listen for changes to the table's filters
 		this.filteredTable.addEventHandler(ColumnFilterEvent.FILTER_CHANGED_EVENT,
-		        (final ColumnFilterEvent<?, ?, ?, ?> t) ->
-				{
+				(final ColumnFilterEvent<?, ?, ?, ?> t) -> {
 
-			        System.out.println("Filtered column count: "
-			                + FilterGuiExample.this.filteredTable.getFilteredColumns()
-			                    .size());
-			        System.out.println("Filtering changed on column: "
-			                + t.sourceColumn()
-			                    .getText());
-			        System.out.println("Current filters on column "
-			                + t.sourceColumn()
-			                    .getText()
-			                + " are:");
-			        final ObservableList<? extends IFilterOperator<?>> filters = t.sourceColumn()
-			            .getFilters();
-			        filters.forEach((filter) -> {
-				        System.out.println("  Type=" + filter.getType() + ", Value=" + filter.getValue());
-			        });
+					System.out.println("Filtered column count: "
+							+ FilterGuiExample.this.filteredTable.getFilteredColumns().size());
+					System.out.println("Filtering changed on column: " + t.sourceColumn().getText());
+					System.out.println("Current filters on column " + t.sourceColumn().getText() + " are:");
+					final ObservableList<? extends IFilterOperator<?>> filters = t.sourceColumn().getFilters();
+					filters.forEach((filter) -> {
+						System.out.println("  Type=" + filter.getType() + ", Value=" + filter.getValue());
+					});
 
-			        FilterGuiExample.this.applyFilters();
-		        });
+					FilterGuiExample.this.applyFilters();
+				});
 
 		final BorderPane pane = new BorderPane(this.filteredTable);
 		pane.setTop(new Label("Filtering only works on the ID column in this demo."));
@@ -146,9 +135,10 @@ public class FilterGuiExample extends Application {
 		this.filterTypeCol(newData);
 		this.filterDateCol(newData);
 		this.filterBoolCol(newData);
+		this.filterNameCol(newData);
+		
 		// Display the filtered results
-		this.filteredTable.getItems()
-		    .setAll(newData);
+		this.filteredTable.getItems().setAll(newData);
 	}
 
 	public void filterIdColumn(final ObservableList<ExampleItem> newData) {
@@ -161,31 +151,31 @@ public class FilterGuiExample extends Application {
 				if (null != filter.getType()) // Note: not all Type's are supported for each Operator.
 					// Look at the validTypes() method to see what types are available.
 					switch (filter.getType()) {
-						case EQUALS:
-							if (item.getId() != filter.getValue())
-								remove.add(item);
+					case EQUALS:
+						if (item.getId() != filter.getValue())
+							remove.add(item);
 						break;
-						case NOTEQUALS:
-							if (item.getId() == filter.getValue())
-								remove.add(item);
+					case NOTEQUALS:
+						if (item.getId() == filter.getValue())
+							remove.add(item);
 						break;
-						case GREATERTHAN:
-							if (item.getId() <= filter.getValue())
-								remove.add(item);
+					case GREATERTHAN:
+						if (item.getId() <= filter.getValue())
+							remove.add(item);
 						break;
-						case GREATERTHANEQUALS:
-							if (item.getId() < filter.getValue())
-								remove.add(item);
+					case GREATERTHANEQUALS:
+						if (item.getId() < filter.getValue())
+							remove.add(item);
 						break;
-						case LESSTHAN:
-							if (item.getId() >= filter.getValue())
-								remove.add(item);
+					case LESSTHAN:
+						if (item.getId() >= filter.getValue())
+							remove.add(item);
 						break;
-						case LESSTHANEQUALS:
-							if (item.getId() > filter.getValue())
-								remove.add(item);
+					case LESSTHANEQUALS:
+						if (item.getId() > filter.getValue())
+							remove.add(item);
 						break;
-						default:
+					default:
 						break;
 					}
 		});
@@ -203,34 +193,29 @@ public class FilterGuiExample extends Application {
 				if (null != filter.getType()) // Note: not all Type's are supported for each Operator.
 					// Look at the validTypes() method to see what types are available.
 					switch (filter.getType()) {
-						case EQUALS:
-							if (!(item.getVal()
-							    .equals(filter.getValue())))
-								remove.add(item);
+					case EQUALS:
+						if (!(item.getVal().equals(filter.getValue())))
+							remove.add(item);
 						break;
-						case NOTEQUALS:
-							if (item.getVal()
-							    .equals(filter.getValue()))
-								remove.add(item);
+					case NOTEQUALS:
+						if (item.getVal().equals(filter.getValue()))
+							remove.add(item);
 						break;
-						case CONTAINS:
-							if (!(item.getVal()
-							    .contains(filter.getValue())))
-								remove.add(item);
+					case CONTAINS:
+						if (!(item.getVal().contains(filter.getValue())))
+							remove.add(item);
 						break;
 
-						case STARTSWITH:
-							if (!(item.getVal()
-							    .startsWith(filter.getValue())))
-								remove.add(item);
+					case STARTSWITH:
+						if (!(item.getVal().startsWith(filter.getValue())))
+							remove.add(item);
 						break;
 
-						case ENDSWITH:
-							if (!(item.getVal()
-							    .endsWith(filter.getValue())))
-								remove.add(item);
+					case ENDSWITH:
+						if (!(item.getVal().endsWith(filter.getValue())))
+							remove.add(item);
 						break;
-						default:
+					default:
 						break;
 					}
 		});
@@ -252,36 +237,76 @@ public class FilterGuiExample extends Application {
 
 		// ... implement
 	}
+	
+	public void filterNameCol(final ObservableList<ExampleItem> newData) {
+
+		// Here's an example of how you could filter the ID column
+		final List<ExampleItem> remove = new ArrayList<>();
+		final ObservableList<StringOperator> filters = this.nameColumn.getFilters();
+		filters.forEach((filter) -> {
+			for (final ExampleItem item : newData)
+				if (null != filter.getType()) // Note: not all Type's are supported for each Operator.
+					// Look at the validTypes() method to see what types are available.
+					switch (filter.getType()) {
+					case EQUALS:
+						if (!(item.getVal().equals(filter.getValue())))
+							remove.add(item);
+						break;
+					case NOTEQUALS:
+						if (item.getVal().equals(filter.getValue()))
+							remove.add(item);
+						break;
+					case CONTAINS:
+						if (!(item.getVal().contains(filter.getValue())))
+							remove.add(item);
+						break;
+
+					case STARTSWITH:
+						if (!(item.getVal().startsWith(filter.getValue())))
+							remove.add(item);
+						break;
+
+					case ENDSWITH:
+						if (!(item.getVal().endsWith(filter.getValue())))
+							remove.add(item);
+						break;
+					default:
+						break;
+					}
+		});
+
+		newData.removeAll(remove);
+	}
 
 	@SuppressWarnings("deprecation")
 	public ObservableList<ExampleItem> createItems() {
 
 		// Create some dummy date to display
 		return FXCollections.observableArrayList(
-		        new ExampleItem(1, "Foo", ExampleType.Option1, new Date(113, 0, 20), true),
-		        new ExampleItem(2, "Bar", ExampleType.Option2, new Date(112, 3, 11), false),
-		        new ExampleItem(3, "Baz", ExampleType.Option3, new Date(113, 5, 29), false),
-		        new ExampleItem(4, "Lorem", ExampleType.Option2, new Date(111, 2, 1), true),
-		        new ExampleItem(5, "Ipsum", ExampleType.Option3, new Date(113, 1, 1), true),
-		        new ExampleItem(6, "Wookie", ExampleType.Option3, new Date(112, 11, 31), false),
-		        new ExampleItem(7, "Foo", ExampleType.Option1, new Date(113, 0, 20), true),
-		        new ExampleItem(8, "Bar", ExampleType.Option2, new Date(112, 3, 11), false),
-		        new ExampleItem(9, "Baz", ExampleType.Option3, new Date(113, 5, 29), false),
-		        new ExampleItem(10, "Lorem", ExampleType.Option2, new Date(111, 2, 1), true),
-		        new ExampleItem(11, "Ipsum", ExampleType.Option3, new Date(113, 1, 1), true),
-		        new ExampleItem(12, "Wookie", ExampleType.Option3, new Date(112, 11, 31), false),
-		        new ExampleItem(13, "Foo", ExampleType.Option1, new Date(113, 0, 20), true),
-		        new ExampleItem(14, "Bar", ExampleType.Option2, new Date(112, 3, 11), false),
-		        new ExampleItem(15, "Baz", ExampleType.Option3, new Date(113, 5, 29), false),
-		        new ExampleItem(16, "Lorem", ExampleType.Option2, new Date(111, 2, 1), true),
-		        new ExampleItem(17, "Ipsum", ExampleType.Option3, new Date(113, 1, 1), true),
-		        new ExampleItem(18, "Wookie", ExampleType.Option3, new Date(112, 11, 31), false),
-		        new ExampleItem(19, "Foo", ExampleType.Option1, new Date(113, 0, 20), true),
-		        new ExampleItem(20, "Bar", ExampleType.Option2, new Date(112, 3, 11), false),
-		        new ExampleItem(21, "Baz", ExampleType.Option3, new Date(113, 5, 29), false),
-		        new ExampleItem(22, "Lorem", ExampleType.Option2, new Date(111, 2, 1), true),
-		        new ExampleItem(23, "Ipsum", ExampleType.Option3, new Date(113, 1, 1), true),
-		        new ExampleItem(24, "Wookie", ExampleType.Option3, new Date(112, 11, 31), false));
+				new ExampleItem(1, "Foo", ExampleType.Option1, new Date(113, 0, 20), true, "KOlarz"),
+				new ExampleItem(2, "Bar", ExampleType.Option2, new Date(112, 3, 11), false, "KOlarz"),
+				new ExampleItem(3, "Baz", ExampleType.Option3, new Date(113, 5, 29), false, "KOlarz"),
+				new ExampleItem(4, "Lorem", ExampleType.Option2, new Date(111, 2, 1), true, "KOlarz"),
+				new ExampleItem(5, "Ipsum", ExampleType.Option3, new Date(113, 1, 1), true, "KOlarz"),
+				new ExampleItem(6, "Wookie", ExampleType.Option3, new Date(112, 11, 31), false, "KOlarz"),
+				new ExampleItem(7, "Foo", ExampleType.Option1, new Date(113, 0, 20), true, "KOlarz"),
+				new ExampleItem(8, "Bar", ExampleType.Option2, new Date(112, 3, 11), false, "KOlarz"),
+				new ExampleItem(9, "Baz", ExampleType.Option3, new Date(113, 5, 29), false, "KOlarz"),
+				new ExampleItem(10, "Lorem", ExampleType.Option2, new Date(111, 2, 1), true, "KOlarz"),
+				new ExampleItem(11, "Ipsum", ExampleType.Option3, new Date(113, 1, 1), true, "KOlarz"),
+				new ExampleItem(12, "Wookie", ExampleType.Option3, new Date(112, 11, 31), false, "KOlarz"),
+				new ExampleItem(13, "Foo", ExampleType.Option1, new Date(113, 0, 20), true, "KOlarz"),
+				new ExampleItem(14, "Bar", ExampleType.Option2, new Date(112, 3, 11), false, "KOlarz"),
+				new ExampleItem(15, "Baz", ExampleType.Option3, new Date(113, 5, 29), false, "KOlarz"),
+				new ExampleItem(16, "Lorem", ExampleType.Option2, new Date(111, 2, 1), true, "KOlarz"),
+				new ExampleItem(17, "Ipsum", ExampleType.Option3, new Date(113, 1, 1), true, "KOlarz"),
+				new ExampleItem(18, "Wookie", ExampleType.Option3, new Date(112, 11, 31), false, "KOlarz"),
+				new ExampleItem(19, "Foo", ExampleType.Option1, new Date(113, 0, 20), true, "KOlarz"),
+				new ExampleItem(20, "Bar", ExampleType.Option2, new Date(112, 3, 11), false, "KOlarz"),
+				new ExampleItem(21, "Baz", ExampleType.Option3, new Date(113, 5, 29), false, "KOlarz"),
+				new ExampleItem(22, "Lorem", ExampleType.Option2, new Date(111, 2, 1), true, "KOlarz"),
+				new ExampleItem(23, "Ipsum", ExampleType.Option3, new Date(113, 1, 1), true, "KOlarz"),
+				new ExampleItem(24, "Wookie", ExampleType.Option3, new Date(112, 11, 31), false, "KOlarz1"));
 	}
 
 	static public class ExampleItem {
@@ -295,15 +320,18 @@ public class FilterGuiExample extends Application {
 		private final SimpleObjectProperty<Date> date;
 
 		private final SimpleBooleanProperty bool;
+		
+		private final SimpleStringProperty name;
 
 		public ExampleItem(final int id, final String val, final ExampleType type, final Date date,
-		        final boolean bool) {
+				final boolean bool, String name) {
 
 			this.id = new SimpleIntegerProperty(id);
 			this.val = new SimpleStringProperty(val);
 			this.type = new SimpleObjectProperty<>(type);
 			this.date = new SimpleObjectProperty<>(date);
 			this.bool = new SimpleBooleanProperty(bool);
+			this.name = new SimpleStringProperty(name);
 		}
 
 		public int getId() {
@@ -379,6 +407,16 @@ public class FilterGuiExample extends Application {
 		public SimpleBooleanProperty boolProperty() {
 
 			return this.bool;
+		}
+		
+		public String getName() {
+
+			return this.name.get();
+		}
+
+		public void setName(final String name) {
+
+			this.name.set(name);
 		}
 
 	}

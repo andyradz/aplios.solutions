@@ -1,8 +1,9 @@
 package com.codigo.aplios.sdk.core.compare;
 
 /**
- * Typ wyliczeniowy reprezentuje wynik operacji porówania wyrażony w postaci znaczników.
- * Poszczególne znacczniki reprezentują możliwe wyniki operacji porównania.
+ * Typ wyliczeniowy reprezentuje wynik operacji porówania wyrażony w postaci
+ * znaczników. Poszczególne znacczniki reprezentują możliwe wyniki operacji
+ * porównania.
  *
  * @author andrzej.radziszewski
  * @category enumeration
@@ -11,22 +12,26 @@ package com.codigo.aplios.sdk.core.compare;
 public enum CompareResult {
 
 	/**
-	 * Znacznik reprezentuje wynik wyrażenia mniejszy niż wyrażony jako <code>x < y</code> Porównanie
-	 * wzgledem lewego operanda.
+	 * Znacznik reprezentuje wynik wyrażenia mniejszy niż wyrażony jako
+	 * <code>x < y</code> Porównanie wzgledem lewego operanda.
 	 */
 	LESSER((byte) -1),
 
 	/**
-	 * Znacznik reprezentuje wynik wyrażenia równości wyrażony jako <code>x == y</code> Porownanie
-	 * wzgledem lewego operanda.
+	 * Znacznik reprezentuje wynik wyrażenia równości wyrażony jako
+	 * <code>x == y</code> Porownanie wzgledem lewego operanda.
 	 */
 	EQUALS((byte) 0),
 
 	/**
-	 * Znacznik reprezentuje wynik wyrażenia większy niż wyrażony jako <code>x > y</code> Porownanie
-	 * wzgledem lewego operanda.
+	 * Znacznik reprezentuje wynik wyrażenia większy niż wyrażony jako
+	 * <code>x > y</code> Porownanie wzgledem lewego operanda.
 	 */
 	GREATER((byte) 1);
+
+	public static final int ZERO = 0;
+	public static final int ONE_PLUS = 1;
+	public static final int ONE_MINUS = -1;
 
 	/**
 	 * Atrybut określa kod wyniku operacji porówania
@@ -36,8 +41,7 @@ public enum CompareResult {
 	/**
 	 * Podstawowy kontruktor obiektu klasy <code>CompareResult</code>
 	 *
-	 * @param compareCode
-	 *        Kod wyniku porównania
+	 * @param compareCode Kod wyniku porównania
 	 */
 	private CompareResult(final byte compareCode) {
 
@@ -50,6 +54,17 @@ public enum CompareResult {
 	 * @return Wartość numeryczna może zwracać wartości (-1, 0, 1)
 	 */
 	public byte result() {
+
+		return this.compareCode;
+	}
+	
+
+	/**
+	 * Właściwość wskazuje wartość wyniku operacji porównania
+	 *
+	 * @return Wartość numeryczna może zwracać wartości (-1, 0, 1)
+	 */
+	public int get() {
 
 		return this.compareCode;
 	}

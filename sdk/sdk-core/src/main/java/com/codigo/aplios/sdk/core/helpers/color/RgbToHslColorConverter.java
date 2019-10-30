@@ -2,16 +2,16 @@ package com.codigo.aplios.sdk.core.helpers.color;
 
 public final class RgbToHslColorConverter {
 
-	private static final int	RGB_MASK_VALUE	= 0xFF;
-	private static final int	SHIFT_BY_2BYTES	= 16;
-	private static final int	SHIFT_BY_1BYTES	= 8;
+	private static final int RGB_MASK_VALUE = 0xFF;
+	private static final int SHIFT_BY_2BYTES = 16;
+	private static final int SHIFT_BY_1BYTES = 8;
 
-	private int				rgbColorValue;
-	private final double	minOfRgbValue;
-	private final double	maxOfRgbValue;
-	private double			hue;
-	private double			saturation;
-	private final double	lightness;
+	private int rgbColorValue;
+	private final double minOfRgbValue;
+	private final double maxOfRgbValue;
+	private double hue;
+	private double saturation;
+	private final double lightness;
 
 	/**
 	 * Podstawowy konstruktor obiektu klasy<code>RgbToCmykColorConverter</code>
@@ -28,12 +28,10 @@ public final class RgbToHslColorConverter {
 	/**
 	 * Podstawowy konstruktor obiektu klasy <code>RgbToHexColorConverter</code>
 	 *
-	 * @param redValue
-	 *        Parametr określa wartość składowej barwy RED w notacji RGB
-	 * @param greenValue
-	 *        Parametr określa wartość składowej barwy GREEN w notacji RGB
-	 * @param blueValue
-	 *        Parametr określa wartość składowej barwy BLUE w notacji RGB
+	 * @param redValue   Parametr określa wartość składowej barwy RED w notacji RGB
+	 * @param greenValue Parametr określa wartość składowej barwy GREEN w notacji
+	 *                   RGB
+	 * @param blueValue  Parametr określa wartość składowej barwy BLUE w notacji RGB
 	 */
 	RgbToHslColorConverter(final int redValue, final int greenValue, final int blueValue) {
 

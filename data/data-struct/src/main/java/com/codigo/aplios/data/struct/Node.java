@@ -4,7 +4,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Node<T> implements INode<T> {
+public class Node<T>
+		implements INode<T> {
 
 	private T data; // dane
 
@@ -13,7 +14,9 @@ public class Node<T> implements INode<T> {
 	private LinkedList<Node<T>> children; // lista dzieci
 
 	/**
-	 * Domyślny konstruktor obiekty klasy klasy <code>Node</code>
+	 * Podstawowy konstruktor obiektu klasy <code>Node</code>
+	 *
+	 * @category constructor
 	 */
 	public Node() {
 
@@ -22,22 +25,27 @@ public class Node<T> implements INode<T> {
 	}
 
 	/**
+	 * Podstawowy konstruktor obiektu klasy <code>Node</code>
+	 *
 	 * @param parent
+	 * @category constructor
 	 */
-	public Node(final Node<T> parent) { // konstruktor jednoparametrowy
+	public Node(final Node<T> parent) {
 
 		this();
 		this.parent = parent;
 	}
 
 	/**
+	 * Podstawowy konstruktor obiektu klasy <code>Node</code>
+	 *
 	 * @param parent
 	 * @param data
+	 * @category constructor
 	 */
-	public Node(final Node<T> parent, final T data) { // konstruktor dwuparametrowy
+	public Node(final Node<T> parent, final T data) {
 
-		this(
-				parent);
+		this(parent);
 		this.data = data;
 	}
 

@@ -176,6 +176,5 @@ public class CalendarDay implements Serializable {
 	public void setLastDayInMonth(final Boolean lastDayInMonth) {
 
 		this.lastDayInMonth = lastDayInMonth;
-	}
-
+	}	
 }

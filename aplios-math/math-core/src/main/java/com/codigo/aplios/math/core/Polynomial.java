@@ -6,70 +6,62 @@ import java.util.HashSet;
 // https://edux.pjwstk.edu.pl/mat/224/lec/main17.html
 public class Polynomial {
 
-	public static void main(final String[] args) {
+    public static void main(final String[] args) {
 
-		// Wielomian w1 = new Wielomian(new double[] { 3, -4, 5, 0, 2 });
-		// Wielomian w2 = new Wielomian(new double[] { 2, 3, -7, 4 });
-		//
-		// Wielomian w3 = new Wielomian(new double[] { 0, 1, 2, 23, 23 });
+        // Wielomian w1 = new Wielomian(new double[] { 3, -4, 5, 0, 2 });
+        // Wielomian w2 = new Wielomian(new double[] { 2, 3, -7, 4 });
+        //
+        // Wielomian w3 = new Wielomian(new double[] { 0, 1, 2, 23, 23 });
+        // System.out.println(w1.wartosc(44));
+        // System.out.println(w1);
+        // System.out.println("+");
+        // System.out.println(w2);
+        // System.out.println("=");
+        // System.out.println(w1.suma(w2));
+        //
+        // System.out.println(w3);
+    }
 
-		// System.out.println(w1.wartosc(44));
-		// System.out.println(w1);
-		// System.out.println("+");
-		// System.out.println(w2);
-		// System.out.println("=");
-		// System.out.println(w1.suma(w2));
-		//
-		// System.out.println(w3);
-	}
+    private final HashSet<Long> factors;
 
-	private final HashSet<Long> factors;
+    // TODO: współczynniki woelomiany zdefiniować jako osobne obiekty, które będą przrchowywały wartość
+    // -----------------------------------------------------------------------------------------------------------------
+    public Polynomial() {
 
-	// TODO: współczynniki woelomiany zdefiniować jako osobne obiekty, które będą przrchowywały wartość
+        this.factors = new HashSet<>();
+    }
 
-	// -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+    public Polynomial add(final Polynomial pol1, final Polynomial pol2) {
 
-	public Polynomial() {
+        return null;
+    }
 
-		this.factors = new HashSet<>();
-	}
+    // -----------------------------------------------------------------------------------------------------------------
+    public Polynomial diff(final Polynomial pol1, final Polynomial pol2) {
 
-	// -----------------------------------------------------------------------------------------------------------------
+        return null;
+    }
 
-	public Polynomial add(final Polynomial pol1, final Polynomial pol2) {
+    // -----------------------------------------------------------------------------------------------------------------
+    public Polynomial mul(final Polynomial pol1, final Polynomial pol2) {
 
-		return null;
-	}
+        return null;
+    }
 
-	// -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
+    public Polynomial div(final Polynomial pol1, final Polynomial pol2) {
 
-	public Polynomial diff(final Polynomial pol1, final Polynomial pol2) {
+        return null;
+    }
 
-		return null;
-	}
+    // -----------------------------------------------------------------------------------------------------------------
+    public Polynomial assembly(final Polynomial pol1, final Polynomial pol2) {
 
-	// -----------------------------------------------------------------------------------------------------------------
+        return null;
+    }
 
-	public Polynomial mul(final Polynomial pol1, final Polynomial pol2) {
-
-		return null;
-	}
-
-	// -----------------------------------------------------------------------------------------------------------------
-
-	public Polynomial div(final Polynomial pol1, final Polynomial pol2) {
-
-		return null;
-	}
-
-	// -----------------------------------------------------------------------------------------------------------------
-
-	public Polynomial assembly(final Polynomial pol1, final Polynomial pol2) {
-
-		return null;
-	}
-
-	// -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
 }
 
 /// * Wielomian.java */

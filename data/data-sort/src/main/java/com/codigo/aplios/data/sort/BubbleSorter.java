@@ -55,9 +55,9 @@ public final class BubbleSorter<T>
      *
      * @see com.codigo.aplios.explorer.data.sorting.ISortable#sort(java.util.List)
      */
-    @Override
+    @Override     
     public void sort(final List<T> data) {
-
+        
         boolean swapped = false;
 
         for (int idx = 0; idx < data.size() - AbstractSorter.ONE && swapped; idx++)

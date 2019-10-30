@@ -27,23 +27,23 @@ public class Dictionary extends EntityModel {
 	private static final long serialVersionUID = -1118611759382185681L;
 
 	@Column(name = "DisplayOrder")
-	@ColumnPosition(position = 87)
+	@ColumnPosition(position = -1)
 	private long displayOrder;
 
 	@Column(name = "Published")
-	@ColumnPosition(position = 88)
+	@ColumnPosition(position = -2)
 	private boolean isPublished;
 
-	@ColumnPosition(position = 86)
+	@ColumnPosition(position = -3)
 	@Column(name = "Description", length = 255, nullable = true)
 	private String description;
 
 	@Embedded
-	@ColumnPosition(position = 90)
+	@ColumnPosition(position = -4)
 	private EntityDateTime entityDateTime;
 
 	@Embedded
-	@ColumnPosition(position = 89)
+	@ColumnPosition(position = -5)
 	private EntityLifeState entityLifeState;
 
 	public long getDisplayOrder() {

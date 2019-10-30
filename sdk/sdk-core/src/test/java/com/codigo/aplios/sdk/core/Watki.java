@@ -25,11 +25,12 @@ class Bufor {
 
     public synchronized int get() {
 
-        while (!this.available)
+        while (!this.available) {
             try {
                 wait();
             } catch (final InterruptedException e) {
             }
+        }
         this.available = false;
         notifyAll();
         return this.contents;
@@ -37,11 +38,12 @@ class Bufor {
 
     public synchronized void put(final int value) {
 
-        while (this.available)
+        while (this.available) {
             try {
                 wait();
             } catch (final InterruptedException e) {
             }
+        }
         this.contents = value;
         this.available = true;
         notifyAll();
@@ -68,7 +70,7 @@ class Producent
             this.buf.put(i);
             System.out.println(LocalTime.now() + "::" + getId() + "-> Producent #" + this.number + " put: " + i);
             try {
-                Thread.sleep((int)(Math.random() * 3000));
+                Thread.sleep((int) (Math.random() * 3000));
             } catch (final InterruptedException e) {
             }
         }

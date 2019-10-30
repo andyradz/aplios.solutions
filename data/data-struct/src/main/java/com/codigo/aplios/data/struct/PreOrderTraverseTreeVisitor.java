@@ -7,7 +7,7 @@ public final class PreOrderTraverseTreeVisitor<T> implements INodeVisitable<T> {
 
 		Node<T> temp = tree.getLeftMostChild();
 		while (temp != null) {
-			visit(temp);
+			this.visit(temp);
 			temp = temp.getRightSibling();
 		}
 	}

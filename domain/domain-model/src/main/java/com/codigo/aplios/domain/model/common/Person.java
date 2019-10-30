@@ -23,7 +23,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.codigo.aplios.domain.model.contacts.Address;
+import com.codigo.aplios.domain.model.locale.Address;
 
 @Entity
 @Table(name = "Person")
@@ -134,26 +134,22 @@ public class Person implements Serializable {
 		if (this.id == null) {
 			if (other.id != null)
 				return false;
-		}
-		else if (!this.id.equals(other.id))
+		} else if (!this.id.equals(other.id))
 			return false;
 		if (this.middleName == null) {
 			if (other.middleName != null)
 				return false;
-		}
-		else if (!this.middleName.equals(other.middleName))
+		} else if (!this.middleName.equals(other.middleName))
 			return false;
 		if (this.name == null) {
 			if (other.name != null)
 				return false;
-		}
-		else if (!this.name.equals(other.name))
+		} else if (!this.name.equals(other.name))
 			return false;
 		if (this.sureName == null) {
 			if (other.sureName != null)
 				return false;
-		}
-		else if (!this.sureName.equals(other.sureName))
+		} else if (!this.sureName.equals(other.sureName))
 			return false;
 		return true;
 	}
@@ -219,7 +215,6 @@ public class Person implements Serializable {
 
 		final LocalDate date = LocalDate.ofInstant(this.birthDate.toInstant(), ZoneId.systemDefault());
 
-		return Period.between(date, LocalDate.now())
-				.getYears();
+		return Period.between(date, LocalDate.now()).getYears();
 	}
 }

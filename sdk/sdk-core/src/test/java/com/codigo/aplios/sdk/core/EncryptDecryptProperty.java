@@ -2,7 +2,6 @@ package com.codigo.aplios.sdk.core;
 
 import java.nio.file.Path;
 import java.util.Properties;
-import javax.naming.ConfigurationException;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
 public class EncryptDecryptProperty {

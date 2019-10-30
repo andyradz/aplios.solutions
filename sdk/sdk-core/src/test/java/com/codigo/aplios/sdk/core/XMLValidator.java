@@ -12,121 +12,109 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.TreeMap;
 import java.util.Vector;
-import javax.xml.XMLConstants;
+
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
+
 import org.xml.sax.SAXException;
 
 public class XMLValidator {
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public static final String XML_FILE = "customer.xml";
+	// -----------------------------------------------------------------------------------------------------------------
+	public static final String XML_FILE = "customer.xml";
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public static final String SCHEMA_FILE = "customer.xsd";
+	// -----------------------------------------------------------------------------------------------------------------
+	public static final String SCHEMA_FILE = "customer.xsd";
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public static void main(final String[] args) throws IOException {
+	// -----------------------------------------------------------------------------------------------------------------
+	public static void main(final String[] args) throws IOException {
 
-        final MyProperties props = new MyProperties();
-        try (InputStream stream =
-                XMLValidator.class.getClassLoader().
-                        getResourceAsStream("serpconfig.properties")) {
-            props.load(stream);
+		final MyProperties props = new MyProperties();
+		try (InputStream stream = XMLValidator.class.getClassLoader().getResourceAsStream("serpconfig.properties")) {
+			props.load(stream);
 
-            final Map<String, String> sortedMap = new TreeMap(
-                    props);
+			final Map<String, String> sortedMap = new TreeMap(props);
 
-            // output sorted properties (key=value)
-            //1. czytamy z danej sekcji ściezke noda
-            //2  czytamy następnie długość wartości noda
-            //3 czytamy następnie atrybuty noda danego
-            String lastGroup = "";
-            for (final String key : sortedMap.keySet()) {
-                final int index = key.indexOf(".");
+			// output sorted properties (key=value)
+			// 1. czytamy z danej sekcji ściezke noda
+			// 2 czytamy następnie długość wartości noda
+			// 3 czytamy następnie atrybuty noda danego
+			String lastGroup = "";
+			for (final String key : sortedMap.keySet()) {
+				final int index = key.indexOf(".");
 
-                if (-1 != index) {
-                    final String group = key.substring(0, index);
+				if (-1 != index) {
+					final String group = key.substring(0, index);
 
-                    if (!group.equals(lastGroup)) {
-                        lastGroup = group;
-                        final String value = sortedMap.get(group + ".path");
-                        System.out.println(group + "::" + value);
+					if (!group.equals(lastGroup)) {
+						lastGroup = group;
+						final String value = sortedMap.get(group + ".path");
+						System.out.println(group + "::" + value);
 
-                        sortedMap.keySet().
-                                stream().
-                                filter((item) -> (item.startsWith(group))).
-                                forEachOrdered((item) -> {
-                                    System.out.println(group + item.substring(index));
-                                });
-                    }
-                }
-            }
-        }
+						sortedMap.keySet().stream().filter((item) -> (item.startsWith(group)))
+								.forEachOrdered((item) -> {
+									System.out.println(group + item.substring(index));
+								});
+					}
+				}
+			}
+		}
 
-        final XMLValidator XMLValidator = new XMLValidator();
-        XMLValidator.validate(com.codigo.aplios.sdk.core.XMLValidator.XML_FILE,
-                com.codigo.aplios.sdk.core.XMLValidator.SCHEMA_FILE);
+		final XMLValidator XMLValidator = new XMLValidator();
+		XMLValidator.validate(com.codigo.aplios.sdk.core.XMLValidator.XML_FILE,
+				com.codigo.aplios.sdk.core.XMLValidator.SCHEMA_FILE);
 
-        // System.out.printf("%s validation = %b.", com.codigo.aplios.sdk.core.XMLValidator.XML_FILE,
-        // valid);
-    }
+		// System.out.printf("%s validation = %b.",
+		// com.codigo.aplios.sdk.core.XMLValidator.XML_FILE,
+		// valid);
+	}
 
-    // -----------------------------------------------------------------------------------------------------------------
-    private boolean validate(final String xmlFile, final String schemaFile) {
+	// -----------------------------------------------------------------------------------------------------------------
+	private boolean validate(final String xmlFile, final String schemaFile) {
 
-        final SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        try {
-            final Schema schema = schemaFactory.newSchema(new File(
-                    getResource(schemaFile)));
+		final SchemaFactory schemaFactory = null;//;SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		try {
+			final Schema schema = schemaFactory.newSchema(new File(getResource(schemaFile)));
 
-            final Validator validator = schema.newValidator();
-            validator.validate(new StreamSource(
-                    new File(
-                            getResource(xmlFile))));
-            return true;
-        } catch (SAXException | IOException e) {
-            return false;
-        }
-    }
+			final Validator validator = schema.newValidator();
+			validator.validate(new StreamSource(new File(getResource(xmlFile))));
+			return true;
+		} catch (SAXException | IOException e) {
+			return false;
+		}
+	}
 
-    // -----------------------------------------------------------------------------------------------------------------
-    private String getResource(final String filename) throws FileNotFoundException {
+	// -----------------------------------------------------------------------------------------------------------------
+	private String getResource(final String filename) throws FileNotFoundException {
 
-        URL resource = this.getClass().
-                getClassLoader().
-                getResource("");
-        resource = this.getClass().
-                getClassLoader().
-                getResource(filename);
-        Objects.requireNonNull(resource);
+		URL resource = this.getClass().getClassLoader().getResource("");
+		resource = this.getClass().getClassLoader().getResource(filename);
+		Objects.requireNonNull(resource);
 
-        return resource.getFile();
-    }
+		return resource.getFile();
+	}
 
-    // -----------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
 }
 
-class MyProperties
-        extends Properties {
+class MyProperties extends Properties {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Override
-    public Enumeration<Object> keys() {
+	@Override
+	public Enumeration<Object> keys() {
 
-        final Enumeration<Object> keysEnum = super.keys();
-        final Vector<Object> keyList = new Vector<>();
+		final Enumeration<Object> keysEnum = super.keys();
+		final Vector<Object> keyList = new Vector<>();
 
-        while (keysEnum.hasMoreElements())
-            keyList.add(keysEnum.nextElement());
+		while (keysEnum.hasMoreElements())
+			keyList.add(keysEnum.nextElement());
 
-        Collections.sort(keyList, (o1, o2) -> o1.toString().
-                compareTo(o2.toString()));
+		Collections.sort(keyList, (o1, o2) -> o1.toString().compareTo(o2.toString()));
 
-        return keyList.elements();
-    }
+		return keyList.elements();
+	}
 
 }

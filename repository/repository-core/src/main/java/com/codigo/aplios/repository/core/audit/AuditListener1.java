@@ -29,8 +29,7 @@ public class AuditListener1 extends DescriptorEventAdapter implements SessionCus
 	@Override
 	public void customize(final ClassDescriptor descriptor) {
 
-		descriptor.getEventManager()
-				.addListener(this);
+		descriptor.getEventManager().addListener(this);
 	}
 
 	/**
@@ -39,8 +38,7 @@ public class AuditListener1 extends DescriptorEventAdapter implements SessionCus
 	@Override
 	public void customize(final Session session) {
 
-		for (final ClassDescriptor descriptor : session.getDescriptors()
-				.values())
+		for (final ClassDescriptor descriptor : session.getDescriptors().values())
 			this.customize(descriptor);
 	}
 
@@ -84,15 +82,11 @@ public class AuditListener1 extends DescriptorEventAdapter implements SessionCus
 		// boolean hasChanges = changes.hasChanges();
 		// }
 		Calendar calendar = Calendar.getInstance();
-		for (final String table : (List<String>) event.getDescriptor()
-				.getTableNames()) {
-			// event.getRecord().put(table + "." + "CREATED_BY", AuditListener1.currentUser.get());
-			event.getRecord()
-					.put(table + "." + "AUDIT_USER", event.getSession()
-							.getDatasourceLogin()
-							.getUserName());
-			event.getRecord()
-					.put(table + "." + "CREATED_DATE", calendar);
+		for (final String table : (List<String>) event.getDescriptor().getTableNames()) {
+			// event.getRecord().put(table + "." + "CREATED_BY",
+			// AuditListener1.currentUser.get());
+			event.getRecord().put(table + "." + "AUDIT_USER", event.getSession().getDatasourceLogin().getUserName());
+			event.getRecord().put(table + "." + "CREATED_DATE", calendar);
 			if (operation == AuditOperation.UPDATE_OPERATION)
 				processWriteEvent(event, operation, calendar, table);
 			else
@@ -105,10 +99,8 @@ public class AuditListener1 extends DescriptorEventAdapter implements SessionCus
 			final Calendar calendar, final String tableName) {
 
 		final AuditEntry entry = createAuditEntry(event, operation, calendar, tableName);
-		final InsertObjectQuery insertQuery = new InsertObjectQuery(
-			entry);
-		event.getSession()
-				.executeQuery(insertQuery);
+		final InsertObjectQuery insertQuery = new InsertObjectQuery(entry);
+		event.getSession().executeQuery(insertQuery);
 	}
 
 	protected void processWriteEvent(final DescriptorEvent event, final AuditOperation operation,
@@ -118,8 +110,7 @@ public class AuditListener1 extends DescriptorEventAdapter implements SessionCus
 
 		final Collection<AuditField> fields = new LinkedList<>();
 		final WriteObjectQuery query = (WriteObjectQuery) event.getQuery();
-		final List<ChangeRecord> changes = query.getObjectChangeSet()
-				.getChanges();
+		final List<ChangeRecord> changes = query.getObjectChangeSet().getChanges();
 
 		for (final ChangeRecord change : changes)
 			if (change instanceof DirectToFieldChangeRecord) {
@@ -127,23 +118,18 @@ public class AuditListener1 extends DescriptorEventAdapter implements SessionCus
 				final AuditField field = new AuditField();
 				field.setAuditEntry(entry);
 				field.setFieldName(fieldChange.getAttribute());
-				field.setFieldValue(fieldChange.getNewValue()
-						.toString());
+				field.setFieldValue(fieldChange.getNewValue().toString());
 				fields.add(field);
 			}
 
 		entry.setFields(fields);
 
-		InsertObjectQuery insertQuery = new InsertObjectQuery(
-			entry);
-		event.getSession()
-				.executeQuery(insertQuery);
+		InsertObjectQuery insertQuery = new InsertObjectQuery(entry);
+		event.getSession().executeQuery(insertQuery);
 
 		for (final AuditField field : fields) {
-			insertQuery = new InsertObjectQuery(
-				field);
-			event.getSession()
-					.executeQuery(insertQuery);
+			insertQuery = new InsertObjectQuery(field);
+			event.getSession().executeQuery(insertQuery);
 		}
 	}
 
@@ -152,22 +138,21 @@ public class AuditListener1 extends DescriptorEventAdapter implements SessionCus
 
 		final AuditEntry entry = new AuditEntry();
 		// entry.setAuditUser((String) AuditListener1.currentUser.get());
-		entry.setAuditUser(event.getRecord()
-				.get("AUDIT_USER")
-				.toString());
+		entry.setAuditUser(event.getRecord().get("AUDIT_USER").toString());
 		// entry.setOperation(operation);
 		entry.setOperationTime(calendar);
-		entry.setEventId(Long.valueOf(event.getSource()
-				.hashCode()));
+		entry.setEventId(Long.valueOf(event.getSource().hashCode()));
 		entry.setTableName(tableName);
 		return entry;
 	}
 
 	// private void test() {
-	// final JpaEntityManager jpaEntityManager = (JpaEntityManager) entityManager.getDelegate();
+	// final JpaEntityManager jpaEntityManager = (JpaEntityManager)
+	// entityManager.getDelegate();
 	// final UnitOfWorkChangeSet changeSet = jpaEntityManager.getUnitOfWork()
 	// .getCurrentChanges();
-	// final ObjectChangeSet objectChangeSet = changeSet.getObjectChangeSetForClone(bean);
+	// final ObjectChangeSet objectChangeSet =
+	// changeSet.getObjectChangeSetForClone(bean);
 	//
 	// // Get a list of changed propertys and do something with that.
 	// final List<String> changedProperties = objectChangeSet.getChanges();

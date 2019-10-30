@@ -1,11 +1,9 @@
 package com.codigo.aplios.sdk.core.helpers.color;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import com.codigo.aplios.sdk.core.helpers.color.ColorConverter;
 
 @DisplayName("Testy konwersji wartości barwy zapisanej w RGB na HSL")
 public class TestRgbToHslColor {
@@ -20,9 +18,9 @@ public class TestRgbToHslColor {
 
 		final var converter = ColorConverter.ofRgbToHsl(red, green, blue);
 
-		MatcherAssert.assertThat(converter.getHue(), CoreMatchers.is(.0));
-		MatcherAssert.assertThat(converter.getSaturation(), CoreMatchers.is(.0));
-		MatcherAssert.assertThat(converter.getLightness(), CoreMatchers.is(100.0));
+		assertThat(converter.getHue(), is(.0));
+		assertThat(converter.getSaturation(), is(.0));
+		assertThat(converter.getLightness(), is(100.0));
 	}
 
 	@Test
@@ -35,9 +33,9 @@ public class TestRgbToHslColor {
 
 		final var converter = ColorConverter.ofRgbToHsl(red, green, blue);
 
-		MatcherAssert.assertThat(converter.getHue(), CoreMatchers.is(.0));
-		MatcherAssert.assertThat(converter.getSaturation(), CoreMatchers.is(.0));
-		MatcherAssert.assertThat(converter.getLightness(), CoreMatchers.is(.0));
+		assertThat(converter.getHue(), is(.0));
+		assertThat(converter.getSaturation(), is(.0));
+		assertThat(converter.getLightness(), is(.0));
 	}
 
 	@Test
@@ -50,9 +48,9 @@ public class TestRgbToHslColor {
 
 		final var converter = ColorConverter.ofRgbToHsl(red, green, blue);
 
-		MatcherAssert.assertThat(converter.getHue(), CoreMatchers.is(120.0));
-		MatcherAssert.assertThat(converter.getSaturation(), CoreMatchers.is(100.0));
-		MatcherAssert.assertThat(converter.getLightness(), CoreMatchers.is(50.0));
+		assertThat(converter.getHue(), is(120.0));
+		assertThat(converter.getSaturation(), is(100.0));
+		assertThat(converter.getLightness(), is(50.0));
 	}
 
 	@Test
@@ -65,9 +63,9 @@ public class TestRgbToHslColor {
 
 		final var converter = ColorConverter.ofRgbToHsl(red, green, blue);
 
-		MatcherAssert.assertThat(converter.getHue(), CoreMatchers.is(240.0));
-		MatcherAssert.assertThat(converter.getSaturation(), CoreMatchers.is(100.0));
-		MatcherAssert.assertThat(converter.getLightness(), CoreMatchers.is(50.0));
+		assertThat(converter.getHue(), is(240.0));
+		assertThat(converter.getSaturation(), is(100.0));
+		assertThat(converter.getLightness(), is(50.0));
 
 	}
 
@@ -81,9 +79,9 @@ public class TestRgbToHslColor {
 
 		final var converter = ColorConverter.ofRgbToHsl(red, green, blue);
 
-		MatcherAssert.assertThat(converter.getHue(), CoreMatchers.is(.0));
-		MatcherAssert.assertThat(converter.getSaturation(), CoreMatchers.is(100.0));
-		MatcherAssert.assertThat(converter.getLightness(), CoreMatchers.is(50.0));
+		assertThat(converter.getHue(), is(.0));
+		assertThat(converter.getSaturation(), is(100.0));
+		assertThat(converter.getLightness(), is(50.0));
 	}
 
 }

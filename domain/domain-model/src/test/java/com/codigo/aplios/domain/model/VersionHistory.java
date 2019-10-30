@@ -8,24 +8,25 @@ import java.util.List;
 import java.util.Map;
 
 public class VersionHistory implements Serializable {
-	/**
-	 *
-	 */
-	private static final long				serialVersionUID	= -4707219892858868420L;
-	private final Map<Date, OrderVersion>	orderVersions		= new HashMap<>();
-	private final List<OrderVersion>		orderHourMilestones	= new ArrayList<>();
 
-	public OrderVersion findVersion(final Date date) {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4707219892858868420L;
+    private final Map<Date, OrderVersion> orderVersions = new HashMap<>();
+    private final List<OrderVersion> orderHourMilestones = new ArrayList<>();
 
-		return this.orderVersions.get(date);
-	}
+    public OrderVersion findVersion(final Date date) {
 
-	public void addOrderVersion(final Date date, final OrderVersion version) {
+        return this.orderVersions.get(date);
+    }
 
-		this.orderVersions.put(date, version);
-	}
+    public void addOrderVersion(final Date date, final OrderVersion version) {
 
-	public void createHourMilestone() {
+        this.orderVersions.put(date, version);
+    }
 
-	}
+    public void createHourMilestone() {
+
+    }
 }

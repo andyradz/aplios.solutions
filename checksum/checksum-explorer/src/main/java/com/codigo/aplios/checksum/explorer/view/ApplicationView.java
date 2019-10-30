@@ -10,39 +10,38 @@ import javax.swing.border.EmptyBorder;
 
 public class ApplicationView extends JFrame {
 
-	private static final long	serialVersionUID	= -8763109303537864322L;
-	private final JPanel		contentPane;
+    private static final long serialVersionUID = -8763109303537864322L;
+    private final JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(final String[] args) {
+    /**
+     * Launch the application.
+     */
+    public static void main(final String[] args) {
 
-		EventQueue.invokeLater(() -> {
+        EventQueue.invokeLater(() -> {
 
-			try {
-				final ApplicationView frame = new ApplicationView();
-				frame.setVisible(true);
-			}
-			catch (final Exception e) {
-				e.printStackTrace();
-			}
-		});
-	}
+            try {
+                final ApplicationView frame = new ApplicationView();
+                frame.setVisible(true);
+            } catch (final Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-	/**
-	 * Create the frame.
-	 */
-	public ApplicationView() {
+    /**
+     * Create the frame.
+     */
+    public ApplicationView() {
 
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		this.contentPane = new JPanel();
-		this.contentPane.setBorder(new EmptyBorder(
-			5, 5, 5, 5));
-		this.contentPane.setLayout(new BorderLayout(
-			0, 0));
-		setContentPane(this.contentPane);
-	}
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setBounds(100, 100, 450, 300);
+        this.contentPane = new JPanel();
+        this.contentPane.setBorder(new EmptyBorder(
+                5, 5, 5, 5));
+        this.contentPane.setLayout(new BorderLayout(
+                0, 0));
+        setContentPane(this.contentPane);
+    }
 
 }

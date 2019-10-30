@@ -5,8 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.scene.control.TableColumn;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Note: we hijack the ContextMenu to display the filter selection dialog. Do
@@ -17,7 +15,8 @@ import org.slf4j.LoggerFactory;
 public class AbstractFilterableTableColumn<S, T, R extends IFilterOperator<?>, M extends IFilterEditor<R>>
 		extends TableColumn<S, T> implements IFilterableTableColumn<R, M> {
 
-	private static final Logger logger = LoggerFactory.getLogger(AbstractFilterableTableColumn.class);
+	// private static final Logger logger =
+	// Logger.getLogger(AbstractFilterableTableColumn.class);
 
 	private final M filterEditor;
 
@@ -61,8 +60,9 @@ public class AbstractFilterableTableColumn<S, T, R extends IFilterOperator<?>, M
 				}
 				filterEditor.getFilterMenu().hide();
 			} catch (final Exception ex) {
-				AbstractFilterableTableColumn.logger.error(String.format("Error clearing filter on column: %s",
-						AbstractFilterableTableColumn.this.getText()), ex);
+				// AbstractFilterableTableColumn.logger.error(String.format("Error clearing
+				// filter on column: %s",
+				// AbstractFilterableTableColumn.this.getText()), ex);
 			}
 		});
 
@@ -80,8 +80,9 @@ public class AbstractFilterableTableColumn<S, T, R extends IFilterOperator<?>, M
 				}
 				filterEditor.getFilterMenu().hide();
 			} catch (final Exception ex) {
-				AbstractFilterableTableColumn.logger.error(String.format("Error saving filter on column: %s",
-						AbstractFilterableTableColumn.this.getText()), ex);
+				// AbstractFilterableTableColumn.logger.error(String.format("Error saving filter
+				// on column: %s",
+				// AbstractFilterableTableColumn.this.getText()), ex);
 			}
 		});
 	}
