@@ -1,12 +1,9 @@
 package com.codigo.aplios.domain.model.catalog;
 
 import java.lang.reflect.Field;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.swing.RowFilter.ComparisonType;
 
 import org.eclipse.persistence.config.DescriptorCustomizer;
 import org.eclipse.persistence.descriptors.ClassDescriptor;

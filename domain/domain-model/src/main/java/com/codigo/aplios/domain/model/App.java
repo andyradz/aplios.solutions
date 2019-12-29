@@ -54,7 +54,7 @@ public class App {
 
 	public static void main(@Nullable final String[] args) throws JAXBException {
 
-		App.testValue(args);
+		//App.testValue(args);
 
 		final Map<String, Object> properties = Maps.mutable.empty();
 

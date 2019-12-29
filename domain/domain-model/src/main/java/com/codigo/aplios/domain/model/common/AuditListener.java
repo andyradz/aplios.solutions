@@ -1,23 +1,23 @@
 package com.codigo.aplios.domain.model.common;
 
-import com.codigo.aplios.domain.model.catalog.EntityDateTime;
-import com.codigo.aplios.domain.model.locale.Dictionary;
 import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.TimeZone;
+
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+
+import com.codigo.aplios.domain.model.catalog.EntityDateTime;
+import com.codigo.aplios.domain.model.locale.Dictionary;
 
 public class AuditListener {
 
 	@PrePersist
 	public void onEntitySave(Object o) {
 
-		if (o instanceof Dictionary) {
+		if ((o instanceof Dictionary) || (o instanceof ManagedEntityModel)) {
 			Dictionary audit = (Dictionary) o;
 
 			LocalDate localDate = LocalDate.now(TimeZone.getTimeZone("UTC").toZoneId());
@@ -36,7 +36,7 @@ public class AuditListener {
 	@PreUpdate	
 	public void onEntityUpdate(Object o) {
 
-		if (o instanceof Dictionary) {
+		if ((o instanceof Dictionary)  || (o instanceof ManagedEntityModel)) {
 			Dictionary audit = (Dictionary) o;
 
 			LocalDate localNow = LocalDate.now(TimeZone.getTimeZone("UTC").toZoneId());

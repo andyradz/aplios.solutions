@@ -23,7 +23,9 @@
 		value="PerformanceProfiler"/> </properties> </persistence-unit> -->
 	<persistence-unit name="shopdb"
 		transaction-type="RESOURCE_LOCAL">
+		
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		
 		<class>com.codigo.aplios.repository.core.AuditSection</class>
 		<class>com.codigo.aplios.repository.core.audit.AuditSection1</class>
 		<class>com.codigo.aplios.repository.core.audit.AuditableEntity</class>

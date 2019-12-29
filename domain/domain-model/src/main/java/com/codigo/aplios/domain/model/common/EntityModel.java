@@ -3,6 +3,7 @@ package com.codigo.aplios.domain.model.common;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ import org.eclipse.persistence.annotations.Customizer;
 import com.codigo.aplios.domain.model.catalog.ColumnPosition;
 import com.codigo.aplios.domain.model.catalog.EntityColumnPositionCustomizer;
 
+//@Entity
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 @Customizer(EntityColumnPositionCustomizer.class)

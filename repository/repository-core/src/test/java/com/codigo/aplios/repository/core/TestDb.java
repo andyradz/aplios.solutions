@@ -14,8 +14,6 @@ import com.codigo.aplios.domain.model.Parameter;
 import com.codigo.aplios.domain.model.calendar.Calendar;
 import com.codigo.aplios.domain.model.calendar.CalendarDay;
 import com.codigo.aplios.domain.model.calendar.CalendarPrimaryKey;
-import com.codigo.aplios.domain.model.catalog.EntityDateTime;
-import com.codigo.aplios.domain.model.catalog.EntityLifeState;
 import com.codigo.aplios.domain.model.locale.Country;
 
 /*import com.codigo.aplios.domain.model.catalog.EntityLifeState;
@@ -38,44 +36,45 @@ public class TestDb {
 		em.getTransaction().begin();
 		
 		Parameter paramManager = new Parameter();
-		paramManager.setParameterKey("CORP");
-		paramManager.setSubtypeKey("ISO");
-		paramManager.setEntityLifeState(new EntityLifeState());
-		paramManager.setEntityDateTime(new EntityDateTime());
-		//em.persist(paramManager);
+		paramManager.setParameterKey("PCAL");
+		paramManager.setSubtypeKey("01");
+		
+		Parameter paramManager1 = new Parameter();
+		paramManager1.setParameterKey("PCAL");
+		paramManager1.setSubtypeKey("10");
 		
 		Parameter param1 = new Parameter();
 		param1.setParameterKey("INTR");
 		param1.setSubtypeKey("01");
-		param1.setEntityLifeState(new EntityLifeState());
-		param1.setEntityDateTime(new EntityDateTime());
 		param1.setSubtype(paramManager);
 		
 		Parameter param2 = new Parameter();
 		param2.setParameterKey("INTR");
 		param2.setSubtypeKey("02");
-		param2.setEntityLifeState(new EntityLifeState());
-		param2.setEntityDateTime(new EntityDateTime());
 		param2.setSubtype(paramManager);
 		
 		Parameter param3 = new Parameter();
 		param3.setParameterKey("DVCA");
 		param3.setSubtypeKey("01");
-		param3.setEntityLifeState(new EntityLifeState());
-		param3.setEntityDateTime(new EntityDateTime());
 		param3.setSubtype(paramManager);
 		
 		Parameter param4 = new Parameter();
 		param4.setParameterKey("DVCA");
 		param4.setSubtypeKey("02");
-		param4.setEntityLifeState(new EntityLifeState());
-		param4.setEntityDateTime(new EntityDateTime());
 		param4.setSubtype(paramManager);
+		
+		Parameter param5 = new Parameter();
+		param5.setParameterKey("REDM");
+		param5.setSubtypeKey("02");
+		param5.setSubtype(paramManager);
 		
 		em.persist(param1);
 		em.persist(param2);
 		em.persist(param3);
 		em.persist(param4);
+		em.persist(param5);
+		em.persist(paramManager);
+		em.persist(paramManager1);
 		
 		em.getTransaction().commit();		
 		em.close();

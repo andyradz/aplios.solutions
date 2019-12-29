@@ -333,7 +333,7 @@ public class App1 {
         cnc.setEntityLifeState(new EntityLifeState());
         em.persist(cnc);
 
-        et.commit();
+        //et.commit();
         em.close();
         emf.close();
         App1.log.debug("zipShortcut");
