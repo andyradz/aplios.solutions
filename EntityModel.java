@@ -1,49 +1,35 @@
 package com.codigo.aplios.group.database.models.location;
 
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.Date;
+import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.TableGenerator;
 
+/**
+ * Model bazowy encji bazy danych Wszystkie nowe encje powinny dziedziczy z tego
+ * modelu
+ *
+ * @author   andrzej.radziszewski
+ * @version  1.0.0.0
+ * @since    2019
+ * @category Entity
+ */
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class EntityModel {
+public abstract class EntityModel implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", updatable = false, nullable = false)
+	private static final long serialVersionUID = -6333759041613153418L;
+
+	@Column(name = "Id")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "entity_generator")
+	@TableGenerator(name = "entity_generator", allocationSize = 50, initialValue = 0)
 	protected Long id;
-
-	@Column(name = "CreatedDate")
-	@Temporal(TemporalType.DATE)
-	private Date createdDate;
-
-	@Column(name = "CreatedTimestamp")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createdTimestamp;
-
-	@PrePersist
-	private void onPersist() {
-
-		// final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-//		final Validator validator = factory.getValidator();
-//
-//		final Set<ConstraintViolation<BaseEntity>> constraintViolations =
-//				validator.validate(this);
-
-		this.createdDate = Date.from(Instant.now());
-		this.createdTimestamp = Timestamp.from(Instant.now());
-	}
 
 	public Long getId() {
 
@@ -51,12 +37,29 @@ public abstract class EntityModel {
 	}
 
 	@Override
+	public int hashCode() {
+
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+
+		if (this == obj)
+			return true;
+
+		if (!(obj instanceof EntityModel))
+			return false;
+
+		final EntityModel other = (EntityModel) obj;
+		return Objects.equals(id, other.id);
+	}
+
+	@Override
 	public String toString() {
 
-		return "BaseEntity [id="
+		return "EntityModel [id="
 				+ id
-				+ ", createdDate="
-				+ createdDate
 				+ "]";
 	}
 }
