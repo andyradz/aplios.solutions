@@ -2,12 +2,29 @@ package com.codigo.aplios.group.database;
 
 import java.text.SimpleDateFormat;
 
+//https://stackoverflow.com/questions/45344057/how-to-resolve-the-make-field-an-instance-variable-issue
 public class DateTimeFormats {
 
-	public static final SimpleDateFormat ISO_DATE = new SimpleDateFormat("yyyy-MM-dd");
-	public static final SimpleDateFormat ISO_TIME = new SimpleDateFormat("HH:mm:ss");
-	public static final SimpleDateFormat ISO_TIMESTAMP = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-	public static final SimpleDateFormat ISO_DATETIME = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	public static final SimpleDateFormat ISO_DATE;
+	public static final SimpleDateFormat ISO_TIME;
+	public static final SimpleDateFormat ISO_TIMESTAMP;
+	public static final SimpleDateFormat ISO_DATETIME;
+
+	static {
+		ISO_DATE = new SimpleDateFormat("yyyy-MM-dd");
+		ISO_TIME = new SimpleDateFormat("HH:mm:ss");
+		ISO_TIMESTAMP = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+		ISO_DATETIME = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	}
+
+	/**
+	 * Prywatny domyślny konstruktor obiektu klasy <code>DateTimeFormats</code>
+	 * Definicja blokuje możliwość tworzenia instancji klasy
+	 * <code>DateTimeFormats</code>
+	 */
+	private DateTimeFormats() {
+
+	}
 }
 
 /**

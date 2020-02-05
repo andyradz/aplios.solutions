@@ -188,7 +188,7 @@ public interface IRepository<T extends EntityModel> {
 
 	/**
 	 * Metoda usuwa encje rekordów tabeli bazy danych.
-	 * 
+	 *
 	 * @param entities Kolekcja encji do usnięcia
 	 */
 	default void delete(final Iterable<T> entities) {
@@ -258,6 +258,16 @@ public interface IRepository<T extends EntityModel> {
 	}
 
 	boolean isAutoCommit();
+
+	/**
+	 * @return
+	 */
+	boolean persist();
+
+	/**
+	 * @return
+	 */
+	boolean cancel();
 
 	Query getQuery(String sqlCommand);
 }

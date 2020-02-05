@@ -109,6 +109,7 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
+
 	@Override
 	public boolean insert(final T entity) {
 
@@ -231,8 +232,7 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 		});
 	}
 
-	// -----------------------------------------------------------------------------------------------------------------
-	private <R> R runInTransaction(final Function<EntityManager, R> operator) {
+	private <R> R runInTransaction(final Function<EntityManager, R> sqlCommand) {
 
 		final EntityManager entityManager = this.getEntityManager();
 		final EntityTransaction tran = entityManager.getTransaction();
@@ -243,17 +243,26 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 			tran.begin();
 
 		try {
-			result = operator.apply(entityManager);
 
-//				if (this.isAutoCommit())
-//					entityManager.flush();
+			result = sqlCommand.apply(entityManager);
 
-			tran.commit();
+			if (this.isAutoCommit()) {
+				entityManager.flush();
+				tran.commit();
+			}
 
 			return result;
 
+		} catch (final javax.persistence.RollbackException ex1) {
+			if ((tran.isActive()))
+				tran.rollback();
+			log.error("Wystąpił problem podczas wyfocania transakcji");
+			log.error(ex1.getMessage());
+
 		} catch (final Exception ex) {
-			tran.rollback();
+
+			if ((tran.isActive()))
+				tran.rollback();
 			log.error(ex);
 		}
 
@@ -266,18 +275,22 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 		final Function<EntityManager, Boolean> sqlTransaction = entityManager -> {
 
 			final EntityTransaction tran = entityManager.getTransaction();
-			tran.begin();
+
+			if (!tran.isActive())
+				tran.begin();
 
 			try {
 				sqlCommand.accept(entityManager);
 
-//				if (this.isAutoCommit())
-//					entityManager.flush();
-
-				tran.commit();
+				if (this.isAutoCommit()) {
+					entityManager.flush();
+					tran.commit();
+				}
 
 			} catch (final Exception ex) {
-				tran.rollback();
+
+				if ((tran.isActive()))
+					tran.rollback();
 				log.error(ex);
 				return false;
 			}
@@ -302,15 +315,6 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 			log.error(ex);
 			return (R) Function.identity();
 		}
-	}
-
-	// -----------------------------------------------------------------------------------------------------------------
-	private void run(final Consumer<EntityManager> operator) {
-
-		this.run(entityManager -> {
-			operator.accept(entityManager);
-			return Function.identity();
-		});
 	}
 
 	private TypedQuery<T> createTypedQuery(final IQueryable<T> queryBuilder) {
@@ -356,7 +360,7 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 		});
 	}
 
-	private EntityManager getEntityManager() {
+	protected EntityManager getEntityManager() {
 
 		if (Objects.isNull(this.enityManager))
 			return this.entityManagerFactory.createEntityManager();
@@ -369,6 +373,23 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 //				: FlushModeType.COMMIT);
 
 		return this.enityManager;
+	}
+
+	protected EntityManager getNewEntityManager() throws Exception {
+
+		final var entityManager = this.entityManagerFactory.createEntityManager();
+
+		if (Objects.isNull(entityManager))
+			throw new NullPointerException("EntityManager instance has not been created!");
+
+		if (!entityManager.isOpen())
+			throw new IllegalStateException("EntityManager instance has not been opened!");
+
+		entityManager.setFlushMode(this.isAutoCommit
+				? FlushModeType.AUTO
+				: FlushModeType.COMMIT);
+
+		return entityManager;
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
@@ -481,15 +502,15 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 	}
 
 	@Override
-	public boolean equals(final Object obj) {
+	public boolean equals(final Object repository) {
 
-		if (this == obj)
+		if (this == repository)
 			return true;
 
-		if (!(obj instanceof GenericRepository))
+		if (!(repository instanceof GenericRepository))
 			return false;
 
-		final GenericRepository<T> other = GenericRepository.class.cast(obj);
+		final GenericRepository<?> other = GenericRepository.class.cast(repository);
 
 		return Objects.equals(enityManager, other.enityManager)
 				&& Objects.equals(entityManagerFactory, other.entityManagerFactory)
@@ -509,5 +530,56 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 				+ ", isAutoCommit="
 				+ isAutoCommit
 				+ "]";
+	}
+
+	@Override
+	public boolean persist() {
+
+		final var entityTransaction = this.getEntityManager().getTransaction();
+
+		if (!entityTransaction.isActive())
+			return false;
+
+		try {
+			entityTransaction.commit();
+
+		} catch (final Exception ex) {
+			if (entityTransaction.isActive())
+				entityTransaction.rollback();
+			log.error(ex);
+		}
+		return true;
+	}
+
+	@Override
+	public boolean cancel() {
+
+		final var entityTransaction = this.getEntityManager().getTransaction();
+
+		if (!entityTransaction.isActive())
+			return false;
+
+		try {
+
+			if (entityTransaction.isActive()) {
+				entityTransaction.rollback();
+				return true;
+			}
+
+		} catch (final Exception ex) {
+			log.error(ex);
+			return false;
+		}
+		return false;
+	}
+
+	public long counting() {// to już dedykowana specjalistyczna funkcja
+
+		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
+		final CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
+		final Root<T> employee = query.from(this.entityType);
+		query.select(criteriaBuilder.countDistinct(employee));
+		final TypedQuery<Long> typedQuery = this.getEntityManager().createQuery(query);
+		return typedQuery.getSingleResult();
 	}
 }
