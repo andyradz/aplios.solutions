@@ -1,10 +1,9 @@
 package com.codigo.aplios.sdk.core.metric;
 
 import java.util.Objects;
-import javax.enterprise.inject.spi.*;
-import javax.enterprise.inject.se.*;
-import javax.enterprise.event.*;
-import javax.inject.Inject;
+
+import javax.enterprise.inject.se.SeContainer;
+import javax.enterprise.inject.se.SeContainerInitializer;
 
 //TODO Procent z liczby
 //TODO Liczba z procentu

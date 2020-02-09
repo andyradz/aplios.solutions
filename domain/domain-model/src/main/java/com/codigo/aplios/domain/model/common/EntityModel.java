@@ -3,7 +3,6 @@ package com.codigo.aplios.domain.model.common;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +15,6 @@ import org.eclipse.persistence.annotations.Customizer;
 import com.codigo.aplios.domain.model.catalog.ColumnPosition;
 import com.codigo.aplios.domain.model.catalog.EntityColumnPositionCustomizer;
 
-//@Entity
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 @Customizer(EntityColumnPositionCustomizer.class)
@@ -33,16 +31,16 @@ public abstract class EntityModel implements Serializable {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id", nullable = false, updatable = false)
+	@Column(name = "Id")
 	@ColumnPosition(position = 0)
-	protected Integer id;
+	private Long id;
 
 	/**
 	 * Właściwość pobiera identyfikator encji w zbiorze danych
 	 *
 	 * @return Wartość numeryczna, identyfikator encji
 	 */
-	public Integer getId() {
+	public Long getId() {
 
 		return this.id;
 	}

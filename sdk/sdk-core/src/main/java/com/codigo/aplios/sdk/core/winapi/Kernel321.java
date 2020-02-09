@@ -12,11 +12,12 @@ import com.sun.jna.win32.StdCallLibrary;
 
 public interface Kernel321 extends StdCallLibrary {
 
-	public static void main(final String[] args) {
+	static void main(final String[] args) {
 
 	}
 	//
-	// final static Map<String, Object> WIN32API_OPTIONS = new HashMap<String, Object>() {
+	// final static Map<String, Object> WIN32API_OPTIONS = new HashMap<String,
+	// Object>() {
 	//
 	// private static final long serialVersionUID = 1L;
 	//
@@ -27,15 +28,18 @@ public interface Kernel321 extends StdCallLibrary {
 	//
 	// };
 	//
-	// public Kernel32 INSTANCE = (Kernel32) Native.loadLibrary("Kernel32", Kernel32.class,
+	// public Kernel32 INSTANCE = (Kernel32) Native.loadLibrary("Kernel32",
+	// Kernel32.class,
 	// WIN32API_OPTIONS);
 	//
 	// /*
-	// * BOOL WINAPI GetVolumeInformation( __in_opt LPCTSTR lpRootPathName, __out LPTSTR
+	// * BOOL WINAPI GetVolumeInformation( __in_opt LPCTSTR lpRootPathName, __out
+	// LPTSTR
 	// lpVolumeNameBuffer, __in DWORD
 	// * nVolumeNameSize, __out_opt LPDWORD lpVolumeSerialNumber, __out_opt LPDWORD
 	// lpMaximumComponentLength, __out_opt
-	// * LPDWORD lpFileSystemFlags, __out LPTSTR lpFileSystemNameBuffer, __in DWORD nFileSystemNameSize
+	// * LPDWORD lpFileSystemFlags, __out LPTSTR lpFileSystemNameBuffer, __in DWORD
+	// nFileSystemNameSize
 	// );
 	// */
 	// public boolean GetVolumeInformation(
@@ -52,6 +56,6 @@ public interface Kernel321 extends StdCallLibrary {
 	// public DWORD GetFileSize(HANDLE hFile, LPDWORD lpFileSizeHigh);
 	//
 	// public boolean GetFileSizeEx(HANDLE hFile, PLARGE_INTEGER lpFileSize);
-	public int GetLastError();
+	int GetLastError();
 
 }

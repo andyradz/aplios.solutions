@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
-  <runtime name="jdk-12"/>
-  <installed facet="java" version="12"/>
+  <runtime name="jdk-13.0.2"/>
 </faceted-project>

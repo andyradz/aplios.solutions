@@ -2,22 +2,15 @@ package com.codigo.aplios.domain.model.locale;
 
 import java.io.Serializable;
 
-import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import com.codigo.aplios.domain.model.catalog.ColumnPosition;
-import com.codigo.aplios.domain.model.common.EntityModel;
 
 @Entity
 @Table(name = "ZipCodeShortcut")

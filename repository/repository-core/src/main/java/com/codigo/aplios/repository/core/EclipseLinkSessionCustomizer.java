@@ -1,9 +1,7 @@
 package com.codigo.aplios.repository.core;
 
 import org.eclipse.persistence.config.SessionCustomizer;
-import org.eclipse.persistence.descriptors.ClassDescriptor;
 import org.eclipse.persistence.sessions.Session;
-import org.eclipse.persistence.tools.schemaframework.IndexDefinition;
 
 public class EclipseLinkSessionCustomizer implements SessionCustomizer {
 

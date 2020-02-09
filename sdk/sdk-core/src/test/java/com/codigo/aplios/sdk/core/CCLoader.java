@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 
+import com.ea.async.Async;
+
+import static com.ea.async.Async.await;
+
 /**
  * Our Custom Class Loader to load the classes. Any class in the com.journaldev package will be
  * loaded using this ClassLoader. For other classes, it will delegate the request to its Parent
@@ -17,6 +21,7 @@ public class CCLoader extends ClassLoader {
 	public static void main(final String[] args) throws ClassNotFoundException, NoSuchMethodException,
 			SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
+		Async.init();
 		// final String progClass = "12";
 		// final String progArgs[] = new String[args.length - 1];
 		// System.arraycopy(args, 1, progArgs, 0, progArgs.length);

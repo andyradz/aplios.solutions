@@ -13,18 +13,20 @@ import java.util.WeakHashMap;
 // http://www.informit.com/articles/article.aspx?p=1187967&seqNum=3
 
 /**
- * This class establishes a security manager that confines the permissions for code executed through
- * specific classes, which may be specified by class, class name and/or class loader.
+ * This class establishes a security manager that confines the permissions for
+ * code executed through specific classes, which may be specified by class,
+ * class name and/or class loader.
  * <p>
- * To 'execute through a class' means that the execution stack includes the class. E.g., if a method
- * of class {@code A} invokes a method of class {@code B}, which then invokes a method of class
- * {@code C}, and all three classes were previously {@link #confine(Class, Permissions) confined},
- * then for all actions that are executed by class {@code C} the <i>intersection</i> of the three
- * {@link Permissions} apply.
+ * To 'execute through a class' means that the execution stack includes the
+ * class. E.g., if a method of class {@code A} invokes a method of class
+ * {@code B}, which then invokes a method of class {@code C}, and all three
+ * classes were previously {@link #confine(Class, Permissions) confined}, then
+ * for all actions that are executed by class {@code C} the <i>intersection</i>
+ * of the three {@link Permissions} apply.
  * <p>
- * Once the permissions for a class, class name or class loader are confined, they cannot be
- * changed; this prevents any attempts (e.g. of the confined class itself) to release the
- * confinement.
+ * Once the permissions for a class, class name or class loader are confined,
+ * they cannot be changed; this prevents any attempts (e.g. of the confined
+ * class itself) to release the confinement.
  * <p>
  * Code example:
  *
@@ -68,8 +70,7 @@ public final class Sandbox {
 		// Attempt to change the permissions.
 		{
 			final Permissions permissions = new Permissions();
-			permissions.add(new Permission(
-				"") {
+			permissions.add(new Permission("") {
 
 				@Override
 				public boolean implies(final Permission permission) {
@@ -126,8 +127,7 @@ public final class Sandbox {
 
 		// Install our custom security manager.
 		if (System.getSecurityManager() != null)
-			throw new ExceptionInInitializerError(
-				"There's already a security manager set");
+			throw new ExceptionInInitializerError("There's already a security manager set");
 		System.setSecurityManager(new SecurityManager() {
 
 			@Override
@@ -135,7 +135,7 @@ public final class Sandbox {
 
 				assert perm != null;
 
-				for (final Class<?> clasS : getClassContext()) {
+				for (final Class<?> clasS : this.getClassContext()) {
 
 					// Check if an ACC was set for the class.
 					{
@@ -163,49 +163,46 @@ public final class Sandbox {
 	}
 
 	/**
-	 * All future actions that are executed through the given {@code clasS} will be checked against the
-	 * given {@code
+	 * All future actions that are executed through the given {@code clasS} will be
+	 * checked against the given {@code
 	 * accessControlContext}.
 	 *
-	 * @throws SecurityException
-	 *         Permissions are already confined for the {@code clasS}
+	 * @throws SecurityException Permissions are already confined for the
+	 *                           {@code clasS}
 	 */
 	public static void confine(final Class<?> clasS, final AccessControlContext accessControlContext) {
 
 		if (Sandbox.CHECKED_CLASSES.containsKey(clasS))
-			throw new SecurityException(
-				"Attempt to change the access control context for '" + clasS + "'");
+			throw new SecurityException("Attempt to change the access control context for '" + clasS + "'");
 
 		Sandbox.CHECKED_CLASSES.put(clasS, accessControlContext);
 	}
 
 	/**
-	 * All future actions that are executed through the given {@code clasS} will be checked against the
-	 * given {@code
+	 * All future actions that are executed through the given {@code clasS} will be
+	 * checked against the given {@code
 	 * protectionDomain}.
 	 *
-	 * @throws SecurityException
-	 *         Permissions are already confined for the {@code clasS}
+	 * @throws SecurityException Permissions are already confined for the
+	 *                           {@code clasS}
 	 */
 	public static void confine(final Class<?> clasS, final ProtectionDomain protectionDomain) {
 
 		/* BODY */
-		Sandbox.confine(clasS, new AccessControlContext(
-			new ProtectionDomain[] { protectionDomain }));
+		Sandbox.confine(clasS, new AccessControlContext(new ProtectionDomain[] { protectionDomain }));
 	}
 
 	/**
-	 * All future actions that are executed through the given {@code clasS} will be checked against the
-	 * given {@code
+	 * All future actions that are executed through the given {@code clasS} will be
+	 * checked against the given {@code
 	 * permissions}.
 	 *
-	 * @throws SecurityException
-	 *         Permissions are already confined for the {@code clasS}
+	 * @throws SecurityException Permissions are already confined for the
+	 *                           {@code clasS}
 	 */
 	public static void confine(final Class<?> clasS, final Permissions permissions) {
 
-		Sandbox.confine(clasS, new ProtectionDomain(
-			null, permissions));
+		Sandbox.confine(clasS, new ProtectionDomain(null, permissions));
 	}
 
 	// Code for 'CHECKED_CLASS_NAMES' and 'CHECKED_CLASS_LOADERS' omitted here.

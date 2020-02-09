@@ -8,9 +8,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Klasa typu atrybutu określa powód zmiany kodu aplikacji. Atrybut zasadniczo będzie tworzył
- * historię zmian poszczególnych elementów pakietu. Changelog będzie zapisywany w pliku
- * package-info.
+ * Klasa typu atrybutu określa powód zmiany kodu aplikacji. Atrybut zasadniczo
+ * będzie tworzył historię zmian poszczególnych elementów pakietu. Changelog
+ * będzie zapisywany w pliku package-info.
  *
  * @author andrzej.radziszewski
  * @version 1.0.0.0
@@ -49,8 +49,8 @@ public @interface Changelog {
 		 */
 		FixBug,
 		/**
-		 * Kategoria określa zmianę postaci kodu podyktowaną optymalizacją lub koniecznością zwiększenia
-		 * czytelności kodu
+		 * Kategoria określa zmianę postaci kodu podyktowaną optymalizacją lub
+		 * koniecznością zwiększenia czytelności kodu
 		 */
 		Refactoring
 

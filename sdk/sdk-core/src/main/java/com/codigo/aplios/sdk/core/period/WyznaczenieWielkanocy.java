@@ -123,7 +123,7 @@ enum EasterDayContext implements IEasterDayStrategy, TemporalQuery<LocalDate> {
 	/**
 	 * Klasa realizuje algorytm wyznaczania dnia wielkanocy metodą opublikowaną
 	 * przez C.F. Gaussa.
-	 * 
+	 *
 	 * @author Andrzej Radziszewski
 	 *
 	 */
@@ -139,8 +139,7 @@ enum EasterDayContext implements IEasterDayStrategy, TemporalQuery<LocalDate> {
 			final int D = ((19 * A) + 24) % 30;
 			final int E = ((2 * B) + (4 * C) + (6 * D) + 5) % 7;
 
-			return LocalDate.of(year, 3, 22)
-							.plus((D + E), ChronoUnit.DAYS);
+			return LocalDate.of(year, 3, 22).plus((D + E), ChronoUnit.DAYS);
 		}
 
 		@Override
@@ -153,7 +152,7 @@ enum EasterDayContext implements IEasterDayStrategy, TemporalQuery<LocalDate> {
 	/**
 	 * Klasa realizuje algorytm wyznaczania dnia wielkanocy metodą opublikowaną
 	 * przez Jeana Meeusa.
-	 * 
+	 *
 	 * @author Andrzej Radziszewski
 	 *
 	 */

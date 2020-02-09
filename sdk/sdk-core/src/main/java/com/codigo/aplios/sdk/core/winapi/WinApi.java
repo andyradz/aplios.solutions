@@ -18,10 +18,12 @@ public class WinApi {
 	//
 	// WinDef.HWND FindWindowA(String lpClassName, String lpWindowName);
 	//
-	// WinDef.HWND FindWindowExA(WinDef.HWND hwndParent, WinDef.HWND hwndChildAfter, String lpClassName,
+	// WinDef.HWND FindWindowExA(WinDef.HWND hwndParent, WinDef.HWND hwndChildAfter,
+	// String lpClassName,
 	// String lpWindowName);
 	//
-	// WinDef.LRESULT SendMessageA(WinDef.HWND editHwnd, int wmGettext, long l, byte[] lParamStr);
+	// WinDef.LRESULT SendMessageA(WinDef.HWND editHwnd, int wmGettext, long l,
+	// byte[] lParamStr);
 	//
 	// }
 	//
@@ -63,20 +65,24 @@ public class WinApi {
 	// final WinBase.SECURITY_ATTRIBUTES sa = new WinBase.SECURITY_ATTRIBUTES();
 	// final boolean result = klib.CreateDirectory("D://winapi", sa);
 	//
-	// final File tmp = File.createTempFile("testGetFileInformationByHandleEx", "jna");
+	// final File tmp = File.createTempFile("testGetFileInformationByHandleEx",
+	// "jna");
 	// tmp.deleteOnExit();
 	//
 	// final SYSTEMTIME st = new SYSTEMTIME();
 	// klib.GetSystemTime(st);
 	//
-	// final WinNT.HANDLE hFile = Kernel32.INSTANCE.CreateFile(tmp.getAbsolutePath(),
+	// final WinNT.HANDLE hFile =
+	// Kernel32.INSTANCE.CreateFile(tmp.getAbsolutePath(),
 	// WinNT.GENERIC_WRITE,
-	// WinNT.FILE_SHARE_WRITE, new WinBase.SECURITY_ATTRIBUTES(), WinNT.OPEN_EXISTING,
+	// WinNT.FILE_SHARE_WRITE, new WinBase.SECURITY_ATTRIBUTES(),
+	// WinNT.OPEN_EXISTING,
 	// WinNT.FILE_ATTRIBUTE_NORMAL, null);
 	//
 	// Memory p = new Memory(
 	// FILE_BASIC_INFO.sizeOf());
-	// if (false == Kernel32.INSTANCE.GetFileInformationByHandleEx(hFile, WinBase.FileBasicInfo, p, new
+	// if (false == Kernel32.INSTANCE.GetFileInformationByHandleEx(hFile,
+	// WinBase.FileBasicInfo, p, new
 	// WinDef.DWORD(
 	// p.size()))) {
 	//
@@ -92,7 +98,8 @@ public class WinApi {
 	//
 	// p = new Memory(
 	// FILE_COMPRESSION_INFO.sizeOf());
-	// if (false == Kernel32.INSTANCE.GetFileInformationByHandleEx(hFile, WinBase.FileCompressionInfo,
+	// if (false == Kernel32.INSTANCE.GetFileInformationByHandleEx(hFile,
+	// WinBase.FileCompressionInfo,
 	// p, new DWORD(
 	// p.size()))) {
 	//
@@ -103,7 +110,8 @@ public class WinApi {
 	//
 	// p = new Memory(
 	// FILE_ATTRIBUTE_TAG_INFO.sizeOf());
-	// if (false == Kernel32.INSTANCE.GetFileInformationByHandleEx(hFile, WinBase.FileAttributeTagInfo,
+	// if (false == Kernel32.INSTANCE.GetFileInformationByHandleEx(hFile,
+	// WinBase.FileAttributeTagInfo,
 	// p, new DWORD(
 	// p.size()))) {
 	//
@@ -114,7 +122,8 @@ public class WinApi {
 	//
 	// p = new Memory(
 	// FILE_ID_INFO.sizeOf());
-	// if (false == Kernel32.INSTANCE.GetFileInformationByHandleEx(hFile, WinBase.FileIdInfo, p, new
+	// if (false == Kernel32.INSTANCE.GetFileInformationByHandleEx(hFile,
+	// WinBase.FileIdInfo, p, new
 	// DWORD(
 	// p.size()))) {
 	//

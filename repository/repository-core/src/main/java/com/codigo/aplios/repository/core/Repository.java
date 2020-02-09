@@ -14,48 +14,36 @@ import com.codigo.aplios.domain.model.common.EntityModel;
 
 public interface Repository<T extends EntityModel> {
 
-	default Optional<T> select(final Integer key) {
+	Set<T> select();
 
-		return this.select()
-				.stream()
-				.filter(entity -> entity.getId()
-						.equals(key))
-				.findAny();
-	}
+	default Optional<T> select(final Long key) {
 
-	default Optional<T> select(final int key) {
-
-		return this.select()
-				.stream()
-				.filter(entity -> entity.getId()
-						.equals(Integer.valueOf(key)))
-				.findAny();
+		return this.select().stream().filter(entity -> entity.getId().equals(key)).findAny();
 	}
 
 	default Set<T> select(final Predicate<T> predicate) {
 
-		return this.select()
-				.stream()
-				.filter(predicate)
-				.collect(Collectors.toSet());
+		return this.select().stream().filter(predicate).collect(Collectors.toSet());
 	}
 
-	Set<T> select();
+	Long insert(T entity);
 
-	void insert(T entity);
 
-	default void insert(final T... entities) {
+	@SuppressWarnings("unchecked")
+	default Long insert(final T... entities) {
 
-		this.insert(Arrays.asList(entities));
+		return this.insert(Arrays.asList(entities));
 	}
 
-	default void insert(final Collection<T> entities) {
+	default Long insert(final Iterable<T> entities) {
 
 		entities.forEach(this::insert);
+		return Long.valueOf(0);
 	}
 
 	void update(T entity);
 
+	@SuppressWarnings("unchecked")
 	default void update(final T... entities) {
 
 		this.update(Arrays.asList(entities));
@@ -67,24 +55,22 @@ public interface Repository<T extends EntityModel> {
 	}
 
 	void delete(T entity);
-	
-	long delete();
+
+	Long deleteAll();
 
 	default void delete(final Iterator<T> entities) {
 
 		entities.forEachRemaining(this::delete);
 	}
 
-	default void delete(final Integer keyId) {
+	default void delete(final Long keyId) {
 
-		this.delete(entity -> entity.getId()
-				.equals(keyId));
+		this.delete(entity -> entity.getId().equals(keyId));
 	}
 
 	default void delete(final Predicate<T> predicate) {
 
-		this.select()
-			.forEach(this::delete);
+		this.select().forEach(this::delete);
 	}
 
 	default void delete(final Collection<T> entities) {
@@ -92,28 +78,29 @@ public interface Repository<T extends EntityModel> {
 		entities.forEach(this::delete);
 	}
 
+	@SuppressWarnings("unchecked")
 	default void delete(final T... entities) {
 
 		this.delete(Arrays.asList(entities));
 	}
 
-	default long count() {
+	default Long count() {
 
-		return this.select()
-				.stream()
-				.count();
+		return this.select().stream().count();
 	}
 
 	default Long countAsync() throws InterruptedException, ExecutionException {
 
-		final CompletableFuture<Long> completableFuture = CompletableFuture.supplyAsync(() -> this.select()
-				.stream()
-				.count());
+		final CompletableFuture<Long> completableFuture = CompletableFuture
+				.supplyAsync(() -> this.select().stream().count());
 
 		return completableFuture.get();
 	}
 
-
-
 	boolean isAutoCommit();
+
+	Set<T> union(Iterable<T> entities);
+
+	Set<T> except(Iterable<T> entities);
+
 }

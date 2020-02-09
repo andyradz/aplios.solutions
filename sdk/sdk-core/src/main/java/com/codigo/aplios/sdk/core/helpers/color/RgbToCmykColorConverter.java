@@ -2,9 +2,9 @@ package com.codigo.aplios.sdk.core.helpers.color;
 
 public final class RgbToCmykColorConverter {
 
-	private static final int	RGB_MASK_VALUE	= 0xFF;
-	private static final int	SHIFT_BY_2BYTES	= 16;
-	private static final int	SHIFT_BY_1BYTES	= 8;
+	private static final int RGB_MASK_VALUE = 0xFF;
+	private static final int SHIFT_BY_2BYTES = 16;
+	private static final int SHIFT_BY_1BYTES = 8;
 
 	private final CmykColorModel cmykModel;
 
@@ -28,12 +28,10 @@ public final class RgbToCmykColorConverter {
 	/**
 	 * Podstawowy konstruktor obiektu klasy <code>RgbToHexColorConverter</code>
 	 *
-	 * @param redValue
-	 *        Parametr określa wartość składowej barwy RED w notacji RGB
-	 * @param greenValue
-	 *        Parametr określa wartość składowej barwy GREEN w notacji RGB
-	 * @param blueValue
-	 *        Parametr określa wartość składowej barwy BLUE w notacji RGB
+	 * @param redValue   Parametr określa wartość składowej barwy RED w notacji RGB
+	 * @param greenValue Parametr określa wartość składowej barwy GREEN w notacji
+	 *                   RGB
+	 * @param blueValue  Parametr określa wartość składowej barwy BLUE w notacji RGB
 	 */
 	RgbToCmykColorConverter(final int redValue, final int greenValue, final int blueValue) {
 
@@ -139,10 +137,10 @@ public final class RgbToCmykColorConverter {
 
 		final String format = "CMYK = (%dC, %dM, %dY, %dK)";
 
-		final var cyan = getCyanColor();
-		final var magneta = getMagnetaColor();
-		final var yellow = getYellowColor();
-		final var black = getBlackColor();
+		final var cyan = this.getCyanColor();
+		final var magneta = this.getMagnetaColor();
+		final var yellow = this.getYellowColor();
+		final var black = this.getBlackColor();
 
 		return String.format(format, cyan, magneta, yellow, black);
 	}

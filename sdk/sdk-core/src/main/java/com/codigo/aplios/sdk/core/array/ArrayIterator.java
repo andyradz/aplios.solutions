@@ -18,42 +18,42 @@ import java.util.Objects;
  * @param <E> Genertyczny parametr typu elementów kolekcji
  */
 public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
-	
+
 	/**
 	 * Atrybut obiektu zawiera kolekcję generyczną elementów typu <code><E></code>
 	 */
 	private final E[] array;
-	
+
 	/**
 	 * Atrybut obiektu przedstawia liczbę odcztanych elementów kolekcji
 	 */
 	private int countRead;
-	
+
 	/**
 	 * Atrybut obiektu przedstawia początkowy indeks zakresu kolekcji
 	 */
 	private final int beginIndex;
-	
+
 	/**
 	 * Atrybut obiektu przedstawia końcowy indeks zakresu kolekcji
 	 */
 	private final int lastIndex;
-	
+
 	/**
 	 * Atrybut obiektu przedstawia bieżący indeks w kolekcji
 	 */
 	private volatile int currentIndex;
-	
+
 	/**
 	 * Podstawowy konstruktor obiektu klasy <code>ArrayIterator</code>
 	 *
 	 * @param array Tablica generycznych elementów
 	 */
 	ArrayIterator(final E[] array) {
-		
+
 		this(array, ArrayIterable.ZERO_BASED_INDEX, array.length - 1);
 	}
-	
+
 	/**
 	 * Podstawowy konstruktor obiektu klasy <code>ArrayIterator</code>
 	 *
@@ -61,10 +61,10 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 * @param count Ilość elementów przekazanych do iteracji
 	 */
 	ArrayIterator(final E[] array, final int count) {
-		
+
 		this(array, ArrayIterable.ZERO_BASED_INDEX, count - 1);
 	}
-	
+
 	/**
 	 * Podstawowy konstruktor obiektu klasy <code>ArrayIterator</code>
 	 *
@@ -73,15 +73,15 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 * @param lastIndex  Końcowy indeks zakresu interatora
 	 */
 	ArrayIterator(final E[] array, final int beginIndex, final int lastIndex) {
-		
-		validateParameters(array, beginIndex, lastIndex);
-		
+
+		this.validateParameters(array, beginIndex, lastIndex);
+
 		this.array = array;
 		this.beginIndex = beginIndex;
 		this.lastIndex = lastIndex;
 		this.currentIndex = this.beginIndex;
 	}
-	
+
 	/**
 	 * Procedura wykonuje walidację wartości parametrów wejściowych
 	 *
@@ -90,26 +90,22 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 * @param lastIndex  Końcowy indeks zakresu interatora
 	 */
 	private void validateParameters(final E[] array, final int beginIndex, final int lastIndex) {
-		
+
 		Objects.requireNonNull(array);
-		
-		if (ArrayIterable.EMPTY_TABLE == array.length) {
+
+		if (ArrayIterable.EMPTY_TABLE == array.length)
 			throw new IllegalArgumentException("Kolekcja elementów jest pusta!");
-		}
-		
-		if (ArrayIterable.EMPTY_TABLE > beginIndex) {
+
+		if (ArrayIterable.EMPTY_TABLE > beginIndex)
 			throw new IllegalArgumentException("Indeks początku nie może być mniejszy od zera!");
-		}
-		
-		if (lastIndex >= array.length) {
+
+		if (lastIndex >= array.length)
 			throw new IllegalArgumentException("Indeks końcowy nie może być większy niż rozmiar tablicy!");
-		}
-		
-		if (lastIndex < beginIndex) {
+
+		if (lastIndex < beginIndex)
 			throw new IllegalArgumentException("Indeks końcowy nie może być mniejszy niż indeks początkowy!");
-		}
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -117,10 +113,10 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 */
 	@Override
 	public boolean hasNext() {
-		
+
 		return this.currentIndex <= this.lastIndex;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -128,15 +124,14 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 */
 	@Override
 	public synchronized E next() {
-		
-		if (!hasNext()) {
+
+		if (!this.hasNext())
 			throw new NoSuchElementException();
-		}
-		
+
 		this.countRead++;
 		return this.array[this.currentIndex++];
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -144,10 +139,10 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 */
 	@Override
 	public int getBeginIndex() {
-		
+
 		return this.beginIndex;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -155,10 +150,10 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 */
 	@Override
 	public int getCurrentIndex() {
-		
+
 		return this.currentIndex;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -166,10 +161,10 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 */
 	@Override
 	public int getLastIndex() {
-		
+
 		return this.lastIndex;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -177,10 +172,10 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 */
 	@Override
 	public int getCount() {
-		
+
 		return this.array.length;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -188,10 +183,10 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 */
 	@Override
 	public int getCountFromRange() {
-		
+
 		return (this.lastIndex - this.beginIndex) + 1;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -199,7 +194,7 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 */
 	@Override
 	public int hashCode() {
-		
+
 		final int prime = 31;
 		int result = 1;
 		result = (prime * result) + Arrays.hashCode(this.array);
@@ -208,7 +203,7 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 		result = (prime * result) + this.lastIndex;
 		return result;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -216,11 +211,11 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 */
 	@Override
 	public synchronized void reset() {
-		
+
 		this.currentIndex = this.beginIndex;
 		this.countRead = 0;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -228,10 +223,10 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 */
 	@Override
 	public Iterator<E> iterator() {
-		
+
 		return ArrayIteratorFactory.ofRange(this.array, this.beginIndex, this.lastIndex);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -239,10 +234,10 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 */
 	@Override
 	public synchronized int getCountVisited() {
-		
+
 		return this.countRead;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -250,10 +245,10 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 */
 	@Override
 	public synchronized int getCountRemaining() {
-		
+
 		return (this.array.length - this.countRead);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -261,39 +256,32 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 */
 	@Override
 	public boolean equals(final Object obj) {
-		
-		if (this == obj) {
+
+		if (this == obj)
 			return true;
-		}
-		
-		if (Objects.isNull(obj)) {
+
+		if (Objects.isNull(obj))
 			return false;
-		}
-		
-		if (!(obj instanceof ArrayIterator)) {
+
+		if (!(obj instanceof ArrayIterator))
 			return false;
-		}
-		
+
 		final ArrayIterator<?> other = ArrayIterator.class.cast(obj);
-		if (!Arrays.equals(this.array, other.array)) {
+		if (!Arrays.equals(this.array, other.array))
 			return false;
-		}
-		
-		if (this.beginIndex != other.beginIndex) {
+
+		if (this.beginIndex != other.beginIndex)
 			return false;
-		}
-		
-		if (this.currentIndex != other.currentIndex) {
+
+		if (this.currentIndex != other.currentIndex)
 			return false;
-		}
-		
-		if (this.lastIndex != other.lastIndex) {
+
+		if (this.lastIndex != other.lastIndex)
 			return false;
-		}
-		
+
 		return true;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -301,15 +289,8 @@ public final class ArrayIterator<E> implements ArrayIterable<E>, Iterable<E> {
 	 */
 	@Override
 	public String toString() {
-		
-		return "ArrayIterator [array="
-				+ Arrays.toString(this.array)
-				+ ", beginIndex="
-				+ this.beginIndex
-				+ ", lastIndex="
-				+ this.lastIndex
-				+ ", currentIndex="
-				+ this.currentIndex
-				+ "]";
+
+		return "ArrayIterator [array=" + Arrays.toString(this.array) + ", beginIndex=" + this.beginIndex
+				+ ", lastIndex=" + this.lastIndex + ", currentIndex=" + this.currentIndex + "]";
 	}
 }

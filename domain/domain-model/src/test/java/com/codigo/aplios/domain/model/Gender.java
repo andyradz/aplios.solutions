@@ -7,22 +7,22 @@ import java.util.ResourceBundle;
 
 interface IGender {
 
-    /**
-     * Metoda prezentuje symbol przypisany do płci osoby.
-     *
-     * @return Wartość teksowa.
-     */
-    String getSymbol();
+	/**
+	 * Metoda prezentuje symbol przypisany do płci osoby.
+	 *
+	 * @return Wartość teksowa.
+	 */
+	String getSymbol();
 
-    // -----------------------------------------------------------------------------------------------------------------
-    /**
-     * Metoda przezentuje nazwę przypisaną do płci człowieka
-     *
-     * @return Wartość tekstowa.
-     */
-    String getName();
+	// -----------------------------------------------------------------------------------------------------------------
+	/**
+	 * Metoda przezentuje nazwę przypisaną do płci człowieka
+	 *
+	 * @return Wartość tekstowa.
+	 */
+	String getName();
 
-    // -----------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
 }
 
 /**
@@ -31,158 +31,153 @@ interface IGender {
  */
 public enum Gender implements IGender {
 
-    /**
-     * Płeć męska
-     */
-    MALE {
+	/**
+	 * Płeć męska
+	 */
+	MALE {
 
-        /*
+		/*
 		 * (non-Javadoc)
 		 *
 		 * @see com.codigo.aplios.contos.system.domain.Gender#getSymbol()
-         */
-        @Override
-        public String getSymbol() {
+		 */
+		@Override
+		public String getSymbol() {
 
-            /* RETURN */
-            return Gender.bundleStrings.getString("man.symbol");
-        }
+			/* RETURN */
+			return Gender.bundleStrings.getString("man.symbol");
+		}
 
-        /*
+		/*
 		 * (non-Javadoc)
 		 *
 		 * @see com.codigo.aplios.contos.system.domain.Gender#getName()
-         */
-        @Override
-        public String getName() {
+		 */
+		@Override
+		public String getName() {
 
-            /* RETURN */
-            return Gender.bundleStrings.getString("man.name");
-        }
-    },
-    // -----------------------------------------------------------------------------------------------------------------
+			/* RETURN */
+			return Gender.bundleStrings.getString("man.name");
+		}
+	},
+	// -----------------------------------------------------------------------------------------------------------------
 
-    /**
-     * Płeć żeńska
-     */
-    FEMALE {
-        /*
+	/**
+	 * Płeć żeńska
+	 */
+	FEMALE {
+		/*
 		 * (non-Javadoc)
 		 *
 		 * @see com.codigo.aplios.contos.system.domain.Gender#getSymbol()
-         */
-        @Override
-        public String getSymbol() {
+		 */
+		@Override
+		public String getSymbol() {
 
-            /* RETURN */
-            return Gender.bundleStrings.getString("woman.symbol");
-        }
+			/* RETURN */
+			return Gender.bundleStrings.getString("woman.symbol");
+		}
 
-        /*
+		/*
 		 * (non-Javadoc)
 		 *
 		 * @see com.codigo.aplios.contos.system.domain.Gender#getName()
-         */
-        @Override
-        public String getName() {
+		 */
+		@Override
+		public String getName() {
 
-            return Gender.bundleStrings.getString("woman.name");
-        }
-    },
-    // -----------------------------------------------------------------------------------------------------------------
+			return Gender.bundleStrings.getString("woman.name");
+		}
+	},
+	// -----------------------------------------------------------------------------------------------------------------
 
-    /**
-     * Płeć nieokreślona
-     */
-    UNKNOWN { // Płeć nieokreślona
+	/**
+	 * Płeć nieokreślona
+	 */
+	UNKNOWN { // Płeć nieokreślona
 
-        /*
+		/*
 		 * (non-Javadoc)
 		 *
 		 * @see com.codigo.aplios.contos.system.domain.Gender#getSymbol()
-         */
-        @Override
-        public String getSymbol() {
+		 */
+		@Override
+		public String getSymbol() {
 
-            return Gender.bundleStrings.getString("unknown.symbol");
-        }
+			return Gender.bundleStrings.getString("unknown.symbol");
+		}
 
-        /*
+		/*
 		 * (non-Javadoc)
 		 *
 		 * @see com.codigo.aplios.contos.system.domain.Gender#getName()
-         */
-        @Override
-        public String getName() {
+		 */
+		@Override
+		public String getName() {
 
-            return Gender.bundleStrings.getString("unknown.name");
-        }
-    };
+			return Gender.bundleStrings.getString("unknown.name");
+		}
+	};
 
-    // -----------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
 
-    /*
+	/*
 	 * (non-Javadoc)
 	 *
 	 * @see com.codigo.aplios.contos.system.domain.IGender#getSymbol()
-     */
-    @Override
-    public abstract String getSymbol();
+	 */
+	@Override
+	public abstract String getSymbol();
 
-    // -----------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
 
-    /*
+	/*
 	 * (non-Javadoc)
 	 *
 	 * @see com.codigo.aplios.contos.system.domain.IGender#getName()
-     */
-    @Override
-    public abstract String getName();
+	 */
+	@Override
+	public abstract String getName();
 
-    // -----------------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------------------------
 
-    /*
+	/*
 	 * (non-Javadoc)
 	 *
 	 * @see java.lang.Enum#toString()
-     */
-    @Override
-    public String toString() {
+	 */
+	@Override
+	public String toString() {
 
-        /* RETURN */
-        return String.format("%s(%s)", getName(), getSymbol());
-    }
+		/* RETURN */
+		return String.format("%s(%s)", this.getName(), this.getSymbol());
+	}
 
-    // -----------------------------------------------------------------------------------------------------------------
-    final static ResourceBundle bundleStrings;
+	// -----------------------------------------------------------------------------------------------------------------
+	final static ResourceBundle bundleStrings;
 
-    // -----------------------------------------------------------------------------------------------------------------
-    /**
-     * Statyczny inicjalizator zasobów struktury Enum.
-     */
-    static {
-        try {
-            final Locale locale = new Locale(
-                    Locale.getDefault()
-                            .getLanguage(),
-                    Locale.getDefault()
-                            .getCountry());
-            bundleStrings = ResourceBundle.getBundle("com.codigo.aplios.allmarks.system.domain.strings.gender", locale);
-        } catch (NullPointerException | MissingResourceException ex) {
-            throw ex;
-        }
-    }
+	// -----------------------------------------------------------------------------------------------------------------
+	/**
+	 * Statyczny inicjalizator zasobów struktury Enum.
+	 */
+	static {
+		try {
+			final Locale locale = new Locale(Locale.getDefault().getLanguage(), Locale.getDefault().getCountry());
+			bundleStrings = ResourceBundle.getBundle("com.codigo.aplios.allmarks.system.domain.strings.gender", locale);
+		} catch (NullPointerException | MissingResourceException ex) {
+			throw ex;
+		}
+	}
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public static void main(final String[] args) {
+	// -----------------------------------------------------------------------------------------------------------------
+	public static void main(final String[] args) {
 
-        try {
-            final EnumSet<Gender> genders = EnumSet.allOf(Gender.class);
-            for (final Gender gender : genders) {
-                System.out.println(gender);
-            }
-        } catch (final Exception ex) {
-            // System.out.println(ex.getMessage());
-        }
-    }
+		try {
+			final EnumSet<Gender> genders = EnumSet.allOf(Gender.class);
+			for (final Gender gender : genders)
+				System.out.println(gender);
+		} catch (final Exception ex) {
+			// System.out.println(ex.getMessage());
+		}
+	}
 }

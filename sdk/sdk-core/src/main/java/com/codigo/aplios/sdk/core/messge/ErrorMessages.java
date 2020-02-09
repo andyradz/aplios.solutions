@@ -6,7 +6,7 @@ public class ErrorMessages {
 			throws NullPointerException {
 
 		throw new NullPointerException(
-			"Obiekt o identyfikatorze:" + instance + " nie posiada swojej instancji w pamięci!");
+				"Obiekt o identyfikatorze:" + instance + " nie posiada swojej instancji w pamięci!");
 	}
 
 }

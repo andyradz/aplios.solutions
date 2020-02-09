@@ -7,19 +7,17 @@ package com.codigo.aplios.domain.model;
  */
 public final class PrimeNumberChecker {
 
-    /**
-     * @param primeNumber Wartość numeryczna do weryfikacji czy jest liczbą pierwszą
-     * @return Wartość logiczna <b>TRUE</b> gdy liczba jest liczbą pierwszą, <b>FALSE</b> - gdy liczba nie jest liczbą
-     * pierwszą
-     */
-    public Boolean validate(final Integer primeNumber) {
+	/**
+	 * @param primeNumber Wartość numeryczna do weryfikacji czy jest liczbą pierwszą
+	 * @return Wartość logiczna <b>TRUE</b> gdy liczba jest liczbą pierwszą,
+	 *         <b>FALSE</b> - gdy liczba nie jest liczbą pierwszą
+	 */
+	public Boolean validate(final Integer primeNumber) {
 
-        for (int i = 2; i < (primeNumber / 2); i++) {
-            if ((primeNumber % i) == 0) {
-                return false;
-            }
-        }
+		for (int i = 2; i < (primeNumber / 2); i++)
+			if ((primeNumber % i) == 0)
+				return false;
 
-        return true;
-    }
+		return true;
+	}
 }

@@ -8,8 +8,9 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 
 /**
- * Klasa realizuje mechanizm sprawdzający warunku czy ciąg znaków zawiera dokładnie jedno
- * wystapienie wskazanego ciągu znaków. Klasa korzysta z mechanizmu Hamcrest
+ * Klasa realizuje mechanizm sprawdzający warunku czy ciąg znaków zawiera
+ * dokładnie jedno wystapienie wskazanego ciągu znaków. Klasa korzysta z
+ * mechanizmu Hamcrest
  *
  * @author andrzej.radziszewski
  * @category testing
@@ -46,20 +47,17 @@ public final class ExactCountMatcher extends TypeSafeDiagnosingMatcher<List<Stri
 
 	@Override
 	public void describeTo(final Description description) {
-		description.appendDescriptionOf(this.stringMatcher)
-				.appendText(" " + this.expectedCount + " times");
+		description.appendDescriptionOf(this.stringMatcher).appendText(" " + this.expectedCount + " times");
 	}
 
 	@Factory
 	public static Matcher<? super List<String>> hasNoLinesThat(final Matcher<String> stringMatcher) {
-		return new ExactCountMatcher(
-			stringMatcher, 0);
+		return new ExactCountMatcher(stringMatcher, 0);
 	}
 
 	@Factory
 	public static Matcher<? super List<String>> hasOneLineThat(final Matcher<String> stringMatcher) {
-		return new ExactCountMatcher(
-			stringMatcher, 1);
+		return new ExactCountMatcher(stringMatcher, 1);
 	}
 
 }

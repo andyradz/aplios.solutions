@@ -20,11 +20,11 @@ public class IsSameHashcode extends BaseMatcher<Object> {
 	}
 
 	/**
-	 * Creates a matcher that matches only when the examined {@linkplain Object} is the same instance as
-	 * the provided <code>target</code> {@linkplain Object}.
+	 * Creates a matcher that matches only when the examined {@linkplain Object} is
+	 * the same instance as the provided <code>target</code> {@linkplain Object}.
 	 */
 	public static Matcher<?> sameHashcode(final Object target) {
-		
+
 		return new IsSameHashcode(target);
 	}
 
@@ -32,13 +32,12 @@ public class IsSameHashcode extends BaseMatcher<Object> {
 	public boolean matches(final Object arg) {
 
 		// checkNotNull(arg);
-		return arg.hashCode() == object.hashCode();
+		return arg.hashCode() == this.object.hashCode();
 	}
 
 	@Override
 	public void describeTo(final Description description) {
-		
-		description.appendText("same hashcode of ")
-				.appendValue(object);
+
+		description.appendText("same hashcode of ").appendValue(this.object);
 	}
 }

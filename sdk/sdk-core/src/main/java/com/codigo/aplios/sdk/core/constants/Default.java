@@ -2,6 +2,7 @@ package com.codigo.aplios.sdk.core.constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+
 import org.eclipse.collections.api.map.MutableMap;
 import org.eclipse.collections.impl.factory.Maps;
 

@@ -1,10 +1,10 @@
 package com.codigo.aplios.sdk.core.hamcrest;
 
+import java.util.Optional;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-
-import java.util.Optional;
 
 /**
  * Is the given {@linkplain Optional} present and matching the given matcher?
@@ -20,7 +20,8 @@ public class IsPresentOptionalAnd<T> extends TypeSafeMatcher<Optional<T>> {
 	}
 
 	/**
-	 * Creates a matcher from an inner matcher for {@linkplain Optional}s which are present.
+	 * Creates a matcher from an inner matcher for {@linkplain Optional}s which are
+	 * present.
 	 */
 	public static <T> TypeSafeMatcher<Optional<T>> presentAnd(final Matcher<? super T> innerMatcher) {
 		return new IsPresentOptionalAnd<>(innerMatcher);
@@ -28,23 +29,22 @@ public class IsPresentOptionalAnd<T> extends TypeSafeMatcher<Optional<T>> {
 
 	@Override
 	protected boolean matchesSafely(final Optional<T> optionalValue) {
-		return optionalValue.map(innerMatcher::matches)
-				.orElse(false);
+		return optionalValue.map(this.innerMatcher::matches).orElse(false);
 	}
 
 	@Override
 	public void describeTo(final Description description) {
 		description.appendText("is present and ");
-		description.appendDescriptionOf(innerMatcher);
+		description.appendDescriptionOf(this.innerMatcher);
 	}
 
 	@Override
 	protected void describeMismatchSafely(final Optional<T> item, final Description mismatchDescription) {
-		if (!item.isPresent()) {
+		if (!item.isPresent())
 			mismatchDescription.appendText(" is not present");
-		} else {
+		else {
 			mismatchDescription.appendText(" is present, but ");
-			innerMatcher.describeMismatch(item.get(), mismatchDescription);
+			this.innerMatcher.describeMismatch(item.get(), mismatchDescription);
 		}
 	}
 }

@@ -15,7 +15,8 @@ public class HurricaneSeasonQuery implements TemporalQuery<Boolean> {
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see java.time.temporal.TemporalQuery#queryFrom(java.time.temporal. TemporalAccessor)
+	 * @see java.time.temporal.TemporalQuery#queryFrom(java.time.temporal.
+	 * TemporalAccessor)
 	 */
 	@Override
 	public Boolean queryFrom(final TemporalAccessor temporal) {

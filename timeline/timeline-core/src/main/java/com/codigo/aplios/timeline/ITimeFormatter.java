@@ -1,8 +1,5 @@
 package com.codigo.aplios.timeline;
 
-import java.time.LocalDateTime;
-import java.util.Locale;
-
 // ------------------------------------------------------------------------
 public interface ITimeFormatter {
 

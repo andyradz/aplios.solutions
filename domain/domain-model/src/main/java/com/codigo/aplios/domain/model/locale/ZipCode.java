@@ -2,7 +2,6 @@ package com.codigo.aplios.domain.model.locale;
 
 import java.io.Serializable;
 
-import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +13,6 @@ import javax.persistence.Table;
 import org.eclipse.persistence.annotations.Index;
 
 import com.codigo.aplios.domain.model.catalog.ColumnPosition;
-import com.codigo.aplios.domain.model.common.EntityModel;
 
 // TODO: dodać jeszcze powiat,gmina, województwo
 

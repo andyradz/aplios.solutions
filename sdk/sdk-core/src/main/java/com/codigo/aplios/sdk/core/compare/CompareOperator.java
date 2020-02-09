@@ -151,9 +151,8 @@ public enum CompareOperator implements IComparable {
 	private static void checkObjectClass(@NonNull final Comparable<?> leftOperand,
 			@NonNull final Comparable<?> rightOperand) {
 
-		if (leftOperand.getClass() != rightOperand.getClass()) {
+		if (leftOperand.getClass() != rightOperand.getClass())
 			throw new UnsupportedOperationException("leftOperand.getClass() != rightOperand.getClass()");
-		}
 	}
 
 }

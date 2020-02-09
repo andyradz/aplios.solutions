@@ -83,7 +83,7 @@ public final class ArrayOperator {
 	 * @return Średnia wartość wyznaczona z wartości elementów tablicy
 	 * @throws NullPointerException Brak instancji tablicy w pamieci
 	 */
-	public static final <E extends Number> double avg(final E[] array) {
+	public static <E extends Number> double avg(final E[] array) {
 
 		if (Objects.isNull(array))
 			throw ErrorMessages.getNullPointerExceptioMessage(array);
@@ -99,7 +99,7 @@ public final class ArrayOperator {
 	 * @return Strumień danych wyznaczający duplikaty z tablicy wartości.
 	 * @throws NullPointerException Brak instancji tablicy w pamieci
 	 */
-	public static final <E> Stream<E> duplicate(final E[] array) {
+	public static <E> Stream<E> duplicate(final E[] array) {
 
 		if (Objects.isNull(array))
 			throw ErrorMessages.getNullPointerExceptioMessage(array);
@@ -188,7 +188,7 @@ public final class ArrayOperator {
 	 * @return Iterator połączonych kolekcji typu tablica
 	 * @throws NullPointerException Brak instancji tablicy w pamieci
 	 */
-	public static final <E> Iterator<E> join(final E[] firstArray, final E[] lastArray) {
+	public static <E> Iterator<E> join(final E[] firstArray, final E[] lastArray) {
 
 		if (Objects.isNull(firstArray))
 			throw ErrorMessages.getNullPointerExceptioMessage(firstArray);
@@ -279,7 +279,7 @@ public final class ArrayOperator {
 	 * @param comparator Komparator danych
 	 * @return Iterator elementów posortowanej tablicy danych
 	 */
-	public static final <E> Iterator<E> sort(final E[] array, final Comparator<E> comparator) {
+	public static <E> Iterator<E> sort(final E[] array, final Comparator<E> comparator) {
 
 		return Arrays.stream(array).sorted(comparator).iterator();
 	}

@@ -28,14 +28,13 @@ public class W32FileMonitor extends FileMonitor {
 
 	private class FileInfo {
 
-		public final File						file;
-		public final HANDLE						handle;
-		public final int						notifyMask;
-		public final boolean					recursive;
-		public final FILE_NOTIFY_INFORMATION	info		= new FILE_NOTIFY_INFORMATION(
-			W32FileMonitor.BUFFER_SIZE);
-		public final IntByReference				infoLength	= new IntByReference();
-		public final OVERLAPPED					overlapped	= new OVERLAPPED();
+		public final File file;
+		public final HANDLE handle;
+		public final int notifyMask;
+		public final boolean recursive;
+		public final FILE_NOTIFY_INFORMATION info = new FILE_NOTIFY_INFORMATION(W32FileMonitor.BUFFER_SIZE);
+		public final IntByReference infoLength = new IntByReference();
+		public final OVERLAPPED overlapped = new OVERLAPPED();
 
 		public FileInfo(final File f, final HANDLE h, final int mask, final boolean recurse) {
 
@@ -46,11 +45,11 @@ public class W32FileMonitor extends FileMonitor {
 		}
 	}
 
-	private Thread						watcher;
-	private HANDLE						port;
-	private final Map<File, FileInfo>	fileMap		= new HashMap<>();
-	private final Map<HANDLE, FileInfo>	handleMap	= new HashMap<>();
-	private boolean						disposing	= false;
+	private Thread watcher;
+	private HANDLE port;
+	private final Map<File, FileInfo> fileMap = new HashMap<>();
+	private final Map<HANDLE, FileInfo> handleMap = new HashMap<>();
+	private boolean disposing = false;
 
 	private void handleChanges(final FileInfo finfo) throws IOException {
 
@@ -60,30 +59,24 @@ public class W32FileMonitor extends FileMonitor {
 		fni.read();
 		do {
 			FileEvent event = null;
-			final File file = new File(
-				finfo.file, fni.getFilename());
+			final File file = new File(finfo.file, fni.getFilename());
 			switch (fni.Action) {
 			case 0:
 				break;
 			case WinNT.FILE_ACTION_MODIFIED:
-				event = new FileEvent(
-					file, FileMonitor.FILE_MODIFIED);
+				event = new FileEvent(file, FileMonitor.FILE_MODIFIED);
 				break;
 			case WinNT.FILE_ACTION_ADDED:
-				event = new FileEvent(
-					file, FileMonitor.FILE_CREATED);
+				event = new FileEvent(file, FileMonitor.FILE_CREATED);
 				break;
 			case WinNT.FILE_ACTION_REMOVED:
-				event = new FileEvent(
-					file, FileMonitor.FILE_DELETED);
+				event = new FileEvent(file, FileMonitor.FILE_DELETED);
 				break;
 			case WinNT.FILE_ACTION_RENAMED_OLD_NAME:
-				event = new FileEvent(
-					file, FileMonitor.FILE_NAME_CHANGED_OLD);
+				event = new FileEvent(file, FileMonitor.FILE_NAME_CHANGED_OLD);
 				break;
 			case WinNT.FILE_ACTION_RENAMED_NEW_NAME:
-				event = new FileEvent(
-					file, FileMonitor.FILE_NAME_CHANGED_NEW);
+				event = new FileEvent(file, FileMonitor.FILE_NAME_CHANGED_NEW);
 				break;
 			default:
 				// TODO: other actions...
@@ -94,12 +87,11 @@ public class W32FileMonitor extends FileMonitor {
 				this.notify(event);
 
 			fni = fni.next();
-		}
-		while (fni != null);
+		} while (fni != null);
 
 		// trigger the next read
 		if (!finfo.file.exists()) {
-			unwatch(finfo.file);
+			this.unwatch(finfo.file);
 			return;
 		}
 
@@ -107,9 +99,8 @@ public class W32FileMonitor extends FileMonitor {
 				finfo.infoLength, finfo.overlapped, null))
 			if (!this.disposing) {
 				final int err = klib.GetLastError();
-				throw new IOException(
-					"ReadDirectoryChangesW failed on " + finfo.file + ": '"
-							+ Kernel32Util.formatMessageFromLastErrorCode(err) + "' (" + err + ")");
+				throw new IOException("ReadDirectoryChangesW failed on " + finfo.file + ": '"
+						+ Kernel32Util.formatMessageFromLastErrorCode(err) + "' (" + err + ")");
 			}
 	}
 
@@ -121,9 +112,7 @@ public class W32FileMonitor extends FileMonitor {
 		if (!Kernel32.INSTANCE.GetQueuedCompletionStatus(this.port, rcount, rkey, roverlap, WinBase.INFINITE))
 			return null;
 		synchronized (this) {
-			return this.handleMap.get(new HANDLE(
-				rkey.getValue()
-						.toPointer()));
+			return this.handleMap.get(new HANDLE(rkey.getValue().toPointer()));
 		}
 	}
 
@@ -164,38 +153,33 @@ public class W32FileMonitor extends FileMonitor {
 			dir = dir.getParentFile();
 		}
 		if (dir == null)
-			throw new FileNotFoundException(
-				"No ancestor found for " + file);
+			throw new FileNotFoundException("No ancestor found for " + file);
 		final Kernel32 klib = Kernel32.INSTANCE;
 		final int mask = WinNT.FILE_SHARE_READ | WinNT.FILE_SHARE_WRITE | WinNT.FILE_SHARE_DELETE;
 		final int flags = WinNT.FILE_FLAG_BACKUP_SEMANTICS | WinNT.FILE_FLAG_OVERLAPPED;
 		final HANDLE handle = klib.CreateFile(file.getAbsolutePath(), WinNT.FILE_LIST_DIRECTORY, mask, null,
 				WinNT.OPEN_EXISTING, flags, null);
 		if (WinBase.INVALID_HANDLE_VALUE.equals(handle))
-			throw new IOException(
-				"Unable to open " + file + " (" + klib.GetLastError() + ")");
-		final int notifyMask = convertMask(eventMask);
-		final FileInfo finfo = new FileInfo(
-			file, handle, notifyMask, recursive);
+			throw new IOException("Unable to open " + file + " (" + klib.GetLastError() + ")");
+		final int notifyMask = this.convertMask(eventMask);
+		final FileInfo finfo = new FileInfo(file, handle, notifyMask, recursive);
 		this.fileMap.put(file, finfo);
 		this.handleMap.put(handle, finfo);
 		// Existing port is returned
 		this.port = klib.CreateIoCompletionPort(handle, this.port, handle.getPointer(), 0);
 		if (WinBase.INVALID_HANDLE_VALUE.equals(this.port))
 			throw new IOException(
-				"Unable to create/use I/O Completion port " + "for " + file + " (" + klib.GetLastError() + ")");
+					"Unable to create/use I/O Completion port " + "for " + file + " (" + klib.GetLastError() + ")");
 		// TODO: use FileIOCompletionRoutine callback method instead of a
 		// dedicated thread
 		if (!klib.ReadDirectoryChangesW(handle, finfo.info, finfo.info.size(), recursive, notifyMask, finfo.infoLength,
 				finfo.overlapped, null)) {
 			final int err = klib.GetLastError();
-			throw new IOException(
-				"ReadDirectoryChangesW failed on " + finfo.file + ", handle " + handle + ": '"
-						+ Kernel32Util.formatMessageFromLastErrorCode(err) + "' (" + err + ")");
+			throw new IOException("ReadDirectoryChangesW failed on " + finfo.file + ", handle " + handle + ": '"
+					+ Kernel32Util.formatMessageFromLastErrorCode(err) + "' (" + err + ")");
 		}
 		if (this.watcher == null) {
-			this.watcher = new Thread(
-				"W32 File Monitor-" + (W32FileMonitor.watcherThreadID++)) {
+			this.watcher = new Thread("W32 File Monitor-" + (W32FileMonitor.watcherThreadID++)) {
 				@Override
 				public void run() {
 
@@ -214,8 +198,7 @@ public class W32FileMonitor extends FileMonitor {
 
 						try {
 							W32FileMonitor.this.handleChanges(finfo);
-						}
-						catch (final IOException e) {
+						} catch (final IOException e) {
 							// TODO: how is this best handled?
 							e.printStackTrace();
 						}
@@ -247,9 +230,8 @@ public class W32FileMonitor extends FileMonitor {
 
 		// unwatch any remaining files in map, allows watcher thread to exit
 		int i = 0;
-		for (final Object[] keys = this.fileMap.keySet()
-				.toArray(); !this.fileMap.isEmpty();)
-			unwatch((File) keys[i++]);
+		for (final Object[] keys = this.fileMap.keySet().toArray(); !this.fileMap.isEmpty();)
+			this.unwatch((File) keys[i++]);
 
 		final Kernel32 klib = Kernel32.INSTANCE;
 		klib.PostQueuedCompletionStatus(this.port, 0, null, null);

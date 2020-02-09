@@ -10,8 +10,7 @@ import org.hamcrest.Matcher;
 public class MatcherHelpers {
 
 	public static Matcher<String> length(final Matcher<? super Integer> matcher) {
-		return new FeatureMatcher<String, Integer>(
-			matcher, "a String of length that", "length") {
+		return new FeatureMatcher<String, Integer>(matcher, "a String of length that", "length") {
 			@Override
 			protected Integer featureValueOf(final String actual) {
 				return actual.length();

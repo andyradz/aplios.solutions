@@ -3,7 +3,6 @@ package com.codigo.aplios.domain.model.common;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.TimeZone;
 
@@ -46,7 +45,7 @@ public class ManagedEntityListener {
 		if (o instanceof ManagedEntityModel) {
 			ManagedEntityModel audit = (ManagedEntityModel) o;
 			
-			LocalDate localNow = LocalDate.now(TimeZone.getTimeZone("UTC")
+			LocalDate localDate = LocalDate.now(TimeZone.getTimeZone("UTC")
 				.toZoneId());
 			LocalTime localTime = LocalTime.now(TimeZone.getTimeZone("UTC")
 				.toZoneId());
@@ -54,7 +53,7 @@ public class ManagedEntityListener {
 			EntityDateTime entityDtTm = audit.getEntityDateTime();
 			final EntityUpdatedInfo entityUpdatedInfo = new EntityUpdatedInfo();
 			entityDtTm.setEntityUpdatedInfo(entityUpdatedInfo);
-			entityUpdatedInfo.setUpdatedDateUtc(Date.valueOf(localNow));
+			entityUpdatedInfo.setUpdatedDateUtc(Date.valueOf(localDate));
 			entityUpdatedInfo.setUpdatedTimeUtc(Time.valueOf(localTime));
 			
 			audit.setEntityDateTime(entityDtTm);

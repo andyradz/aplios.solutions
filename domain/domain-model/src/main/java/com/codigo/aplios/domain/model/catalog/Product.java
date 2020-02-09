@@ -1,10 +1,15 @@
 package com.codigo.aplios.domain.model.catalog;
 
+import com.codigo.aplios.domain.model.common.EntityDate;
 import com.codigo.aplios.domain.model.common.EntityModel;
 import java.util.Set;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
@@ -28,6 +33,19 @@ public class Product extends EntityModel {
 	@Column(name = "name", nullable = false, unique = true, length = 150)
 	@ColumnPosition(position = 1)
 	private String name;
+	
+	@Column(name="CatalogNumber")
+	private String catalogNumber;
+	
+	@Column(name="SerialNumber")
+	private String serialNumber;
+	
+	@Embedded
+	@AttributeOverrides(@AttributeOverride(name = "date", column = @Column(name = "BuildDate", columnDefinition = "date")))
+	private EntityDate buildDate;
+	
+	@Column(name="MadeIn")
+	private String madeIn;
 	
 	@ColumnPosition(position = 2)
 	@Column(name = "price", nullable = false)

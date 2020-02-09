@@ -4,25 +4,22 @@ public final class CmykColorModel {
 
 	public static CmykColorModel of(final int rgbValue) {
 
-		return new CmykColorModel(
-			rgbValue);
+		return new CmykColorModel(rgbValue);
 	}
 
 	public static CmykColorModel of(final int redValue, final int greenValue, final int blueValue) {
 
-		return new CmykColorModel(
-			redValue, greenValue, blueValue);
+		return new CmykColorModel(redValue, greenValue, blueValue);
 	}
 
 	public static CmykColorModel of(final String hexColorValue) {
 
-		return new CmykColorModel(
-			hexColorValue);
+		return new CmykColorModel(hexColorValue);
 	}
 
-	private static final int	RGB_MASK_VALUE	= 255;
-	private static final double	CMYK_FACTOR		= 1.;
-	private static final double	ONE_HUNDRED		= 100.;
+	private static final int RGB_MASK_VALUE = 255;
+	private static final double CMYK_FACTOR = 1.;
+	private static final double ONE_HUNDRED = 100.;
 
 	private final RgbColorModel rgbColorModel;
 
@@ -48,7 +45,7 @@ public final class CmykColorModel {
 	 */
 	public double getBlackFactor() {
 
-		return CmykColorModel.CMYK_FACTOR - getMaxOfRgbValue();
+		return CmykColorModel.CMYK_FACTOR - this.getMaxOfRgbValue();
 	}
 
 	private int getMaxOfRgbValue() {
@@ -67,7 +64,7 @@ public final class CmykColorModel {
 	 */
 	public double getCyanFactor() {
 
-		final var black = getBlackFactor();
+		final var black = this.getBlackFactor();
 		final var red = this.rgbColorModel.getRedValue() / CmykColorModel.RGB_MASK_VALUE;
 
 		return black != CmykColorModel.CMYK_FACTOR
@@ -77,7 +74,7 @@ public final class CmykColorModel {
 
 	public int getCyanColor() {
 
-		final var black = getBlackFactor();
+		final var black = this.getBlackFactor();
 		final var red = this.rgbColorModel.getRedValue() / CmykColorModel.RGB_MASK_VALUE;
 
 		var cyan = (CmykColorModel.CMYK_FACTOR - red - black) / (CmykColorModel.CMYK_FACTOR - black);
@@ -92,7 +89,7 @@ public final class CmykColorModel {
 	 */
 	public double getMagnetaFactor() {
 
-		final var black = getBlackFactor();
+		final var black = this.getBlackFactor();
 		final var green = this.rgbColorModel.getGreenValue() / CmykColorModel.RGB_MASK_VALUE;
 
 		return black != CmykColorModel.CMYK_FACTOR
@@ -102,7 +99,7 @@ public final class CmykColorModel {
 
 	public int getMagnetaColor() {
 
-		final var black = getBlackFactor();
+		final var black = this.getBlackFactor();
 		final var green = this.rgbColorModel.getGreenValue() / CmykColorModel.RGB_MASK_VALUE;
 
 		var magneta = (CmykColorModel.CMYK_FACTOR - green - black) / (CmykColorModel.CMYK_FACTOR - black);
@@ -118,7 +115,7 @@ public final class CmykColorModel {
 	 */
 	public double getYellowFactor() {
 
-		final var black = getBlackFactor();
+		final var black = this.getBlackFactor();
 		final var blue = this.rgbColorModel.getBlueValue() / CmykColorModel.RGB_MASK_VALUE;
 
 		return black != CmykColorModel.CMYK_FACTOR
@@ -128,7 +125,7 @@ public final class CmykColorModel {
 
 	public int getYellowColor() {
 
-		final var black = getBlackFactor();
+		final var black = this.getBlackFactor();
 		final var blue = this.rgbColorModel.getBlueValue() / CmykColorModel.RGB_MASK_VALUE;
 
 		var yellow = (CmykColorModel.CMYK_FACTOR - blue - black) / (CmykColorModel.CMYK_FACTOR - black);
@@ -139,7 +136,7 @@ public final class CmykColorModel {
 
 	public int getBlackColor() {
 
-		var black = (CmykColorModel.CMYK_FACTOR - getMaxOfRgbValue()) / CmykColorModel.RGB_MASK_VALUE;
+		var black = (CmykColorModel.CMYK_FACTOR - this.getMaxOfRgbValue()) / CmykColorModel.RGB_MASK_VALUE;
 		black = Math.round(CmykColorModel.ONE_HUNDRED * black);
 
 		return (int) black;
@@ -150,10 +147,10 @@ public final class CmykColorModel {
 
 		final String format = "CMYK = (%dC, %dM, %dY, %dK)";
 
-		final var cyan = getCyanColor();
-		final var magneta = getMagnetaColor();
-		final var yellow = getYellowColor();
-		final var black = getBlackColor();
+		final var cyan = this.getCyanColor();
+		final var magneta = this.getMagnetaColor();
+		final var yellow = this.getYellowColor();
+		final var black = this.getBlackColor();
 
 		return String.format(format, cyan, magneta, yellow, black);
 	}

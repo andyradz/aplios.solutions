@@ -176,28 +176,24 @@ public class Kowaracja {
 	@Override
 	public boolean equals(final Object obj) {
 
-		// TODO Auto-generated method stub
 		return super.equals(obj);
 	}
 
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 
-		// TODO Auto-generated method stub
 		return super.clone();
 	}
 
 	@Override
 	public String toString() {
 
-		// TODO Auto-generated method stub
 		return super.toString();
 	}
 
 	@Override
 	protected void finalize() throws Throwable {
 
-		// TODO Auto-generated method stub
 		super.finalize();
 	}
 }
@@ -328,7 +324,6 @@ class Para<S, T> {
 		//
 		// public int compareTo(final String o) {
 		//
-		// // TODO Auto-generated method stub
 		// return 0;
 		// }
 		// }

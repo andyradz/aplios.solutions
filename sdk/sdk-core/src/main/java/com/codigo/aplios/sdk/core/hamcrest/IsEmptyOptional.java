@@ -1,10 +1,10 @@
 package com.codigo.aplios.sdk.core.hamcrest;
 
+import java.util.Optional;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-
-import java.util.Optional;
 
 /**
  * Is the given {@linkplain Optional} instance withoutRepetitions?
@@ -14,7 +14,8 @@ import java.util.Optional;
 public class IsEmptyOptional extends TypeSafeMatcher<Optional<?>> {
 
 	/**
-	 * Creates a matcher that matches when the examined {@linkplain Optional} contains no object.
+	 * Creates a matcher that matches when the examined {@linkplain Optional}
+	 * contains no object.
 	 */
 	public static Matcher<Optional<?>> emptyOptional() {
 		return new IsEmptyOptional();
@@ -27,8 +28,7 @@ public class IsEmptyOptional extends TypeSafeMatcher<Optional<?>> {
 
 	@Override
 	protected void describeMismatchSafely(final Optional<?> item, final Description mismatchDescription) {
-		mismatchDescription.appendValue(item)
-				.appendText(" is not an withoutRepetitions optional");
+		mismatchDescription.appendValue(item).appendText(" is not an withoutRepetitions optional");
 	}
 
 	@Override

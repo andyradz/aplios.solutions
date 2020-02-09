@@ -15,8 +15,8 @@ public class IsBetweenInclusive<T extends Comparable<T>> extends TypeSafeMatcher
 	private final T to;
 
 	/**
-	 * Creates and instance of the matcher. Observe that <code>from</code> and <code>to</code> cannot be
-	 * null and <code>
+	 * Creates and instance of the matcher. Observe that <code>from</code> and
+	 * <code>to</code> cannot be null and <code>
 	 * from.compareTo(to)</code> must be negative.
 	 */
 	public IsBetweenInclusive(final T from, final T to) {
@@ -30,8 +30,9 @@ public class IsBetweenInclusive<T extends Comparable<T>> extends TypeSafeMatcher
 	}
 
 	/**
-	 * Creates a matcher for {@code T}s that matches when the <code>compareTo()</code> method returns a
-	 * value between <code>from</code> and <code>to</code>, both included.
+	 * Creates a matcher for {@code T}s that matches when the
+	 * <code>compareTo()</code> method returns a value between <code>from</code> and
+	 * <code>to</code>, both included.
 	 * <p>
 	 * <p>
 	 * <p>
@@ -42,7 +43,7 @@ public class IsBetweenInclusive<T extends Comparable<T>> extends TypeSafeMatcher
 	 * <p>
 	 * <p>
 	 * <p>
-	 * 
+	 *
 	 * <pre>
 	 * assertThat(10, betweenInclusive(10, 11))
 	 * </pre>
@@ -50,31 +51,24 @@ public class IsBetweenInclusive<T extends Comparable<T>> extends TypeSafeMatcher
 	 * will return true.
 	 */
 	public static <T extends Comparable<T>> Matcher<T> betweenInclusive(final T from, final T to) {
-		
-		return new IsBetweenInclusive<T>(from, to);
+
+		return new IsBetweenInclusive<>(from, to);
 	}
 
 	@Override
 	protected boolean matchesSafely(final T t) {
-		return (t.compareTo(from) >= 0) && (t.compareTo(to) <= 0);
+		return (t.compareTo(this.from) >= 0) && (t.compareTo(this.to) <= 0);
 	}
 
 	@Override
 	protected void describeMismatchSafely(final T item, final Description mismatchDescription) {
-		mismatchDescription.appendValue(item)
-				.appendText(" is not between ")
-				.appendValue(from)
-				.appendText(" and ")
-				.appendValue(to)
-				.appendText(", both included");
+		mismatchDescription.appendValue(item).appendText(" is not between ").appendValue(this.from).appendText(" and ")
+				.appendValue(this.to).appendText(", both included");
 	}
 
 	@Override
 	public void describeTo(final Description description) {
-		description.appendText("a value between ")
-				.appendValue(from)
-				.appendText(" and ")
-				.appendValue(to)
+		description.appendText("a value between ").appendValue(this.from).appendText(" and ").appendValue(this.to)
 				.appendText(", both included");
 	}
 

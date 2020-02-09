@@ -57,7 +57,6 @@ public enum CompareResult {
 
 		return this.compareCode;
 	}
-	
 
 	/**
 	 * Właściwość wskazuje wartość wyniku operacji porównania

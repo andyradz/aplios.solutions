@@ -10,17 +10,17 @@ package com.codigo.aplios.sdk.core.helpers.color;
  */
 public final class RgbToHsvColorConverter {
 
-	private static final int	RGB_MASK_VALUE	= 0xFF;
-	private static final int	SHIFT_BY_2BYTES	= 16;
-	private static final int	SHIFT_BY_1BYTES	= 8;
+	private static final int RGB_MASK_VALUE = 0xFF;
+	private static final int SHIFT_BY_2BYTES = 16;
+	private static final int SHIFT_BY_1BYTES = 8;
 
-	private int				rgbColorValue;
-	private final double	minOfRgbValue;
-	private final double	maxOfRgbValue;
-	private double			hue;
-	private double			saturation;
-	private final double	value;
-	private final double	delta;
+	private int rgbColorValue;
+	private final double minOfRgbValue;
+	private final double maxOfRgbValue;
+	private double hue;
+	private double saturation;
+	private final double value;
+	private final double delta;
 
 	/**
 	 * Podstawowy konstruktor obiektu klas<code>RgbToHsvColorConverter</code>
@@ -37,12 +37,9 @@ public final class RgbToHsvColorConverter {
 	/**
 	 * Podstawowy konstruktor obiektu klas<code>RgbToHsvColorConverter</code>
 	 *
-	 * @param redValue
-	 *        Składowa barwy czerwonej modelu RGB
-	 * @param greenValue
-	 *        Składowa barwy zielonej modelu RGB
-	 * @param blueValue
-	 *        Składowa barwy niebieskiej modelu RGB
+	 * @param redValue   Składowa barwy czerwonej modelu RGB
+	 * @param greenValue Składowa barwy zielonej modelu RGB
+	 * @param blueValue  Składowa barwy niebieskiej modelu RGB
 	 */
 	RgbToHsvColorConverter(final int redValue, final int greenValue, final int blueValue) {
 

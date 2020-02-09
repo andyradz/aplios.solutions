@@ -14,6 +14,7 @@ import com.codigo.aplios.domain.model.Parameter;
 import com.codigo.aplios.domain.model.calendar.Calendar;
 import com.codigo.aplios.domain.model.calendar.CalendarDay;
 import com.codigo.aplios.domain.model.calendar.CalendarPrimaryKey;
+import com.codigo.aplios.domain.model.catalog.Category;
 import com.codigo.aplios.domain.model.locale.Country;
 
 /*import com.codigo.aplios.domain.model.catalog.EntityLifeState;
@@ -31,53 +32,75 @@ public class TestDb {
 	
 	private static void employeeUpdate() {
 		
-		EntityManager em = entityManagerFactory.createEntityManager();
+		GenericRepository<Category> repo = new GenericRepository<>(Category.class, "bitshop");
+		//var ll = repo.deleteAll();
 		
-		em.getTransaction().begin();
+//		em.getTransaction().commit();		
+//		em.close();
 		
-		Parameter paramManager = new Parameter();
-		paramManager.setParameterKey("PCAL");
-		paramManager.setSubtypeKey("01");
+//		EntityManager em = entityManagerFactory.createE`ntityManager();
+//		
+//		em.getTransaction().begin();
 		
-		Parameter paramManager1 = new Parameter();
-		paramManager1.setParameterKey("PCAL");
-		paramManager1.setSubtypeKey("10");
+//		Parameter paramManager = new Parameter();
+//		paramManager.setParameterKey("PCAL");
+//		paramManager.setSubtypeKey("01");
+//		
+//		Parameter paramManager1 = new Parameter();
+//		paramManager1.setParameterKey("PCAL");
+//		paramManager1.setSubtypeKey("10");
+//		
+//		Parameter param1 = new Parameter();
+//		param1.setParameterKey("INTR");
+//		param1.setSubtypeKey("01");
+//		param1.setSubtype(paramManager);
+//		
+//		Parameter param2 = new Parameter();
+//		param2.setParameterKey("INTR");
+//		param2.setSubtypeKey("02");
+//		param2.setSubtype(paramManager);
+//		
+//		Parameter param3 = new Parameter();
+//		param3.setParameterKey("DVCA");
+//		param3.setSubtypeKey("01");
+//		param3.setSubtype(paramManager);
+//		
+//		Parameter param4 = new Parameter();
+//		param4.setParameterKey("DVCA");
+//		param4.setSubtypeKey("02");
+//		param4.setSubtype(paramManager);
+//		
+//		Parameter param5 = new Parameter();
+//		param5.setParameterKey("REDM");
+//		param5.setSubtypeKey("02");
+//		param5.setSubtype(paramManager);
+//		
+//		Parameter param6 = new Parameter();
+//		param6.setParameterKey("DVOP");
+//		param6.setSubtypeKey("02");
+//		
+//		repo.insert(param1);
+//		repo.insert(param2);
+//		repo.insert(param3);
+//		repo.insert(param4);
+//		repo.insert(param5);
+//		repo.insert(paramManager);
+//		repo.insert(paramManager1);
+//		repo.insert(param6);
+//		
+//		param6.setSubtypeKey("23");
+//		repo.insert(param6);
 		
-		Parameter param1 = new Parameter();
-		param1.setParameterKey("INTR");
-		param1.setSubtypeKey("01");
-		param1.setSubtype(paramManager);
-		
-		Parameter param2 = new Parameter();
-		param2.setParameterKey("INTR");
-		param2.setSubtypeKey("02");
-		param2.setSubtype(paramManager);
-		
-		Parameter param3 = new Parameter();
-		param3.setParameterKey("DVCA");
-		param3.setSubtypeKey("01");
-		param3.setSubtype(paramManager);
-		
-		Parameter param4 = new Parameter();
-		param4.setParameterKey("DVCA");
-		param4.setSubtypeKey("02");
-		param4.setSubtype(paramManager);
-		
-		Parameter param5 = new Parameter();
-		param5.setParameterKey("REDM");
-		param5.setSubtypeKey("02");
-		param5.setSubtype(paramManager);
-		
-		em.persist(param1);
-		em.persist(param2);
-		em.persist(param3);
-		em.persist(param4);
-		em.persist(param5);
-		em.persist(paramManager);
-		em.persist(paramManager1);
-		
-		em.getTransaction().commit();		
-		em.close();
+//		em.persist(param1);
+//		em.persist(param2);
+//		em.persist(param3);
+//		em.persist(param4);
+//		em.persist(param5);
+//		em.persist(paramManager);
+//		em.persist(paramManager1);
+//		
+//		em.getTransaction().commit();		
+//		em.close();
 //		
 //		Slownik dic = new Slownik();
 //		dic.setDescription("Słownik53");
@@ -171,7 +194,7 @@ public class TestDb {
 	public static void main(final String[] args) throws InterruptedException {
 		
 		employeeUpdate();
-		persistEmployee();
+		//persistEmployee();
 		
 		// throws InterruptedException, ExecutionException, IOException, JAXBException {
 		

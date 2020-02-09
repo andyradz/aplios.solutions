@@ -21,16 +21,16 @@ import java.lang.annotation.Target;
  * @since 2017
  * @category attribute
  */
-@Target({ElementType.TYPE, ElementType.PACKAGE, ElementType.ANNOTATION_TYPE})
+@Target({ ElementType.TYPE, ElementType.PACKAGE, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Changelogs {
 
-    /**
-     * Właściwość określa listę zmian realizowanych w danym pakiecie
-     *
-     * @return Kolekcja elementów typu <code>@Changelog</code>
-     */
-    Changelog[] value();
+	/**
+	 * Właściwość określa listę zmian realizowanych w danym pakiecie
+	 *
+	 * @return Kolekcja elementów typu <code>@Changelog</code>
+	 */
+	Changelog[] value();
 
 }

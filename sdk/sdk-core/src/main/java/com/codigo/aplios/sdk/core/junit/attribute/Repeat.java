@@ -10,5 +10,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ METHOD, ANNOTATION_TYPE })
 public @interface Repeat {
-    int value() default 1;
+	int value() default 1;
 }

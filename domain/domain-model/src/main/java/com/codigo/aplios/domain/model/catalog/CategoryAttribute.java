@@ -2,11 +2,8 @@ package com.codigo.aplios.domain.model.catalog;
 
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.codigo.aplios.domain.model.common.EntityModel;
@@ -27,9 +24,8 @@ public class CategoryAttribute extends EntityModel {
 	@Column(name = "Searchable")
 	private Boolean searchable;
 
-	@ManyToOne(targetEntity = Category.class, optional = false, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "CategoryId")
-	private Category category;
+//	@ManyToOne(cascade = CascadeType.ALL)
+//	private Category category;
 
 	public String getName() {
 
@@ -61,15 +57,15 @@ public class CategoryAttribute extends EntityModel {
 		this.searchable = searchable;
 	}
 
-	public Category getCategory() {
-
-		return this.category;
-	}
-
-	public void setCategory(final Category category) {
-
-		this.category = category;
-	}
+//	public Category getCategory() {
+//
+//		return this.category;
+//	}
+//
+//	public void setCategory(final Category category) {
+//
+//		this.category = category;
+//	}
 
 	@Override
 	public boolean equals(final Object instance) {
@@ -82,19 +78,19 @@ public class CategoryAttribute extends EntityModel {
 
 		// if (this.id != null && cattAttr.id != null)
 		// return this.id.equals(cattAttr.id);
-		if (this.name != null)
-			if (cattAttr != null) {
-				if (cattAttr.category != null)
-					return false;
-			}
-			else if (!this.category.equals(cattAttr.category))
-				return false;
-		if (this.value == null) {
-			if (cattAttr.value != null)
-				return false;
-		}
-		else if (!this.value.equals(cattAttr.value))
-			return false;
+//		if (this.name != null)
+//			if (cattAttr != null) {
+//				if (cattAttr.category != null)
+//					return false;
+//			}
+//			else if (!this.category.equals(cattAttr.category))
+//				return false;
+//		if (this.value == null) {
+//			if (cattAttr.value != null)
+//				return false;
+//		}
+//		else if (!this.value.equals(cattAttr.value))
+//			return false;
 		return true;
 	}
 
@@ -108,7 +104,8 @@ public class CategoryAttribute extends EntityModel {
 
 	@Override
 	public int hashCode() {
+		return 1;
 
-		return Objects.hash(this.name, this.category, this.value);
+//		return Objects.hash(this.name, this.category, this.value);
 	}
 }

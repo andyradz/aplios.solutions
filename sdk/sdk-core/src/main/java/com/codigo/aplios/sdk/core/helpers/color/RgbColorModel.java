@@ -14,22 +14,21 @@ import java.util.Objects;
 public final class RgbColorModel {
 
 	/**
-	 * Metoda fabrykująca model koloru RGB. Wyznaczanie modelu następuje na podstawie wartości
-	 * numerycznej reprezentującej kolor modelu RGB
+	 * Metoda fabrykująca model koloru RGB. Wyznaczanie modelu następuje na
+	 * podstawie wartości numerycznej reprezentującej kolor modelu RGB
 	 *
-	 * @param rgbValue
-	 *        Parametr wskazuje wartość koloru w modelu RGB
+	 * @param rgbValue Parametr wskazuje wartość koloru w modelu RGB
 	 * @return Obiekt modelu koloru RGB
 	 */
 	public static RgbColorModel of(final int rgbValue) {
 
-		return new RgbColorModel(
-			rgbValue);
+		return new RgbColorModel(rgbValue);
 	}
 
 	/**
-	 * Metoda fabrykująca model koloru RGB. Wyznaczanie modelu następuje na podstawie wartości
-	 * składowych czerwonej,zielonej i niebieskiej przedstawionej w postlic liczby z zakresu 0..255
+	 * Metoda fabrykująca model koloru RGB. Wyznaczanie modelu następuje na
+	 * podstawie wartości składowych czerwonej,zielonej i niebieskiej przedstawionej
+	 * w postlic liczby z zakresu 0..255
 	 *
 	 * @param redValue
 	 * @param greenValue
@@ -38,22 +37,19 @@ public final class RgbColorModel {
 	 */
 	public static RgbColorModel of(final int redValue, final int greenValue, final int blueValue) {
 
-		return new RgbColorModel(
-			redValue, greenValue, blueValue);
+		return new RgbColorModel(redValue, greenValue, blueValue);
 	}
 
 	/**
-	 * Metoda fabrykująca model koloru RGB. Wyznaczanie modelu następuje na podstawie wartości
-	 * heksadecymalnej zapisanej jako ciąg znaków
+	 * Metoda fabrykująca model koloru RGB. Wyznaczanie modelu następuje na
+	 * podstawie wartości heksadecymalnej zapisanej jako ciąg znaków
 	 *
-	 * @param hexColorValue
-	 *        Wartość heksadecymalnazapisana w postaci ciągu znaków
+	 * @param hexColorValue Wartość heksadecymalnazapisana w postaci ciągu znaków
 	 * @return Obiekt modelu koloru RGB
 	 */
 	public static RgbColorModel of(final String hexColorValue) {
 
-		return new RgbColorModel(
-			hexColorValue);
+		return new RgbColorModel(hexColorValue);
 	}
 
 	/**
@@ -79,8 +75,7 @@ public final class RgbColorModel {
 	/**
 	 * Podstawowy konstruktor obiektu klasy<code>RgbColorModel</code>
 	 *
-	 * @param rgbValue
-	 *        Parametr określa wartość koloru w modelu RGB.
+	 * @param rgbValue Parametr określa wartość koloru w modelu RGB.
 	 */
 	private RgbColorModel(final int rgbValue) {
 
@@ -92,8 +87,8 @@ public final class RgbColorModel {
 	/**
 	 * Podstawowy konstruktor obiektu klasy<code>RgbColorModel</code>
 	 *
-	 * @param hexColorValue
-	 *        Parametr określa wartość koloru w notacji RGB. Wartość przekazana w postaci hexadecymalnej
+	 * @param hexColorValue Parametr określa wartość koloru w notacji RGB. Wartość
+	 *                      przekazana w postaci hexadecymalnej
 	 */
 	private RgbColorModel(final String hexColorValue) {
 		this(Integer.decode("#" + hexColorValue));
@@ -102,12 +97,10 @@ public final class RgbColorModel {
 	/**
 	 * Podstawowy konstruktor obiektu klasy<code>RgbColorModel</code>
 	 *
-	 * @param redValue
-	 *        Parametr określa wartość barwy czerwonej, składowej modelu RGB
-	 * @param greenValue
-	 *        Parametr określa wartość zielonej, składowej modelu RGB
-	 * @param blueValue
-	 *        Parametr określa wartość niebieskiej składowej modelu RGB
+	 * @param redValue   Parametr określa wartość barwy czerwonej, składowej modelu
+	 *                   RGB
+	 * @param greenValue Parametr określa wartość zielonej, składowej modelu RGB
+	 * @param blueValue  Parametr określa wartość niebieskiej składowej modelu RGB
 	 */
 	private RgbColorModel(final int redValue, final int greenValue, final int blueValue) {
 
@@ -188,6 +181,6 @@ public final class RgbColorModel {
 
 		final String format = "RGB = (%d, %d, %d)";
 
-		return String.format(format, getRedValue(), getGreenValue(), getBlueValue());
+		return String.format(format, this.getRedValue(), this.getGreenValue(), this.getBlueValue());
 	}
 }

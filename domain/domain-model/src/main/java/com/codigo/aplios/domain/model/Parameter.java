@@ -40,7 +40,7 @@ public class Parameter extends ManagedEntityModel {
 	@Column(name = "SubtypeKey", unique = false, length = 16)
 	private String subtypeKey;
 	
-	@ManyToOne(cascade = { CascadeType.ALL })
+	@ManyToOne(cascade = { CascadeType.REFRESH })
 	@JoinColumn(name = "SubtypeId")
 	private Parameter subtype;
 	
@@ -49,7 +49,7 @@ public class Parameter extends ManagedEntityModel {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="Factural")//czy merytoryczny
-	private LogicalStates factual = LogicalStates.No;
+	private LogicalStates factual = LogicalStates.NO;
 	
 	public String getParameterKey() {
 		return parameterKey;

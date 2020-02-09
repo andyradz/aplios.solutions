@@ -17,15 +17,16 @@ public class IsSimilar extends BaseMatcher<CharSequence> {
 	public IsSimilar(final CharSequence target, final int levenshteinDistance) {
 
 		// checkNotNull(target);
-		// checkArgument(levenshteinDistance >= 0, "Levenshtein distance cannot be negative");
+		// checkArgument(levenshteinDistance >= 0, "Levenshtein distance cannot be
+		// negative");
 		this.target = target;
 		this.maxDistance = levenshteinDistance;
 	}
 
 	/**
-	 * Creates a matcher that matches only when the examined {@linkplain CharSequence} is within the
-	 * given Levenshtein distance (inclusive) with the provided <code>target</code>
-	 * {@linkplain CharSequence}.
+	 * Creates a matcher that matches only when the examined
+	 * {@linkplain CharSequence} is within the given Levenshtein distance
+	 * (inclusive) with the provided <code>target</code> {@linkplain CharSequence}.
 	 */
 	public static Matcher<CharSequence> similar(final CharSequence target, final int levenshteinDistance) {
 		return new IsSimilar(target, levenshteinDistance);
@@ -35,17 +36,16 @@ public class IsSimilar extends BaseMatcher<CharSequence> {
 	public boolean matches(final Object arg) {
 
 		// checkNotNull(arg);
-		// checkArgument(arg instanceof CharSequence, "Expected and instance of CharSequence");
-		return LevenshteinDistance.distance((CharSequence) arg, target) <= maxDistance;
+		// checkArgument(arg instanceof CharSequence, "Expected and instance of
+		// CharSequence");
+		return LevenshteinDistance.distance((CharSequence) arg, this.target) <= this.maxDistance;
 	}
 
 	@Override
 	public void describeTo(final Description description) {
 
-		description.appendText("has max Levenshtein distance ")
-				.appendValue(maxDistance)
-				.appendText(" from ")
-				.appendValue(target);
+		description.appendText("has max Levenshtein distance ").appendValue(this.maxDistance).appendText(" from ")
+				.appendValue(this.target);
 	}
 
 }

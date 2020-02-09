@@ -3,7 +3,8 @@ package com.codigo.aplios.sdk.core.helpers.color;
 import java.util.Objects;
 
 /**
- * Klasa reprezentuje mechanizm zamiany wartości koloru RGB do postaci szesnastkowej
+ * Klasa reprezentuje mechanizm zamiany wartości koloru RGB do postaci
+ * szesnastkowej
  *
  * @author andrzej.radziszewski
  * @version 1.0.0.0
@@ -14,19 +15,20 @@ import java.util.Objects;
 final class RgbToHexColorConverter {
 
 	/**
-	 * Atrybut obiektu wskazuje na wartość koloru RGB zapisanej do wartości szesnastkowej
+	 * Atrybut obiektu wskazuje na wartość koloru RGB zapisanej do wartości
+	 * szesnastkowej
 	 */
 	private int hexColorValue;
 
 	/**
 	 * Podstawowy konstruktor obiektu klasy <code>RgbToHexColorConverter</code>
 	 *
-	 * @param redValue
-	 *        Parametr określa wartość składowej barwy czerwonej koloru w systemie RGB
-	 * @param greenValue
-	 *        Parametr określa wartość składowej barwy zielonej koloru w systemie RGB
-	 * @param blueValue
-	 *        Parametr określa wartość składowej barwy niebieskiej koloru w systemie RGB
+	 * @param redValue   Parametr określa wartość składowej barwy czerwonej koloru w
+	 *                   systemie RGB
+	 * @param greenValue Parametr określa wartość składowej barwy zielonej koloru w
+	 *                   systemie RGB
+	 * @param blueValue  Parametr określa wartość składowej barwy niebieskiej koloru
+	 *                   w systemie RGB
 	 */
 	public RgbToHexColorConverter(final int redValue, final int greenValue, final int blueValue) {
 
@@ -47,8 +49,7 @@ final class RgbToHexColorConverter {
 	/**
 	 * Podstawowy konstruktor obiektu klasy<code>RgbToHexColorConverter</code>
 	 *
-	 * @param rgbValue
-	 *        Parametr określa wartość koloru w systemie RGB
+	 * @param rgbValue Parametr określa wartość koloru w systemie RGB
 	 */
 	public RgbToHexColorConverter(final int rgbValue) {
 
@@ -98,7 +99,6 @@ final class RgbToHexColorConverter {
 	@Override
 	public String toString() {
 
-		return Integer.toHexString(this.hexColorValue)
-				.toUpperCase();
+		return Integer.toHexString(this.hexColorValue).toUpperCase();
 	}
 }

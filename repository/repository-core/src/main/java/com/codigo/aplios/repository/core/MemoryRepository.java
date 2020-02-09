@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 
 import com.codigo.aplios.domain.model.common.EntityModel;
 
-
 //HashSet doesn’t maintain any order, the elements would be returned in any random order.
 
 //HashSet allows null values however if you insert more than one nulls it would still return only one null value.
@@ -39,27 +38,28 @@ public class MemoryRepository<T extends EntityModel> implements Repository<T> {
 		return this.dataSet;
 	}
 
-	@Override
-	public void insert(final T entity) {
-		//HashSet doesn’t allow duplicates. If you try to add a duplicate element in HashSet, the old value would be overwritten.		
-		this.dataSet.add(entity);
-	}
+//	@Override
+//	public void insert(final T entity) {
+//		// HashSet doesn’t allow duplicates. If you try to add a duplicate element in
+//		// HashSet, the old value would be overwritten.
+//		this.dataSet.add(entity);
+//	}
+
+//	@Override
+//	public void insert(final Collection<T> entities) {
+//
+//		entities.forEach(this::insert);
+//	}
+
+//	@Override
+//	@SafeVarargs
+//	public final void insert(final T... entities) {
+//
+//		Stream.of(entities).forEach(this::insert);
+//	}
 
 	@Override
-	public void insert(final Collection<T> entities) {
-
-		entities.forEach(this::insert);
-	}
-
-	@Override
-	@SafeVarargs
-	public final void insert(final T... entities) {
-
-		Stream.of(entities).forEach(this::insert);
-	}
-
-	@Override
-	public void delete(final Integer key) {
+	public void delete(final Long key) {
 
 		this.dataSet.removeIf(item -> item.getId().equals(key));
 	}
@@ -77,7 +77,7 @@ public class MemoryRepository<T extends EntityModel> implements Repository<T> {
 	}
 
 	@Override
-	public long delete() {
+	public Long deleteAll() {
 
 		final long dataCount = this.dataSet.size();
 		this.dataSet.clear();
@@ -101,5 +101,23 @@ public class MemoryRepository<T extends EntityModel> implements Repository<T> {
 
 		this.dataSet.remove(entity);
 		// throw new Exception("Delete record has failed!");
+	}
+
+	@Override
+	public Long insert(T entity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<T> union(Iterable<T> entities) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<T> except(Iterable<T> entities) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

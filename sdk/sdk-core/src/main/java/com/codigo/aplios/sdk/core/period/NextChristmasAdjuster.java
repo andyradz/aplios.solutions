@@ -9,7 +9,7 @@ import java.time.temporal.UnsupportedTemporalTypeException;
 public final class NextChristmasAdjuster implements TemporalAdjuster {
 
 	@Override
-	public Temporal adjustInto(Temporal temporal) {
+	public Temporal adjustInto(final Temporal temporal) {
 
 		if (!(temporal.isSupported(ChronoField.MONTH_OF_YEAR)))
 			throw new UnsupportedTemporalTypeException(

@@ -356,7 +356,7 @@ public final class Valuable<T> implements Comparable<Valuable<T>> {
 
 	public synchronized T get(final UnaryOperator<T> operator) {
 
-		if (!(this.throwIfNull && this.isNull()))
+		if ((!this.throwIfNull || !this.isNull()))
 			return (operator.apply(this.get()));
 
 		return this.value;

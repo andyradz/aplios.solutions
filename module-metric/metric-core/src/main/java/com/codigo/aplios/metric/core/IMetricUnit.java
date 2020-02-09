@@ -1,8 +1,5 @@
 package com.codigo.aplios.metric.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
 //https://en.wikipedia.org/wiki/International_System_of_Units
 
 public interface IMetricUnit {

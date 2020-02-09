@@ -11,12 +11,12 @@ import org.hamcrest.TypeSafeMatcher;
  */
 public class IsBetween<T extends Comparable<T>> extends TypeSafeMatcher<T> {
 
-	private final T	from;
-	private final T	to;
+	private final T from;
+	private final T to;
 
 	/**
-	 * Creates and instance of the matcher. Observe that <code>from</code> and <code>to</code> cannot be
-	 * null and <code>
+	 * Creates and instance of the matcher. Observe that <code>from</code> and
+	 * <code>to</code> cannot be null and <code>
 	 * from.compareTo(to)</code> must be negative.
 	 */
 	public IsBetween(final T from, final T to) {
@@ -29,8 +29,9 @@ public class IsBetween<T extends Comparable<T>> extends TypeSafeMatcher<T> {
 	}
 
 	/**
-	 * Creates a matcher for {@code T}s that matches when the <code>compareTo()</code> method returns a
-	 * value between <code>from</code> and <code>to</code>, both excluded.
+	 * Creates a matcher for {@code T}s that matches when the
+	 * <code>compareTo()</code> method returns a value between <code>from</code> and
+	 * <code>to</code>, both excluded.
 	 * <p>
 	 * <p>
 	 * <p>
@@ -50,8 +51,7 @@ public class IsBetween<T extends Comparable<T>> extends TypeSafeMatcher<T> {
 	 */
 	public static <T extends Comparable<T>> Matcher<T> between(final T from, final T to) {
 
-		return new IsBetween<>(
-			from, to);
+		return new IsBetween<>(from, to);
 	}
 
 	@Override
@@ -63,21 +63,14 @@ public class IsBetween<T extends Comparable<T>> extends TypeSafeMatcher<T> {
 	@Override
 	protected void describeMismatchSafely(final T item, final Description mismatchDescription) {
 
-		mismatchDescription.appendValue(item)
-				.appendText(" is not between ")
-				.appendValue(this.from)
-				.appendText(" and ")
-				.appendValue(this.to)
-				.appendText(", both excluded");
+		mismatchDescription.appendValue(item).appendText(" is not between ").appendValue(this.from).appendText(" and ")
+				.appendValue(this.to).appendText(", both excluded");
 	}
 
 	@Override
 	public void describeTo(final Description description) {
 
-		description.appendText("a value between ")
-				.appendValue(this.from)
-				.appendText(" and ")
-				.appendValue(this.to)
+		description.appendText("a value between ").appendValue(this.from).appendText(" and ").appendValue(this.to)
 				.appendText(", both excluded");
 	}
 }

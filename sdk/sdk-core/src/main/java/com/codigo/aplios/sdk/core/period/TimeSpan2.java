@@ -1,4 +1,5 @@
 package com.codigo.aplios.sdk.core.period;
+
 //
 // import com.codigo.aplios.sdk.core.compare.IComparable;
 //

@@ -14,9 +14,8 @@ final class HexToRbgColorConverter {
 	/**
 	 * Podstawowy konstruktor obiektu klasy <code>RGBToHexColorConverter</code>
 	 *
-	 * @param hexColorValue
-	 *        Parametr wskazuje na wartość tekstową reprezentującą kolor w układzie RGB zapisanym w
-	 *        formacie szesnastkowym
+	 * @param hexColorValue Parametr wskazuje na wartość tekstową reprezentującą
+	 *                      kolor w układzie RGB zapisanym w formacie szesnastkowym
 	 */
 	HexToRbgColorConverter(final String hexColorValue) {
 

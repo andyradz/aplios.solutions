@@ -1,46 +1,44 @@
 package com.codigo.aplios.sdk.core.junit.rules;
 
-import com.codigo.aplios.sdk.core.junit.attribute.Repeat;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-public class RepeatRule
-        implements TestRule {
+import com.codigo.aplios.sdk.core.junit.attribute.Repeat;
 
-    private static class RepeatStatement
-            extends Statement {
+public class RepeatRule implements TestRule {
 
-        private final int times;
+	private static class RepeatStatement extends Statement {
 
-        private final Statement statement;
+		private final int times;
 
-        private RepeatStatement(final int times, final Statement statement) {
+		private final Statement statement;
 
-            this.times = times;
-            this.statement = statement;
-        }
+		private RepeatStatement(final int times, final Statement statement) {
 
-        @Override
-        public void evaluate() throws Throwable {
+			this.times = times;
+			this.statement = statement;
+		}
 
-            for (int i = 0; i < this.times; i++)
-                this.statement.evaluate();
-        }
+		@Override
+		public void evaluate() throws Throwable {
 
-    }
+			for (int i = 0; i < this.times; i++)
+				this.statement.evaluate();
+		}
 
-    @Override
-    public Statement apply(final Statement statement, final Description description) {
+	}
 
-        Statement result = statement;
-        final Repeat repeat = description.getAnnotation(Repeat.class);
-        if (repeat != null) {
-            final int times = repeat.value();
-            result = new RepeatStatement(times,
-                    statement);
-        }
-        return result;
-    }
+	@Override
+	public Statement apply(final Statement statement, final Description description) {
+
+		Statement result = statement;
+		final Repeat repeat = description.getAnnotation(Repeat.class);
+		if (repeat != null) {
+			final int times = repeat.value();
+			result = new RepeatStatement(times, statement);
+		}
+		return result;
+	}
 
 }

@@ -1,17 +1,5 @@
 package com.codigo.aplios.sdk.core;
 
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
 /***
  * // Java 8 code public class JavaFXTrayIconSample extends Application {
  *

@@ -1,4 +1,5 @@
 package com.codigo.aplios.sdk.core.period;
+
 // package com.codigo.aplios.sdk.core.period;
 //
 // import java.util.Objects;

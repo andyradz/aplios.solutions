@@ -6,26 +6,21 @@ import com.codigo.aplios.sdk.core.attribute.Author;
 import com.codigo.aplios.sdk.core.attribute.Changelog;
 import com.codigo.aplios.sdk.core.attribute.Changelog.Category;
 
-@Changelog(date = "2016.04.15", authors = {
-		@Author(name = "", login = "", contact = ""),
+@Changelog(date = "2016.04.15", authors = { @Author(name = "", login = "", contact = ""),
 		@Author(name = "", login = "", contact = "") }, category = Category.New, descrition = "", title = "")
 public class EmailMessage {
 
 	public static void main(final String[] args) throws InterruptedException {
 
-		EmailMessage.from("sd")
-				.to("and.radz@wp.pl", "izabela141@wp.pl")
-				.subject("Informacja raportowa")
-				.content("Test admin")
-				.mimeType("html")
-				.build();
+		EmailMessage.from("sd").to("and.radz@wp.pl", "izabela141@wp.pl").subject("Informacja raportowa")
+				.content("Test admin").mimeType("html").build();
 	}
 
-	private String				from;
-	private ArrayList<String>	to;
-	private String				subject;
-	private String				content;
-	private String				mimeType;
+	private String from;
+	private ArrayList<String> to;
+	private String subject;
+	private String content;
+	private String mimeType;
 
 	private EmailMessage() {
 
@@ -33,8 +28,7 @@ public class EmailMessage {
 
 	public static ITo from(final String from) {
 
-		return new EmailMessage.Builder(
-			from);
+		return new EmailMessage.Builder(from);
 	}
 
 	public interface ITo {

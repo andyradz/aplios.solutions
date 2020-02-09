@@ -1,16 +1,11 @@
 package com.codigo.aplios.domain.model.locale;
 
-import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.eclipse.persistence.annotations.Customizer;
@@ -34,9 +29,7 @@ public class Dictionary extends EntityModel {
 //	@AttributeOverride(name = "id", column = @Column(name = "id"))
 //	@Id
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dictionary_generator")
-//	@SequenceGenerator(name = "dictionary_generator", sequenceName = "dictionary_seq", allocationSize = 50)
-//	@Column(name = "Id", nullable = false, updatable = false)
-//	@ColumnPosition(position = 0)
+//	@TableGenerator(name = "dictionary_generator", initialValue = 0, allocationSize = 50)
 //	private Long id;
 	
 	@Column(name = "DisplayOrder")

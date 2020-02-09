@@ -11,18 +11,19 @@ import java.util.ResourceBundle;
 import com.codigo.aplios.sdk.core.loaders.ResourceLoader.EnvironmentLevel.Bundle;
 
 /**
- * Klasa realizuje mechanizm dostępu do elementów statycznych programu. Umożliwia ładowanie zasobów
- * typu napisy tekstowe, ikony, obrazy, konfiguracje, pliki binarne. Zasoby podzielone są na grupy,
- * które odpowiadają warstwą aplikacyjnym dostępnym w systemie.
+ * Klasa realizuje mechanizm dostępu do elementów statycznych programu.
+ * Umożliwia ładowanie zasobów typu napisy tekstowe, ikony, obrazy,
+ * konfiguracje, pliki binarne. Zasoby podzielone są na grupy, które odpowiadają
+ * warstwą aplikacyjnym dostępnym w systemie.
  *
- * @author Andrzej Radziszewski ar.radziszewski@gmail.com File name ResourceLoader.java Created date
- *         2016-05-25
+ * @author Andrzej Radziszewski ar.radziszewski@gmail.com File name
+ *         ResourceLoader.java Created date 2016-05-25
  */
 public final class ResourceLoader {
 
 	/**
-	 * Typ wyliczeniowy definiuje listę indykatorów, które przedstawiają znaczki poziomów środowisk
-	 * dostępnych w systemi.
+	 * Typ wyliczeniowy definiuje listę indykatorów, które przedstawiają znaczki
+	 * poziomów środowisk dostępnych w systemi.
 	 */
 	enum EnvironmentLevel {
 
@@ -43,8 +44,7 @@ public final class ResourceLoader {
 		/**
 		 * Podstawowy konstruktor struktury.
 		 *
-		 * @param bundle
-		 *        parametr przedstawia poziom środowiska systemu.
+		 * @param bundle parametr przedstawia poziom środowiska systemu.
 		 */
 		EnvironmentLevel(final String bundle) {
 
@@ -52,25 +52,20 @@ public final class ResourceLoader {
 		}
 
 		/**
-		 * Metoda pobiera pakiet elementów statycznych z zasobu systemu. Dane zawarte w pakiecie dotyczą
-		 * wskazanego poziomu aplikacji systemu.
+		 * Metoda pobiera pakiet elementów statycznych z zasobu systemu. Dane zawarte w
+		 * pakiecie dotyczą wskazanego poziomu aplikacji systemu.
 		 *
-		 * @param indykator
-		 *        obszaru zasobów statycznych systemu.
+		 * @param indykator obszaru zasobów statycznych systemu.
 		 * @return pakiet elementów statycznych z zasobów systemu.
 		 */
 		public ResourceBundle getBundle(final Bundle element) {
 
-			return EnumSet.of(element)
-					.stream()
-					.findFirst()
-					.orElse(null)
-					.getContext(this.mEnvironmentLevel);
+			return EnumSet.of(element).stream().findFirst().orElse(null).getContext(this.mEnvironmentLevel);
 		}
 
 		/*
-		 * Typ wyliczeniowy definuje listę indykatorów, które przedstawiają obaszar elementów statycznych
-		 * systemu.
+		 * Typ wyliczeniowy definuje listę indykatorów, które przedstawiają obaszar
+		 * elementów statycznych systemu.
 		 */
 		enum Bundle {
 			/* Definicje opisów dla wyjątków systemowych */
@@ -92,8 +87,8 @@ public final class ResourceLoader {
 			/**
 			 * Podstawowy konstruktor klasy.
 			 *
-			 * @param bundle
-			 *        parametr przedstawia element obszaru zasobów statycznych systemu.
+			 * @param bundle parametr przedstawia element obszaru zasobów statycznych
+			 *               systemu.
 			 */
 			Bundle(final String bundle) {
 
@@ -101,11 +96,10 @@ public final class ResourceLoader {
 			}
 
 			/**
-			 * Metoda pobiera pakiet elementów statycznych z zasobu systemu. Dane zawarte w pakiecie dotyczą
-			 * wskazanego poziomu środowiska systemu.
+			 * Metoda pobiera pakiet elementów statycznych z zasobu systemu. Dane zawarte w
+			 * pakiecie dotyczą wskazanego poziomu środowiska systemu.
 			 *
-			 * @param environmentLevel
-			 *        indykator obszaru zasobów statycznych systemu.
+			 * @param environmentLevel indykator obszaru zasobów statycznych systemu.
 			 * @return pakiet elementów statycznych z zasobów systemu.
 			 */
 			private ResourceBundle getContext(final String environmentLevel) {
@@ -144,8 +138,10 @@ public final class ResourceLoader {
 		}
 
 		// Bundle.ERRORS.setBundle("labels.metka");
-		// ResourceBundle params = EnvironmentLevel.DEVELOPMENT.getBundle(Bundle.ERRORS);
-		// System.out.println(MessageFormat.format(params.getString("author"), "A_", "R_"));
+		// ResourceBundle params =
+		// EnvironmentLevel.DEVELOPMENT.getBundle(Bundle.ERRORS);
+		// System.out.println(MessageFormat.format(params.getString("author"), "A_",
+		// "R_"));
 
 		// for (String key : params.keySet()) {
 		// System.out.println(key);
@@ -162,8 +158,7 @@ class ImageBundle extends ListResourceBundle {
 		return this.mImages;
 	}
 
-	private final Object[][] mImages = {
-			{ "PIC1", ResourceLoader.class.getResource("/development/images/pic1.jpg") },
+	private final Object[][] mImages = { { "PIC1", ResourceLoader.class.getResource("/development/images/pic1.jpg") },
 			{ "PIC2", ResourceLoader.class.getResource("/development/images/pic2.jpg") },
 			{ "PIC3", ResourceLoader.class.getResource("/development/images/pic3.jpg") },
 			{ "PIC4", ResourceLoader.class.getResource("/development/images/pic4.jpg") } };

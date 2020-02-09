@@ -14,21 +14,19 @@ public class NextMartinLutherKingDayQuery implements TemporalQuery<LocalDate> {
 	public LocalDate queryFrom(final TemporalAccessor temporal) {
 
 		final LocalDate date = LocalDate.from(temporal);
-		final LocalDate currentYearMLKDay = getMartinLutherKingDayForDateInYear(date.getYear());
+		final LocalDate currentYearMLKDay = this.getMartinLutherKingDayForDateInYear(date.getYear());
 
 		final Period periodToCurrentYearMLKDay = Period.between(date, currentYearMLKDay);
 
 		if (periodToCurrentYearMLKDay.isNegative() || periodToCurrentYearMLKDay.isZero())
-			return getMartinLutherKingDayForDateInYear(date.getYear() + 1);
+			return this.getMartinLutherKingDayForDateInYear(date.getYear() + 1);
 		else
 			return currentYearMLKDay;
 	}
 
 	private LocalDate getMartinLutherKingDayForDateInYear(final int year) {
 
-		return LocalDate.of(year, Month.JANUARY, 1)
-				.with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY))
-				.with(TemporalAdjusters.next(DayOfWeek.MONDAY))
-				.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+		return LocalDate.of(year, Month.JANUARY, 1).with(TemporalAdjusters.nextOrSame(DayOfWeek.MONDAY))
+				.with(TemporalAdjusters.next(DayOfWeek.MONDAY)).with(TemporalAdjusters.next(DayOfWeek.MONDAY));
 	}
 }

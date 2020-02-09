@@ -4,7 +4,6 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public enum LogicalStates {
-	
-	Yes,
-	No
+
+	YES, NO
 }

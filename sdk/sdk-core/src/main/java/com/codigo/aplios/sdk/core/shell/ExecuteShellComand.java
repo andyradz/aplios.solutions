@@ -13,8 +13,8 @@ public class ExecuteShellComand {
 			+ "\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])" + "\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])"
 			+ "\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])";
 
-	private static Pattern	pattern	= Pattern.compile(ExecuteShellComand.IPADDRESS_PATTERN);
-	private static Matcher	matcher;
+	private static Pattern pattern = Pattern.compile(ExecuteShellComand.IPADDRESS_PATTERN);
+	private static Matcher matcher;
 
 	public static void main(final String[] args) {
 
@@ -31,8 +31,7 @@ public class ExecuteShellComand {
 			System.out.printf("%s has address : %n", domainName);
 			for (final String ip : list)
 				System.out.println(ip);
-		}
-		else
+		} else
 			System.out.printf("%s has NO address. %n", domainName);
 
 	}
@@ -43,19 +42,15 @@ public class ExecuteShellComand {
 
 		Process p;
 		try {
-			p = Runtime.getRuntime()
-					.exec(command);
+			p = Runtime.getRuntime().exec(command);
 			p.waitFor();
-			final BufferedReader reader = new BufferedReader(
-				new InputStreamReader(
-					p.getInputStream()));
+			final BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
 			String line = "";
 			while ((line = reader.readLine()) != null)
 				output.append(line + "\n");
 
-		}
-		catch (final Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 

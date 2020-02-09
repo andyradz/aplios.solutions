@@ -28,8 +28,7 @@ public class TimeSpan1 {
 		Locale.setDefault(Category.DISPLAY, Locale.US);
 		Locale.setDefault(Category.FORMAT, Locale.US);
 
-		LocalDate.now()
-			.query(new NextMartinLutherKingDayQuery());
+		LocalDate.now().query(new NextMartinLutherKingDayQuery());
 
 		// LocalDate datefirst = LocalDate.now();
 		// LocalDate datelast = LocalDate.of(2016, Month.MAY, 3);
@@ -47,19 +46,14 @@ public class TimeSpan1 {
 		ChronoUnit.HOURS.between(ldt1, ldt2);
 		ChronoUnit.MINUTES.between(ldt1, ldt2);
 		ChronoUnit.SECONDS.between(ldt1, ldt2);
-		LocalDate.now()
-			.get(IsoFields.QUARTER_OF_YEAR);
+		LocalDate.now().get(IsoFields.QUARTER_OF_YEAR);
 		ChronoField.DAY_OF_MONTH.getFrom(LocalDate.now());
 		ChronoField.DAY_OF_WEEK.getFrom(LocalDate.now());
 		ChronoField.DAY_OF_YEAR.getFrom(LocalDate.now());
-		Year.of(2016)
-			.length();
-		Month.of(2)
-			.length(Year.of(2016)
-				.isLeap());
+		Year.of(2016).length();
+		Month.of(2).length(Year.of(2016).isLeap());
 
-		ChronoField.DAY_OF_MONTH.getFrom(LocalDate.now()
-			.with(TemporalAdjusters.next(DayOfWeek.SUNDAY)));
+		ChronoField.DAY_OF_MONTH.getFrom(LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.SUNDAY)));
 
 		final ZoneId losAngeles = ZoneId.of("America/Los_Angeles");
 		final ZoneId berlin = ZoneId.of("Europe/Berlin");
@@ -69,8 +63,7 @@ public class TimeSpan1 {
 		final ZonedDateTime berlinDateTime = ZonedDateTime.of(dateTime, berlin);
 		// 2014-02-20 03:00, America/Los_Angeles (-08:00)
 		final ZonedDateTime losAngelesDateTime = berlinDateTime.withZoneSameInstant(losAngeles);
-		losAngelesDateTime.getOffset()
-			.getTotalSeconds();
+		losAngelesDateTime.getOffset().getTotalSeconds();
 		ZoneId.getAvailableZoneIds();
 		// using offsets
 		final LocalDateTime date = LocalDateTime.of(2013, Month.JULY, 20, 3, 30);
@@ -93,8 +86,7 @@ public class TimeSpan1 {
 
 		System.out.println(DateTimeFormatter.ISO_DATE_TIME.format(ldt2));
 		System.out.println(DateTimeFormatter.ISO_INSTANT.format(nowPlusTwoWeeks));
-		System.out.println(DateTimeFormatter.ofPattern("yyyy.mm.dd hh:mm:ss")
-			.format(ldt2));
+		System.out.println(DateTimeFormatter.ofPattern("yyyy.mm.dd hh:mm:ss").format(ldt2));
 
 		GregorianCalendar.from(ZonedDateTime.now());
 		System.out.println(Instant.MIN);
