@@ -1,5 +1,8 @@
 package com.codigo.aplios.group.database.repository;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.Collections;
@@ -19,6 +22,7 @@ import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.RollbackException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
@@ -34,61 +38,67 @@ import com.codigo.aplios.group.database.models.location.EntityModel;
 //https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/optimistic-lock-force-increment-use-case.html
 //optimistic lock
 
+// @PersistenceContext(synchronization = SynchronizationType.UNSYNCHRONIZED,
+// type = PersistenceContextType.EXTENDED)
 //http://websystique.com/spring-security/secure-spring-rest-api-using-basic-authentication/
 public class GenericRepository<T extends EntityModel> implements IRepository<T>, Closeable {
 
-	private static final Logger log = Logger.getLogger(GenericRepository.class);
+	private static final Logger LOG = Logger.getLogger(GenericRepository.class);
 	private final EntityManagerFactory entityManagerFactory;
-	private final EntityManager enityManager;
-	private final Class<T> entityType;
+	private EntityManager enityManager;
+	private final Class<T> entityClass;
 	private final boolean isAutoCommit;
 
 	/**
 	 * Podstawowy konstruktor obiektu klasy <code>GenericRepository<T></code>
 	 *
-	 * @param entityType  Parametr typu encji
-	 * @param dbStoreName Nazwa bazy danych
+	 * @param entityClass Parametr typu encji
+	 * @param entityStoreName Nazwa bazy danych
 	 */
-	public GenericRepository(final Class<T> entityType, final String dbStoreName) {
+	public GenericRepository(final Class<T> entityClass, final String entityStoreName) {
 
-		this.entityType = entityType;
-		this.isAutoCommit = false;
-		this.entityManagerFactory = Persistence.createEntityManagerFactory(dbStoreName);
-		this.enityManager = entityManagerFactory.createEntityManager();
+		this(entityClass, entityStoreName, false);
 	}
 
-	public GenericRepository(final EntityManager entityManager, final Class<T> entityType, final String dbStoreName)
-			throws Exception {
+	public GenericRepository(final Class<T> entityClass, final String entityStoreName,
+			final boolean isAutoCommit) {
 
-		if (Objects.isNull(entityManager))
-			throw new Exception("EntityManager is null!");
+		this(entityClass, entityStoreName, isAutoCommit, false);
+	}
 
-		if (!entityManager.isOpen())
-			throw new Exception("EntityManager has not been opened!");
+	public GenericRepository(final Class<T> entityClass, final String entityStoreName,
+			final boolean isAutoCommit, final boolean dd) {
 
-		this.entityType = entityType;
+		this.entityClass = entityClass;
 		this.isAutoCommit = false;
-		this.entityManagerFactory = Persistence.createEntityManagerFactory(dbStoreName);
-		this.enityManager = entityManager;
+		this.entityManagerFactory = Persistence.createEntityManagerFactory(entityStoreName);
+		this.enityManager = this.entityManagerFactory.createEntityManager();
+		this.enityManager.setFlushMode(FlushModeType.COMMIT);
 	}
 
 	public List<T> selectById(final Long entityKey) {
 
 		final EntityManager em = this.getEntityManager();
 		final CriteriaBuilder cb = em.getCriteriaBuilder();
-		final CriteriaQuery<T> query = cb.createQuery(this.entityType);
+		final CriteriaQuery<T> query = cb.createQuery(this.entityClass);
 
-		final Root<T> c = query.from(this.entityType);
-		final ParameterExpression<Long> p = cb.parameter(Long.class, "id");
+		final Root<T> c = query.from(this.entityClass);
+		final ParameterExpression<Long> p = cb.parameter(Long.class,
+				"id");
 
 		query.select(c)
-			.where(cb.equal(c.get("id"), p));
+				.where(cb.equal(c.get("id"),
+						p));
 
 		return em.createQuery(query)
-			.setParameter("id", entityKey)
-			.getResultList();
+				.setParameter("id",
+						entityKey)
+				.getResultList();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Set<T> select() {
 
@@ -99,10 +109,12 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 
 			try {
 
-				return query.getResultList().stream().collect(Collectors.toSet());
+				return Collections.unmodifiableSet(query.getResultList()
+						.stream()
+						.collect(Collectors.toSet()));
 
-			} catch (final Exception ex) {
-				log.error(ex);
+			} catch (final Exception exception) {
+				LOG.error(exception);
 				return Collections.emptySet();
 			}
 		});
@@ -115,10 +127,11 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 
 		final Consumer<EntityManager> sqlCommand = entityManager -> {
 
-			if (Objects.isNull(entity.getId()))
+			if (isNull(entity.getId()))
 				entityManager.persist((entity));
 
-			else if (Objects.nonNull(entityManager.find(this.entityType, entity.getId())))
+			else if (nonNull(entityManager.find(this.entityClass,
+					entity.getId())))
 				entityManager.merge((entity));
 		};
 
@@ -126,9 +139,9 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 
 			return this.runInTransaction(sqlCommand);
 
-		} catch (final Exception ex) {
+		} catch (final Exception exception) {
 
-			log.error(ex);
+			LOG.error(exception);
 			return false;
 		}
 	}
@@ -150,44 +163,56 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(final Long entityKey) {
 
 		this.runInTransaction(entityManager -> {
 
 			final T managedEntity =
-					entityManager.find(this.entityType, entityKey, LockModeType.PESSIMISTIC_WRITE);
+					entityManager.find(this.entityClass,
+							entityKey,
+							LockModeType.NONE);
 
-			if (Objects.nonNull(managedEntity))
+			if (nonNull(managedEntity))
 				entityManager.remove(managedEntity);
 		});
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Long deleteFrom(final Iterable<T> entities) {
 
 		return this.runInTransaction(entityManager -> {
 
-			var entitiesStream = StreamSupport.stream(entities.spliterator(), false);
+			var entitiesStream = StreamSupport.stream(entities.spliterator(),
+					false);
 
 			if (entitiesStream.count() <= 0L)
 				return 0L;
 
 			final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 
-			final CriteriaDelete<T> delete = cb.createCriteriaDelete(this.entityType);
+			final CriteriaDelete<T> delete = cb.createCriteriaDelete(this.entityClass);
 
-			final Root<T> e = delete.from(this.entityType);
+			final Root<T> e = delete.from(this.entityClass);
 
-			entitiesStream = StreamSupport.stream(entities.spliterator(), false);
+			entitiesStream = StreamSupport.stream(entities.spliterator(),
+					false);
 			delete.where(e.in(entitiesStream.collect(Collectors.toList())));
 
-			return Long.valueOf(entityManager.createQuery(delete).executeUpdate());
+			return Long.valueOf(entityManager.createQuery(delete)
+					.executeUpdate());
 		});
 	}
 
 	/**
-	 *
+	 * {@inheritDoc}
 	 */
 	@Override
 	public long deleteAll() {
@@ -195,75 +220,86 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 		return (this.runInTransaction(entityManager -> {
 
 			final CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-			final CriteriaDelete<T> query = criteriaBuilder.createCriteriaDelete(this.entityType);
+			final CriteriaDelete<T> query = criteriaBuilder.createCriteriaDelete(this.entityClass);
 
 			return entityManager.createQuery(query)
-				.executeUpdate();
+					.executeUpdate();
 
 		})).longValue();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long count() {
 
 		final EntityManager em = this.getEntityManager();
+
 		final CriteriaBuilder cb = em.getCriteriaBuilder();
 		final CriteriaQuery<Long> query = cb.createQuery(Long.class);
 
-		final Root<T> root = query.from(this.entityType);
+		final Root<T> root = query.from(this.entityClass);
 
 		query.select(cb.count(root));
 
 		return em.createQuery(query)
-			.getSingleResult();
+				.getSingleResult();
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(final Iterable<T> entities) {
 
 		this.runInTransaction(entityManager -> {
 
-			StreamSupport.stream(entities.spliterator(), false)
-				.map(T::getId)
-				.map(id -> entityManager.find(this.entityType, id))
-				.filter(Objects::nonNull)
-				.forEach(entityManager::remove);
+			StreamSupport.stream(entities.spliterator(),
+					false)
+					.map(T::getId)
+					.map(id -> entityManager.find(this.entityClass,
+							id))
+					.filter(Objects::nonNull)
+					.forEach(entityManager::remove);
 		});
 	}
 
-	private <R> R runInTransaction(final Function<EntityManager, R> sqlCommand) {
+	private <R extends Object> R runInTransaction(final Function<EntityManager, R> sqlCommand) {
 
 		final EntityManager entityManager = this.getEntityManager();
-		final EntityTransaction tran = entityManager.getTransaction();
+		final EntityTransaction transaction = entityManager.getTransaction();
 
 		final R result;
 
-		if (!(tran.isActive()))
-			tran.begin();
+		if (!transaction.isActive())
+			transaction.begin();
 
 		try {
 
 			result = sqlCommand.apply(entityManager);
 
-			if (this.isAutoCommit()) {
-				entityManager.flush();
-				tran.commit();
-			}
+			if (this.isAutoCommit())
+				transaction.commit();
 
 			return result;
 
-		} catch (final javax.persistence.RollbackException ex1) {
-			if ((tran.isActive()))
-				tran.rollback();
-			log.error("Wystąpił problem podczas wyfocania transakcji");
-			log.error(ex1.getMessage());
+		} catch (final RollbackException exception) {
 
-		} catch (final Exception ex) {
+			if ((transaction.isActive()))
+				transaction.rollback();
 
-			if ((tran.isActive()))
-				tran.rollback();
-			log.error(ex);
+			LOG.error("Wystąpił problem podczas zatwierdzania aktywnej transakcji");
+			LOG.error(exception.getMessage());
+
+		} catch (final Exception exception) {
+
+			if (transaction.isActive())
+				transaction.rollback();
+
+			LOG.error("Wystąpił problem podczas zatwierdzania aktywnej transakcji");
+			LOG.error(exception.getMessage());
 		}
 
 		return (R) Function.identity();
@@ -280,18 +316,18 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 				tran.begin();
 
 			try {
+
 				sqlCommand.accept(entityManager);
 
-				if (this.isAutoCommit()) {
-					entityManager.flush();
+				if (this.isAutoCommit())
 					tran.commit();
-				}
 
 			} catch (final Exception ex) {
 
 				if ((tran.isActive()))
 					tran.rollback();
-				log.error(ex);
+
+				LOG.error(ex);
 				return false;
 			}
 
@@ -302,17 +338,17 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
-	private <R> R run(final Function<EntityManager, R> sqlTransaction) {
+	private <R extends Object> R run(final Function<EntityManager, R> sqlCommand) {
 
 		final EntityManager entityManager = this.getEntityManager();
 
 		try {
 
-			return sqlTransaction.apply(entityManager);
+			return sqlCommand.apply(entityManager);
 
-		} catch (final Exception ex) {
+		} catch (final Exception exception) {
 
-			log.error(ex);
+			LOG.error(exception);
 			return (R) Function.identity();
 		}
 	}
@@ -321,16 +357,16 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 
 		final EntityManager entityManager = this.getEntityManager();
 		final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		final CriteriaQuery<T> query = builder.createQuery(this.entityType);
-		final Root<T> root = query.from(this.entityType);
+		final CriteriaQuery<T> query = builder.createQuery(this.entityClass);
+		final Root<T> root = query.from(this.entityClass);
 
 		CriteriaQuery<T> criteriaQuery = query.select(root);
-		criteriaQuery = queryBuilder.build(builder, root, criteriaQuery);
+		criteriaQuery = queryBuilder.build(builder,
+				root,
+				criteriaQuery);
 
 		final TypedQuery<T> typedQuery = entityManager.createQuery(criteriaQuery);
-		typedQuery.setFlushMode(this.isAutoCommit
-				? FlushModeType.AUTO
-				: FlushModeType.COMMIT);
+		typedQuery.setFlushMode(FlushModeType.COMMIT);
 
 		return typedQuery;
 	}
@@ -362,41 +398,35 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 
 	protected EntityManager getEntityManager() {
 
-		if (Objects.isNull(this.enityManager))
-			return this.entityManagerFactory.createEntityManager();
-		//
-//		if (!em.isOpen())
-//			return null;// throw exception
-//
-//		em.setFlushMode(this.isAutoCommit
-//				? FlushModeType.AUTO
-//				: FlushModeType.COMMIT);
+		if (isNull(this.enityManager))
+			this.enityManager = this.entityManagerFactory.createEntityManager();
 
+		if (!this.enityManager.isOpen())
+			this.enityManager = this.entityManagerFactory.createEntityManager();
+
+		this.enityManager.setFlushMode(FlushModeType.COMMIT);
 		return this.enityManager;
 	}
 
 	protected EntityManager getNewEntityManager() throws Exception {
 
-		final var entityManager = this.entityManagerFactory.createEntityManager();
+		this.enityManager = this.entityManagerFactory.createEntityManager();
 
-		if (Objects.isNull(entityManager))
+		if (isNull(this.enityManager))
 			throw new NullPointerException("EntityManager instance has not been created!");
 
-		if (!entityManager.isOpen())
+		if (!this.enityManager.isOpen())
 			throw new IllegalStateException("EntityManager instance has not been opened!");
 
-		entityManager.setFlushMode(this.isAutoCommit
-				? FlushModeType.AUTO
-				: FlushModeType.COMMIT);
-
-		return entityManager;
+		this.enityManager.setFlushMode(FlushModeType.COMMIT);
+		return this.enityManager;
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
 	public List<T> finda(final IQueryable<T> queryBuilder) {
 
-		return this.createQuery(queryBuilder)
-			.getResultList();
+		return Collections.unmodifiableList(this.createQuery(queryBuilder)
+				.getResultList());
 	}
 	// https://github.com/janhalasa/JpaCriteriaWithLambdaExpressions/blob/master/src/main/java/com/halasa/criterialambda/dao/builder/QueryBuilder.java
 
@@ -409,23 +439,24 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 	// -----------------------------------------------------------------------------------------------------------------
 	public List<T> find(final IQueryable<T> queryBuilder) {
 
-		return this.createQuery(queryBuilder)
-			.getResultList();
+		return Collections.unmodifiableList(this.createQuery(queryBuilder)
+				.getResultList());
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
 	/**
-	 * @param  predicateBuilders Restricting query conditions. If you supply more
-	 *                           than one predicate, they will be joined by
-	 *                           conjunction.
+	 * @param predicateBuilders Restricting query conditions. If you supply more
+	 *        than one predicate, they will be joined by conjunction.
 	 * @return
 	 *
 	 */
 	protected List<T> findWhere(final IPredicateBuilder<T>[] predicateBuilders) {
 
-		return this
-			.createTypedQuery((cb, root, query) -> (query.where(this.buildPredicates(cb, root, predicateBuilders))))
-			.getResultList();
+		return Collections.unmodifiableList(this
+				.createTypedQuery((cb, root, query) -> (query.where(this.buildPredicates(cb,
+						root,
+						predicateBuilders))))
+				.getResultList());
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
@@ -439,8 +470,10 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 	protected T where(final IPredicateBuilder<T>[] predicateBuilders) {
 
 		return this
-			.createTypedQuery((cb, root, query) -> (query.where(this.buildPredicates(cb, root, predicateBuilders))))
-			.getSingleResult();
+				.createTypedQuery((cb, root, query) -> (query.where(this.buildPredicates(cb,
+						root,
+						predicateBuilders))))
+				.getSingleResult();
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
@@ -454,17 +487,19 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 	protected void deleteWhere(final IPredicateBuilder<T>[] predicateBuilders) {
 
 		final CriteriaBuilder cb = this.getEntityManager()
-			.getCriteriaBuilder();
+				.getCriteriaBuilder();
 
-		final CriteriaDelete<T> delete = cb.createCriteriaDelete(this.entityType);
-		final Root<T> root = delete.from(this.entityType);
+		final CriteriaDelete<T> delete = cb.createCriteriaDelete(this.entityClass);
+		final Root<T> root = delete.from(this.entityClass);
 
 		if ((predicateBuilders != null) && (predicateBuilders.length > 0))
-			delete.where(this.buildPredicates(cb, root, predicateBuilders));
+			delete.where(this.buildPredicates(cb,
+					root,
+					predicateBuilders));
 
 		this.getEntityManager()
-			.createQuery(delete)
-			.executeUpdate();
+				.createQuery(delete)
+				.executeUpdate();
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
@@ -474,13 +509,27 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 		final List<Predicate> predicates = new LinkedList<>();
 		if ((predicateBuilders != null) && (predicateBuilders.length > 0))
 			for (final IPredicateBuilder<T> builder : predicateBuilders)
-				predicates.add(builder.build(cb, root));
+				predicates.add(builder.build(cb,
+						root));
 
 		return predicates.toArray(new Predicate[predicates.size()]);
 	}
 
 	@Override
 	public void close() throws IOException {
+
+		final EntityManager em = this.getEntityManager();
+
+		if (em.isOpen()) {
+
+			final EntityTransaction transaction = em.getTransaction();
+
+			if (transaction.isActive())
+				transaction.rollback();
+
+			em.close();
+
+		}
 
 		if (this.entityManagerFactory.isOpen())
 			this.entityManagerFactory.close();
@@ -492,29 +541,131 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 	@Override
 	public Query getQuery(final String sqlCommand) {
 
-		return this.getEntityManager().createQuery(sqlCommand);
+		final EntityManager em = this.getEntityManager();
+		final EntityTransaction transaction = em.getTransaction();
+
+		if (!transaction.isActive())
+			transaction.begin();
+
+		return em.createQuery(sqlCommand);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public TypedQuery<T> getTypedQuery(final String sqlCommand, final Class<T> entityClass) {
+
+		final EntityManager em = this.getEntityManager();
+		final EntityTransaction transaction = em.getTransaction();
+
+		if (!transaction.isActive())
+			transaction.begin();
+
+		return em
+				.createQuery(sqlCommand,
+						entityClass);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean persist() {
+
+		final var transaction = this.getEntityManager()
+				.getTransaction();
+
+		if (!transaction.isActive())
+			return false;
+
+		try {
+
+			if (transaction.isActive()) {
+
+				transaction.commit();
+				return true;
+			}
+
+		} catch (final Exception exception) {
+
+			if (transaction.isActive())
+				transaction.rollback();
+
+			LOG.error(exception);
+		}
+
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean undone() {
+
+		final var transaction = this.getEntityManager()
+				.getTransaction();
+
+		if (!transaction.isActive())
+			return false;
+
+		try {
+
+			if (transaction.isActive()) {
+
+				transaction.rollback();
+				return true;
+			}
+
+		} catch (final Exception exception) {
+
+			LOG.error(exception);
+		}
+
+		return false;
+	}
+
+	public long counting() {// to już dedykowana specjalistyczna funkcja
+
+		final CriteriaBuilder criteriaBuilder = this.getEntityManager()
+				.getCriteriaBuilder();
+		final CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
+		final Root<T> employee = query.from(this.entityClass);
+		query.select(criteriaBuilder.countDistinct(employee));
+		final TypedQuery<Long> typedQuery = this.getEntityManager()
+				.createQuery(query);
+		return typedQuery.getSingleResult();
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(enityManager, entityManagerFactory, entityType, isAutoCommit);
+		return Objects.hash(enityManager,
+				entityClass,
+				entityManagerFactory,
+				isAutoCommit);
 	}
 
 	@Override
-	public boolean equals(final Object repository) {
+	public boolean equals(final Object object) {
 
-		if (this == repository)
-			return true;
-
-		if (!(repository instanceof GenericRepository))
+		if (isNull(object))
 			return false;
 
-		final GenericRepository<?> other = GenericRepository.class.cast(repository);
+		if (this == object)
+			return true;
 
-		return Objects.equals(enityManager, other.enityManager)
-				&& Objects.equals(entityManagerFactory, other.entityManagerFactory)
-				&& Objects.equals(entityType, other.entityType)
+		if (!(object instanceof GenericRepository))
+			return false;
+
+		final GenericRepository<T> other = GenericRepository.class.cast(object);
+		return Objects.equals(enityManager,
+				other.enityManager)
+				&& Objects.equals(entityClass,
+						other.entityClass)
+				&& Objects.equals(entityManagerFactory,
+						other.entityManagerFactory)
 				&& (isAutoCommit == other.isAutoCommit);
 	}
 
@@ -526,60 +677,10 @@ public class GenericRepository<T extends EntityModel> implements IRepository<T>,
 				+ ", enityManager="
 				+ enityManager
 				+ ", entityType="
-				+ entityType
+				+ entityClass
 				+ ", isAutoCommit="
 				+ isAutoCommit
 				+ "]";
 	}
 
-	@Override
-	public boolean persist() {
-
-		final var entityTransaction = this.getEntityManager().getTransaction();
-
-		if (!entityTransaction.isActive())
-			return false;
-
-		try {
-			entityTransaction.commit();
-
-		} catch (final Exception ex) {
-			if (entityTransaction.isActive())
-				entityTransaction.rollback();
-			log.error(ex);
-		}
-		return true;
-	}
-
-	@Override
-	public boolean cancel() {
-
-		final var entityTransaction = this.getEntityManager().getTransaction();
-
-		if (!entityTransaction.isActive())
-			return false;
-
-		try {
-
-			if (entityTransaction.isActive()) {
-				entityTransaction.rollback();
-				return true;
-			}
-
-		} catch (final Exception ex) {
-			log.error(ex);
-			return false;
-		}
-		return false;
-	}
-
-	public long counting() {// to już dedykowana specjalistyczna funkcja
-
-		final CriteriaBuilder criteriaBuilder = this.getEntityManager().getCriteriaBuilder();
-		final CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
-		final Root<T> employee = query.from(this.entityType);
-		query.select(criteriaBuilder.countDistinct(employee));
-		final TypedQuery<Long> typedQuery = this.getEntityManager().createQuery(query);
-		return typedQuery.getSingleResult();
-	}
 }

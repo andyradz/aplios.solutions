@@ -3,6 +3,7 @@ package com.codigo.aplios.group.database.repository;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
@@ -11,6 +12,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.codigo.aplios.group.database.models.location.EntityModel;
 
@@ -20,11 +22,11 @@ import com.codigo.aplios.group.database.models.location.EntityModel;
  * Szablon funkcjonalności repozytorium rekordów encji. Zawiera podstawowe
  * operacje wykonywane na zbiorze danych i wykonywanych na bazie danych.
  *
- * @param    <T> Typ danych składowanych rekordów encji
- * @author       andrzej radziszewski
- * @version      1.0.0.0
- * @since        2019
- * @category     Repository
+ * @param <T> Typ danych składowanych rekordów encji
+ * @author andrzej radziszewski
+ * @version 1.0.0.0
+ * @since 2019
+ * @category Repository
  */
 public interface IRepository<T extends EntityModel> {
 
@@ -36,19 +38,19 @@ public interface IRepository<T extends EntityModel> {
 	Set<T> select();
 
 	/**
-	 * Metoda zwraca selektywnie dostępne rekord encji zapisany w tabeli bazy
-	 * danych. Selekcja odbywa się po kluczu tabeli w bazie danych.
+	 * Metoda zwraca selektywnie dostępny rekord encji zapisany w tabeli bazy
+	 * danych. Selekcja odbywa się po kluczu rekordu tabeli w bazie danych.
 	 *
-	 * @param  entityKey Wartośc klucza tabeli bazy danych
-	 * @return           Rekord tabeli bazy danych
+	 * @param entityKey Wartość klucza tabeli bazy danych
+	 * @return Rekord tabeli bazy danych
 	 */
 	default Optional<T> select(final Long entityKey) {
 
 		return this.select()
-			.stream()
-			.filter(entity -> entity.getId()
-				.equals(entityKey))
-			.findAny();
+				.stream()
+				.filter(entity -> entity.getId()
+						.equals(entityKey))
+				.findAny();
 	}
 
 	/**
@@ -56,15 +58,15 @@ public interface IRepository<T extends EntityModel> {
 	 * danych. Selekcja odbywa sie na podstawie warunku zdefiniowanego jako
 	 * Predicate.
 	 *
-	 * @param  predicate Warunek selekcji rekordów zbioru danych
-	 * @return           Kolekcja rekordów tabeli bazy danych
+	 * @param predicate Warunek selekcji rekordów zbioru danych
+	 * @return Kolekcja rekordów tabeli bazy danych
 	 */
 	default Set<T> select(final Predicate<T> predicate) {
 
-		return this.select()
-			.stream()
-			.filter(predicate)
-			.collect(Collectors.toSet());
+		return Collections.unmodifiableSet(this.select()
+				.stream()
+				.filter(predicate)
+				.collect(Collectors.toSet()));
 	}
 
 	/**
@@ -75,45 +77,44 @@ public interface IRepository<T extends EntityModel> {
 	default Iterator<T> selectAll() {
 
 		return this.select()
-			.stream()
-			.iterator();
+				.stream()
+				.iterator();
 	}
 
 	/**
 	 * Metoda znajduje wspólne encje zbioru rekordów i kolekcji przekazanych encji.
 	 *
-	 * @param  entities Kolekcja encji do sprawdzenia
-	 * @return          Kolekcja rekordów tabeli bazy danych
+	 * @param entities Kolekcja encji do sprawdzenia
+	 * @return Kolekcja rekordów tabeli bazy danych
 	 */
 	default Set<T> selectIntersect(final Set<T> entities) {
 
-		return select().stream()
-			.distinct()
-			.filter(entities::contains)
-			.collect(Collectors.toSet());
+		return Collections.unmodifiableSet(select().stream()
+				.distinct()
+				.filter(entities::contains)
+				.collect(Collectors.toSet()));
 	}
 
 	/**
 	 * Metoda znajduje różnicę encji zbioru rekordów i kolekcji przekazanych encji.
 	 *
-	 * @param  entities Kolekcja encji do sprawdzenia
-	 * @return          Kolekcja rekordów tabeli bazy danych
+	 * @param entities Kolekcja encji do sprawdzenia
+	 * @return Kolekcja rekordów tabeli bazy danych
 	 */
 	default Set<T> selectExcept(final Set<T> entities) {
 
-		return this.select()
-			.stream()
-			.distinct()
-			.filter(((Predicate<T>) entities::contains).negate())
-			.collect(Collectors.toSet());
+		return Collections.unmodifiableSet(this.select()
+				.stream()
+				.distinct()
+				.filter(((Predicate<T>) entities::contains).negate())
+				.collect(Collectors.toSet()));
 	}
 
 	/**
 	 * Metoda wstawia encje do rekordów tabeli bazy danych
 	 *
-	 * @param  entity Encja kolekcji tabeli zbioru danych
-	 * @return        Wartośc logiczna TRUE, FALSE wskazujący stan wykonanej
-	 *                operacji
+	 * @param entity Encja kolekcji tabeli zbioru danych
+	 * @return Wartośc logiczna TRUE, FALSE wskazujący stan wykonanej operacji
 	 */
 	boolean insert(T entity);
 
@@ -181,8 +182,8 @@ public interface IRepository<T extends EntityModel> {
 	/**
 	 * Metoda usuwa encje rekordów tabeli bazy danych.
 	 *
-	 * @param  entities Kolekcja encji do usunięcia
-	 * @return          Ilość usuniętych encji rekordów
+	 * @param entities Kolekcja encji do usunięcia
+	 * @return Ilość usuniętych encji rekordów
 	 */
 	Long deleteFrom(final Iterable<T> entities);
 
@@ -205,7 +206,7 @@ public interface IRepository<T extends EntityModel> {
 	default void delete(final Long entityKey) {
 
 		this.delete(entity -> entity.getId()
-			.equals(entityKey));
+				.equals(entityKey));
 	}
 
 	/**
@@ -217,7 +218,7 @@ public interface IRepository<T extends EntityModel> {
 	default void delete(final Predicate<T> predicate) {
 
 		this.select()
-			.forEach(this::delete);
+				.forEach(this::delete);
 	}
 
 	/**
@@ -238,23 +239,23 @@ public interface IRepository<T extends EntityModel> {
 	default long count() {
 
 		return this.select()
-			.stream()
-			.count();
+				.stream()
+				.count();
 	}
 
 	/**
 	 * Metoda zlicza asynchronicznie ilość rekordów tabeli bazy danych
 	 *
-	 * @return                      Ilość rekordów encji tabeli bazy danych
+	 * @return Ilość rekordów encji tabeli bazy danych
 	 * @throws InterruptedException
 	 * @throws ExecutionException
 	 */
 	default Long countAsync() throws InterruptedException, ExecutionException {
 
 		return supplyAsync(() -> this.select()
-			.stream()
-			.count())
-				.get();
+				.stream()
+				.count())
+						.get();
 	}
 
 	boolean isAutoCommit();
@@ -265,9 +266,14 @@ public interface IRepository<T extends EntityModel> {
 	boolean persist();
 
 	/**
+	 * Metoda
+	 *
 	 * @return
 	 */
-	boolean cancel();
+	boolean undone();
 
 	Query getQuery(String sqlCommand);
+
+	TypedQuery<T> getTypedQuery(String sqlCommand, Class<T> enitytClass);
+
 }
